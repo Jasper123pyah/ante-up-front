@@ -12,7 +12,14 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.Logo{
+  left: 20px;
+  top: 0px;
+  z-index: 1;
+}
+.commandBar{
+  margin-top: 7px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -35,4 +42,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+.Header{
+}
+.headerLogo{
+  border: 0;
+  marginTop:"7px";
 }
