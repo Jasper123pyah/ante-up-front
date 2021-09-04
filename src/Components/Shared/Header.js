@@ -5,7 +5,9 @@ import {getTheme} from "../../Core/Global/global.selectors";
 import {setTheme} from "../../Core/Global/global.actions";
 import "../../App.css"
 import Logo from "./Logo";
+import {initializeIcons} from "@fluentui/font-icons-mdl2";
 
+initializeIcons();
 class Header extends React.Component {
 
     constructor(props) {
@@ -51,16 +53,22 @@ class Header extends React.Component {
     }
 
     render() {
+        let backGroundColor = "#1e1f21";
+        if(!this.props.theme){
+            backGroundColor = "#ffffff"
+        }
         return (
-            <div>
+            <div style={{background: backGroundColor,position:"fixed", width:"100%",zIndex:1}}>
                 <CommandBar
                     className={"commandBar"}
                     items={this._items}
                     farItems={this._farItems}
                 />
+                <hr className={"Divider"}/>
             </div>
         );
     }
+
 }
 const mapStateToProps = (state) => {
     return {
