@@ -6,21 +6,35 @@ import {setTheme} from "../../Core/Global/global.actions";
 import "../../App.css"
 import Logo from "./Logo";
 import {initializeIcons} from "@fluentui/font-icons-mdl2";
+import { useHistory } from "react-router-dom";
 
 initializeIcons();
-class Header extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {};
+function Header(props){
+
+    let history = useHistory();
+
+    function handleAccount() {
+        history.push("/login");
     }
-    _items: ICommandBarItemProps[] =[
+    function handleBalance(){
+        history.push("/balance")
+    }
+
+    function setDarkTheme(){
+        let currentTheme = props.theme;
+        let newTheme;
+        !currentTheme ? newTheme = true : newTheme = false;
+        props.dispatch(setTheme(newTheme));
+    }
+
+    let _items: ICommandBarItemProps[] =[
         {
             key:"Home",
             onRender: () => <Logo/>
         }
     ]
-    _farItems: ICommandBarItemProps[] = [
+    let _farItems: ICommandBarItemProps[] = [
         {
             key: 'darkMode',
             text:'Dark Mode',
@@ -28,46 +42,37 @@ class Header extends React.Component {
             iconOnly: true,
             cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
             iconProps: { iconName: 'Contrast' },
-            onClick: () => this.setDarkTheme()
+            onClick: setDarkTheme
         },
         {
             key: 'accountBalance',
             text: '35$',
             cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
             iconProps: { iconName: 'Add' },
-            onClick: () => console.log('Money')
+            onClick: handleBalance
         },
         {
             key: 'account',
             text: 'Account',
             iconProps: { iconName: 'Contact' },
-            onClick: () => console.log('Account'),
+            onClick: handleAccount
         },
     ];
 
-    setDarkTheme() {
-        let currentTheme = this.props.theme;
-        let newTheme;
-        !currentTheme ? newTheme = true : newTheme = false;
-        this.props.dispatch(setTheme(newTheme));
+
+    let backGroundColor = "#1e1f21";
+    if(!props.theme){
+        backGroundColor = "#ffffff"
     }
 
-    render() {
-        let backGroundColor = "#1e1f21";
-        if(!this.props.theme){
-            backGroundColor = "#ffffff"
-        }
-        return (
-            <div style={{background: backGroundColor,position:"fixed", width:"100%",zIndex:1}}>
+    return <div style={{backgroundColor:backGroundColor, position:"fixed", width:"100%", zIndex:1}}>
                 <CommandBar
                     className={"commandBar"}
-                    items={this._items}
-                    farItems={this._farItems}
+                    items={_items}
+                    farItems={_farItems}
                 />
                 <hr className={"Divider"}/>
             </div>
-        );
-    }
 
 }
 const mapStateToProps = (state) => {
@@ -76,6 +81,3 @@ const mapStateToProps = (state) => {
     };
 };
 export default connect(mapStateToProps)(Header);
-
-
-

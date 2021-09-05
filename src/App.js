@@ -1,6 +1,5 @@
 import './App.css';
 import React from "react";
-import Home from "./Components/Pages/Home";
 import Header from "./Components/Shared/Header";
 import { setRTL } from '@fluentui/react/lib/Utilities';
 import {PrimaryButton, ThemeProvider} from '@fluentui/react';
@@ -8,9 +7,8 @@ import {darkTheme, lightTheme} from "./themes";
 import {connect} from "react-redux";
 import {getTheme} from "./Core/Global/global.selectors";
 import { setConfiguration } from 'react-grid-system';
-import { Row, Col } from 'react-grid-system';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from "./Components/Shared/Footer";
+import Router from "./Components/Router";
 
 setConfiguration({ maxScreenClass: 'xl' });
 setRTL(true);
@@ -41,17 +39,7 @@ class App extends React.Component {
         return <div style={{overflowX:"hidden"}}>
             <ThemeProvider applyTo={"body"} theme={this.props.theme ? darkTheme : lightTheme}>
                 <Header className={"Header"}/>
-                    <div style={{paddingTop:"80px"}}>
-                        <Row>
-                            <Col sm={12} md={1} lg={1}>
-                            </Col>
-                            <Col sm={12} md={10} lg={10}>
-                                <Home/>
-                            </Col>
-                            <Col sm={12} md={1} lg={1}>
-                            </Col>
-                        </Row>
-                    </div>
+                <Router/>
                 <Footer/>
             </ThemeProvider>
         </div>

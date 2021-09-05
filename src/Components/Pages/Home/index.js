@@ -7,12 +7,11 @@ import HomeTop from "./HomeTop";
 class Home extends React.Component{
 
     render() {
-        return (
-            <div>
+        return <div>
                 <HomeTop/>
                 <GameList/>
             </div>
-        );
+        ;
     }
 }
 

@@ -18,11 +18,11 @@ class GameCard extends React.Component{
             cardBodyColor = "#ffffff"
         }
 
-        return <Card tag="a" onClick={this.redirectToGame} style={{ cursor: "pointer", marginBottom:"12px" }}>
-            <Card.Img variant="top" src="fortnite.webp" />
+        return <Card tag="a" onClick={this.redirectToGame} style={{ cursor: "pointer", marginBottom:"15px" }}>
+            <Card.Img  height={300} variant="top" src={"./Images/"+this.props.img} />
             <Card.Body style={{backgroundColor: cardBodyColor}}>
-                <Card.Title>Fortnite</Card.Title>
-                <Card.Text>2548 Gamers</Card.Text>
+                <Card.Title>{this.props.name}</Card.Title>
+                <Card.Text>{this.props.playercount} Players</Card.Text>
             </Card.Body>
         </Card>
     }
