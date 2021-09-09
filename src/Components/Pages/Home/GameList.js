@@ -1,41 +1,45 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "../../../App.css"
 import {Col, Row} from "react-bootstrap";
 import GameCard from "./GameCard";
+import {getAPI} from "../../../Core/Global/global.selectors";
+import {connect} from "react-redux";
 
-class GameList extends React.Component{
+function GameList(props){
 
-    list=[
+    const [gameList,setGameList] = useState([]);
+
+    useEffect(() => {
+        getGames();
+    });
+
+    function getGames(){
+        if(props.api !== undefined)
         {
-            img: "apex.jpg",
-            name: "Apex Legends",
-            playercount: 2314
-        },
-        {
-            img:"fortnite.webp",
-            name:"Fortnite",
-            playercount:2342
-        },
-        {
-            img:"minecraft.png",
-            name:"Minecraft",
-            playercount:5412
+            props.api.get('game').then(res => {
+                setGameList(res.data);
+            })
         }
-    ]
-    render() {
-        return <Row xs={1} md={2} lg={5}>
-            {this.list.map((Game) => (
-                <Col>
-                    <GameCard img={Game.img} name={Game.name} playercount={Game.playercount}/>
-                </Col>
-            ))}
-            {this.list.map((Game) => (
-                <Col>
-                    <GameCard img={Game.img} name={Game.name} playercount={Game.playercount}/>
-                </Col>
-            ))}
-        </Row>
     }
-}
 
-export default GameList;
+    return <Row xs={1} md={2} lg={5}>
+        {gameList.map((Game) => (
+            <Col>
+                <GameCard key={Game.id} img={Game.image} name={Game.name} playercount={5615}/>
+            </Col>
+        ))}
+        {gameList.map((Game) => (
+            <Col>
+                <GameCard key={Game.id} img={Game.image} name={Game.name} playercount={1254}/>
+            </Col>
+        ))}
+    </Row>
+}
+const mapStateToProps = (state) => {
+    return {
+        api : getAPI(state)
+    };
+};
+
+
+export default connect(mapStateToProps)(GameList);

@@ -65,7 +65,7 @@ function Header(props){
         backGroundColor = "#ffffff"
     }
 
-    return <div style={{backgroundColor:backGroundColor, position:"fixed", width:"100%", zIndex:1}}>
+    return <div style={{backgroundColor:backGroundColor,  width:"100%", zIndex:1}}>
                 <CommandBar
                     className={"commandBar"}
                     items={_items}

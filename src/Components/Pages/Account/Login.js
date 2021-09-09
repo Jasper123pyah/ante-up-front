@@ -1,6 +1,6 @@
 import React from "react";
 import {Col, Row} from "react-grid-system";
-import {PrimaryButton, Checkbox, TextField} from "@fluentui/react";
+import {PrimaryButton, TextField} from "@fluentui/react";
 import {Link} from "react-router-dom";
 
 class Login extends React.Component{
@@ -24,10 +24,11 @@ class Login extends React.Component{
                             errorMessage={PasswordError}
                         />
                         <Link to={"/passwordforgotten"}>Forgotten Password?</Link>
-                        <br/>
-                        <Link to={"/register"}>Don't have an account yet?</Link>
-                        <Checkbox  label={"Remember me"}  />
                         <PrimaryButton style={{float:"right"}}>Login</PrimaryButton>
+                        <br/>
+
+                        <Link to={"/register"}>Don't have an account yet?</Link>
+
                     </div>
                 </Col>
                 <Col/>
