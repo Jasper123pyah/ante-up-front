@@ -7,8 +7,9 @@ import ForgottenPassword from "./Pages/Account/ForgottenPassword";
 import Register from "./Pages/Account/Register";
 import {Col, Row} from "react-grid-system";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Account from "./Pages/Account/Account";
 
-function Router(props){
+function Router(){
     return <div style={{marginBottom:"20px"}}>
             <Row>
                 <Col sm={12} md={1} lg={1}/>
@@ -18,6 +19,7 @@ function Router(props){
                     <Route path="/balance" component={Balance}/>
                     <Route path="/passwordforgotten" component={ForgottenPassword}/>
                     <Route path="/register" component={Register}/>
+                    <Route path={"/account"} component={Account}/>
                 </Col>
                 <Col sm={12} md={1} lg={1}/>
             </Row>

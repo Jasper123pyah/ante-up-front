@@ -12,6 +12,8 @@ function GameList(props){
     useEffect(() => {
         getGames();
     });
+    useEffect( () =>
+        () => setGameList([]), [] );
 
     function getGames(){
         if(props.api !== undefined)
@@ -22,10 +24,15 @@ function GameList(props){
         }
     }
 
-    return <Row xs={1} md={2} lg={5}>
+    return <Row sm={1} md={2} lg={5} xl={8} >
         {gameList.map((Game) => (
             <Col>
                 <GameCard key={Game.id} img={Game.image} name={Game.name} playercount={5615}/>
+            </Col>
+        ))}
+        {gameList.map((Game) => (
+            <Col>
+                <GameCard key={Game.id} img={Game.image} name={Game.name} playercount={1254}/>
             </Col>
         ))}
         {gameList.map((Game) => (

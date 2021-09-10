@@ -5,7 +5,7 @@ import { setRTL } from '@fluentui/react/lib/Utilities';
 import { ThemeProvider} from '@fluentui/react';
 import {darkTheme, lightTheme} from "./themes";
 import {connect} from "react-redux";
-import {getAPI, getTheme} from "./Core/Global/global.selectors";
+import { getTheme} from "./Core/Global/global.selectors";
 import { setConfiguration } from 'react-grid-system';
 import Footer from "./Components/Shared/Footer";
 import Router from "./Components/Router";
@@ -16,13 +16,14 @@ setRTL(true);
 
 const axios = require('axios');
 const api = axios.create({
-    baseURL:'http://78.47.219.206:420/',
+    baseURL:'http://localhost:5000/',
     timeout: 10000
 });
 // http://localhost:5000/
 // http://78.47.219.206:420/
 
 function App (props){
+
     useEffect(() => {
         props.dispatch(setAPI(api));
     });
@@ -35,10 +36,10 @@ function App (props){
         </ThemeProvider>
     </div>
 }
+
 const mapStateToProps = (state) => {
     return {
-        theme : getTheme(state),
-        api : getAPI(state)
+        theme : getTheme(state)
     };
 };
 
