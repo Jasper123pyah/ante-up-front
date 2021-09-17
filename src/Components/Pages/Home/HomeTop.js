@@ -12,7 +12,7 @@ class HomeTop extends React.Component{
         { key: 'highlow', text: 'High to Low', data: { icon:'Down' } },
         { key: 'lowhigh', text: 'Low to High', data: { icon:'Up' } },
     ];
-    onRenderOption = (option: IDropdownOption): JSX.Element => {
+    onRenderOption = (option) => {
         return (
             <div>
                 {option.data && option.data.icon && (

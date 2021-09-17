@@ -5,11 +5,10 @@ import { setRTL } from '@fluentui/react/lib/Utilities';
 import { ThemeProvider} from '@fluentui/react';
 import {darkTheme, lightTheme} from "./themes";
 import {connect} from "react-redux";
-import { getTheme} from "./Core/Global/global.selectors";
 import { setConfiguration } from 'react-grid-system';
-import Footer from "./Components/Shared/Footer";
 import Router from "./Components/Router";
 import {setAPI} from "./Core/Global/global.actions";
+import {getAPI} from "./Core/Global/global.selectors";
 
 setConfiguration({ maxScreenClass: 'xl' });
 setRTL(true);
@@ -23,23 +22,24 @@ const api = axios.create({
 // http://78.47.219.206:420/
 
 function App (props){
-
     useEffect(() => {
         props.dispatch(setAPI(api));
-    });
+        if(localStorage.getItem('darkMode') === undefined){
+            localStorage.setItem('darkMode', "true")
+        }
+    },[]);
 
     return <div style={{overflowX:"hidden"}}>
-        <ThemeProvider applyTo={"body"} theme={props.theme ? darkTheme : lightTheme}>
+        <ThemeProvider applyTo={"body"} theme={localStorage.getItem('darkMode') === 'true' ? darkTheme : lightTheme}>
             <Header className={"Header"}/>
             <Router/>
-            <Footer/>
         </ThemeProvider>
     </div>
 }
 
 const mapStateToProps = (state) => {
     return {
-        theme : getTheme(state)
+        api : getAPI(state)
     };
 };
 

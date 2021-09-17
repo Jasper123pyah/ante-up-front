@@ -1,35 +1,26 @@
 import React from "react";
 import {Card} from "react-bootstrap";
-import {getTheme} from "../../../Core/Global/global.selectors";
-import {connect} from "react-redux";
+import {useHistory} from "react-router-dom";
 
-class GameCard extends React.Component{
+function GameCard (props){
+    let history = useHistory();
 
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    redirectToGame(){
+    function redirectToGame(){
+        history.push("/game/"+props.name)
     }
 
-    render() {
-        let cardBodyColor = "#1e1f21";
-        if(!this.props.theme){
-            cardBodyColor = "#ffffff"
-        }
-
-        return <Card tag="a" onClick={this.redirectToGame} style={{ cursor: "pointer", marginBottom:"15px" }}>
-            <Card.Img  height={300} variant="top" src={"./Images/"+this.props.img} />
-            <Card.Body style={{backgroundColor: cardBodyColor}}>
-                <Card.Title>{this.props.name}</Card.Title>
-                <Card.Text>{this.props.playercount} Players</Card.Text>
-            </Card.Body>
-        </Card>
+    let cardBodyColor = "#1e1f21";
+    if(localStorage.getItem('darkMode') === 'false'){
+        cardBodyColor = "#ffffff"
     }
+
+    return <Card tag="a" onClick={redirectToGame} style={{ cursor: "pointer", marginBottom:"15px", width:"100%"}}>
+        <Card.Img  height={300} variant="top" src={"./Images/"+props.img} />
+        <Card.Body style={{backgroundColor: cardBodyColor}}>
+            <Card.Title>{props.name}</Card.Title>
+            <Card.Text>{props.playercount} Players</Card.Text>
+        </Card.Body>
+    </Card>
+
 }
-const mapStateToProps = (state) => {
-    return {
-        theme : getTheme(state)
-    };
-};
-export default connect(mapStateToProps)(GameCard);
+export default GameCard;

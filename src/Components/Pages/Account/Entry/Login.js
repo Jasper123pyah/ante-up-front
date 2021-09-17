@@ -1,18 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-grid-system";
 import { PrimaryButton, TextField} from "@fluentui/react";
 import {Link, useHistory} from "react-router-dom";
 import {useCookies} from "react-cookie";
-import { getAPI} from "../../../Core/Global/global.selectors";
+import { getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
-
 
 const mapStateToProps = (state) => {
     return {
         api : getAPI(state)
     };
 };
-
 
 function Login(props){
 
@@ -22,9 +20,14 @@ function Login(props){
     const [emailError, setEmailError] = useState("");
     const [loginError, setLoginError] = useState("");
     const [cookies, setCookie] = useCookies(["ANTE_UP_SESSION_TOKEN"]);
-
+    const [loading, setLoading] = useState(false);
     let history = useHistory();
 
+    useEffect(() => {
+       if(cookies.ANTE_UP_SESSION_TOKEN !== undefined){
+           history.push("/settings")
+       }
+    });
     const handlePassword = (e, value) => {
         setPassword(value);
         setPasswordError("");
@@ -57,20 +60,24 @@ function Login(props){
     function Confirm(){
         if(CheckForErrors() === "") {
             if(props.api !== undefined) {
-            props.api.post("/account/login", {
-                password: password,
-                email: email
-            }).then(res => {
-                if(res.data.response === "1"){
-                    setLoginError("There is no account with this email.");
-                }
-                else if(res.data.response === "2"){
-                    setLoginError("Incorrect password.");
-                }
-                else{
-                    setCookie("ANTE_UP_SESSION_TOKEN", res.data.response);
-                    history.push("/account");
-                }
+                setLoading(true);
+                props.api.post("/account/login", {
+                    password: password,
+                    email: email
+                }).then(res => {
+                    if(res.data.response === "1"){
+                        setLoginError("There is no account with this email.");
+                        setLoading(false);
+                    }
+                    else if(res.data.response === "2"){
+                        setLoginError("Incorrect password.");
+                        setLoading(false);
+                    }
+                    else{
+                        setCookie("ANTE_UP_SESSION_TOKEN", res.data.response);
+                        history.push("/settings");
+                        setLoading(false);
+                    }
             })}
         }
         else {
@@ -95,6 +102,7 @@ function Login(props){
                         onChange={handlePassword}
                     />
                     <div style={{color:"#a4262c"}}>{loginError}</div>
+                    <div>{loading ? "Loading..." : ""}</div>
                     <PrimaryButton onClick={Confirm} style={{float:"right"}}>Login</PrimaryButton>
                     <Link to={"/passwordforgotten"}>Forgotten Password?</Link>
                     <br/>

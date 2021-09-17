@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react/lib/CommandBar';
-import {getAPI, getTheme} from "../../Core/Global/global.selectors";
-import { setTheme,} from "../../Core/Global/global.actions";
+import {getAPI} from "../../Core/Global/global.selectors";
 import "../../App.css"
 import Logo from "./Logo";
 import {initializeIcons} from "@fluentui/font-icons-mdl2";
@@ -12,19 +11,23 @@ import {useCookies} from "react-cookie";
 initializeIcons();
 
 function Header(props){
-    const [cookies, setCookie] = useCookies(["ANTE_UP_SESSION_TOKEN"]);
-    let history = useHistory();
+
+    const [cookies, setCookie, removeCookie] = useCookies(["ANTE_UP_SESSION_TOKEN"]);
     const [accountInfo, setAccountInfo] = useState({
         username: "Account",
         balance: 0
     });
+
+    let history = useHistory();
+
     const axios = require('axios');
     const api = axios.create({
         baseURL:'http://localhost:5000/',
         timeout: 10000
     });
+
     useEffect(() => {
-        if(api !== undefined) {
+        if(api !== undefined && cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
             api.get('account/info', {
                 params: {
                     id: cookies.ANTE_UP_SESSION_TOKEN
@@ -34,33 +37,39 @@ function Header(props){
                 setAccountInfo(resInfo);
             })
         }
-    });
+    },[]);
+
     function handleAccount() {
         if(cookies.ANTE_UP_SESSION_TOKEN !== undefined){
-            history.push("/account");
+            history.push("/settings");
         }
         else{
             history.push("/login");
         }
     }
-    function handleBalance(){
-        history.push("/balance")
+
+    function handleCreate(){
+        history.push("/createlobby")
     }
 
     function setDarkTheme(){
-        let currentTheme = props.theme;
-        let newTheme;
-        !currentTheme ? newTheme = true : newTheme = false;
-        props.dispatch(setTheme(newTheme));
+        if(localStorage.getItem('darkMode') === "true"){
+            localStorage.setItem('darkMode', 'false')
+        }
+        else{
+            localStorage.setItem('darkMode', 'true')
+        }
+        window.location.reload();
     }
 
-    let _items: ICommandBarItemProps[] =[
+    let _items =[
         {
             key:"Home",
             onRender: () => <Logo/>
         }
     ]
-    let _farItems: ICommandBarItemProps[] = [
+
+    let _farItems = [
         {
             key: 'darkMode',
             text:'Dark Mode',
@@ -71,23 +80,40 @@ function Header(props){
             onClick: setDarkTheme
         },
         {
-            key: 'accountBalance',
-            text: "$" + accountInfo.balance.toString(),
-            cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
+            key: 'Wager',
+            text: "Wager",
             iconProps: { iconName: 'Add' },
-            onClick: handleBalance
+            onClick: handleCreate
         },
         {
             key: 'account',
-            text: accountInfo.username,
+            text: accountInfo.username + " - $ " + accountInfo.balance.toString(),
             iconProps: { iconName: 'Contact' },
             onClick: handleAccount
         },
     ];
+    if(cookies.ANTE_UP_SESSION_TOKEN === undefined){
 
-
+        _farItems =[
+            {
+                key: 'darkMode',
+                text:'Dark Mode',
+                ariaLabel:'Dark Mode',
+                iconOnly: true,
+                cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
+                iconProps: { iconName: 'Contrast' },
+                onClick: setDarkTheme
+            },
+            {
+                key: 'account',
+                text: "Account" ,
+                iconProps: { iconName: 'Contact' },
+                onClick: handleAccount
+            },
+        ]
+    }
     let backGroundColor = "#1e1f21";
-    if(!props.theme){
+    if(localStorage.getItem('darkMode') === 'false'){
         backGroundColor = "#ffffff"
     }
 
@@ -103,7 +129,6 @@ function Header(props){
 }
 const mapStateToProps = (state) => {
     return {
-        theme : getTheme(state),
         api : getAPI(state)
     };
 };
