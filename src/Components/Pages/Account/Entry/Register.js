@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Col, Row} from "react-grid-system";
 import {PrimaryButton, TextField} from "@fluentui/react";
-import {getAPI} from "../../../Core/Global/global.selectors";
+import {getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 

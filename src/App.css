@@ -15,6 +15,9 @@
 .commandBar{
   margin-top: 15px;
 }
+.pivotContent{
+  margin-left: 15px;
+}
 .Divider{
   font-size: 1px;
   border-top: 1px solid;
@@ -27,6 +30,20 @@
   width: 100%;
   text-align: center;
 }
+.lobbyBox{
+  width: 100%;
+  height: 300px;
+}
+.lobbyBoxItemDark{
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid #39ff13;
+}
+.lobbyBoxItemLight{
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid #098a00;
+}
 .separator{
   font-size:1px;
   margin-bottom: 5px;
@@ -36,4 +53,5 @@
   border: 0;
   marginTop:"7px";
 }
+
 
