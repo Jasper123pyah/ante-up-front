@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {DetailsList, DetailsListLayoutMode, PrimaryButton, SelectionMode, TextField} from "@fluentui/react";
+import {DetailsList, DetailsListLayoutMode, SelectionMode, TextField} from "@fluentui/react";
 import {useHistory} from "react-router-dom";
 import {Col, Row} from "react-grid-system";
 import {getAPI} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
-import {useCookies} from "react-cookie";
 
 function Lobbies(props){
     const gameName = props.gameName;
 
     const history = useHistory();
     const [lobbies, setLobbies] = useState([]);
-    const [cookies] = useCookies("ANTE_UP_SESSION_TOKEN")
     useEffect(() => {
         if(props.api !== undefined) {
             props.api.get('/wager/getbygame', {
@@ -19,7 +17,6 @@ function Lobbies(props){
             }).then(res => {
                 let lobbiestoAdd = [];
                 res.data.map((wager) =>{
-                    console.log(wager)
                     let team1 = wager.team1 !== null ? wager.team1.players.length : 0;
                     let team2 = wager.team2 !== null ? wager.team2.players.length : 0;
                     let teamlength = team1 + team2;
@@ -36,14 +33,14 @@ function Lobbies(props){
                 setItems(lobbiestoAdd);
             })
         }
-    },[]);
+    },[gameName, props.api]);
     const [columns, setColumns] = useState([
         {
             key: 'nameColumn',
             name: 'Name',
             fieldName: 'name',
             minWidth: 150,
-            maxWidth: 180,
+            maxWidth: 200,
             isRowHeader: true,
             isSorted: true,
             isSortedDescending: false,
@@ -59,8 +56,8 @@ function Lobbies(props){
             key: 'descriptionColumn',
             name: 'Description',
             fieldName: 'description',
-            minWidth: 210,
-            maxWidth: 350,
+            minWidth: 150,
+            maxWidth: 450,
             isRowHeader: true,
             isSorted: true,
             isSortedDescending: false,
@@ -110,7 +107,7 @@ function Lobbies(props){
             key: 'queueColumn',
             name: 'Queue',
             fieldName: 'queue',
-            minWidth: 50,
+            minWidth: 60,
             maxWidth: 70,
             isSorted: true,
             isSortedDescending: false,

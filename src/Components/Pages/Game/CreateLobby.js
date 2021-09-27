@@ -4,8 +4,6 @@ import {Dropdown, PrimaryButton,  TextField} from "@fluentui/react";
 import {getAPI} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {useCookies} from "react-cookie";
-
 function CreateLobby(props){
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -13,8 +11,7 @@ function CreateLobby(props){
     const [selectedGame, setSelectedGame] = useState("");
     const [selectedLobbySize, setSelectedLobbySize] = useState("");
     const [creationError, setCreationError] = useState("");
-    const [cookies] = useCookies("ANTE_UP_SESSION_TOKEN");
-    const[dropDownItems, setDropDownItems] = useState([])
+    const [dropDownItems, setDropDownItems] = useState([]);
     let history = useHistory();
     const lobbySizes = [
         {key: '1v1', text:"1v1"},
@@ -59,14 +56,14 @@ function CreateLobby(props){
             game: selectedGame,
             lobbysize: selectedLobbySize
         }
-        if(CheckForErrors(wager) == ""){
+        if(CheckForErrors(wager) === ""){
             props.api.post("/wager/create", {
                 title: title,
                 description: desc,
                 ante: ante,
                 game: selectedGame,
                 lobbysize: selectedLobbySize,
-                creatorid: cookies.ANTE_UP_SESSION_TOKEN
+                creatorid: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
             }).then(res => {
                 if(res.data !== ""){
                     history.push("/lobby/"+res.data);

@@ -9,7 +9,6 @@ import Register from "./Pages/Account/Entry/Register";
 import Balance from "./Pages/Account/Settings/Balance";
 import Settings from "./Pages/Account/Settings";
 import Lobbies from "./Pages/Game/Lobbies";
-import {useCookies} from "react-cookie";
 import CreateLobby from "./Pages/Game/CreateLobby";
 import Lobby from "./Pages/Game/Lobby";
 

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-grid-system";
 import { PrimaryButton, TextField} from "@fluentui/react";
 import {Link, useHistory} from "react-router-dom";
-import {useCookies} from "react-cookie";
 import { getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 
@@ -19,12 +18,11 @@ function Login(props){
     const [passwordError, setPasswordError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [loginError, setLoginError] = useState("");
-    const [cookies, setCookie] = useCookies(["ANTE_UP_SESSION_TOKEN"]);
     const [loading, setLoading] = useState(false);
     let history = useHistory();
 
     useEffect(() => {
-       if(cookies.ANTE_UP_SESSION_TOKEN !== undefined){
+       if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null){
            history.push("/settings")
        }
     });
@@ -35,15 +33,8 @@ function Login(props){
     const handleEmail = (e, value) => {
         setEmail(value);
         setEmailError("");
-        if(!validateEmail(email)){
-            setEmailError("Your email is invalid.")
-        }
     }
 
-    function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
 
     function CheckForErrors(){
         if(email===""||password===""){
@@ -74,7 +65,7 @@ function Login(props){
                         setLoading(false);
                     }
                     else{
-                        setCookie("ANTE_UP_SESSION_TOKEN", res.data.response);
+                        localStorage.setItem("ANTE_UP_SESSION_TOKEN", res.data.response)
                         history.push("/settings");
                         setLoading(false);
                     }

@@ -18,6 +18,19 @@
 .pivotContent{
   margin-left: 15px;
 }
+.accountProfile{
+  width: 100%;
+  height: 200px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border: 1px solid #575759;
+}
+.accountDisable{
+  width: 100%;
+  height: 70px;
+  margin-top: 10px;
+  border: 1px solid #575759;
+}
 .Divider{
   font-size: 1px;
   border-top: 1px solid;
@@ -32,7 +45,10 @@
 }
 .lobbyBox{
   width: 100%;
-  height: 300px;
+}
+.chatBox{
+  margin-top: 30px;
+  height:300px;
 }
 .lobbyBoxItemDark{
   width: 100%;

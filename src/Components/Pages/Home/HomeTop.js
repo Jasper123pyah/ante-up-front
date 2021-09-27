@@ -33,7 +33,7 @@ class HomeTop extends React.Component{
             <Row>
                 <Col sm={12} md={5} lg={3}>
                     <div style={{fontSize:"19px", marginRight:"7px", float:"left"}}>Filter by</div>
-                    <SearchBox  placeholder={"Search Categories"}/>
+                    <SearchBox  placeholder={"Search Game"}/>
                 </Col>
                 <Col/>
                 <Col sm={12} md={4} lg={2}>

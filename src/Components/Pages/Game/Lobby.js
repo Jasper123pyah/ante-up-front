@@ -1,18 +1,17 @@
 import React, {useEffect, useState} from "react";
-import {DefaultButton,   Separator} from "@fluentui/react";
+import {DefaultButton, Separator, TextField} from "@fluentui/react";
 import {Col, Row} from "react-grid-system";
 import "../../../App.css";
 import {getAPI} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
-import {useCookies} from "react-cookie";
+import ChatBox from "../../Chat/Chatbox";
 
 function Lobby(props){
     let id = props.id;
-    const [boxItemClass, setBoxItemClass] = useState("lobbyBoxItemDark");
     const [wager, setWager] = useState({});
     const [team1, setTeam1] = useState([]);
     const [team2, setTeam2] = useState([]);
-    const [cookies] = useCookies("ANTE_UP_SESSION_TOKEN");
+    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
         if(props.api !== undefined) {
@@ -31,54 +30,103 @@ function Lobby(props){
                 setTeam2(res.data.team2.players);
             })
         }
-    },[]);
+    },[id, props.api]);
 
-    const switchTeam = (teamNumber) =>{
+    const joinTeam = (teamNumber) =>{
         if(props.api !== undefined) {
             props.api.post("/wager/jointeam", {
                     wagerId: id,
-                    playerId: cookies.ANTE_UP_SESSION_TOKEN,
+                    playerId: localStorage.getItem("ANTE_UP_SESSION_TOKEN"),
                     teamNumber: teamNumber
+            }).then(res => {
+                console.log(res.data)
+                console.log(teamNumber)
+                if(res.data === teamNumber)
+                    window.location.reload();
+                });
+        }
+    }
+
+    function fillSlots(team, number){
+        let teamCap = wager.playercap/2;
+        let emptySlots = teamCap - team.length;
+        let items = [];
+        for(let i = 0; i < emptySlots; i++){
+            if(i === 0 && !team.some(player => player.id === localStorage.getItem("ANTE_UP_SESSION_TOKEN")))
+                items.push(<div style={{display:"flex", alignItems:"center"}} className={boxItemClass}>
+                    <DefaultButton onClick={() => joinTeam(number)} style={{marginRight:"10px", position: "absolute", right: "10px"}} text={"Join"}/>
+                    <div style={{marginLeft:"10px", fontSize:"16px"}}>Empty</div>
+                </div>);
+            else{
+                items.push(<div style={{display:"flex", alignItems:"center"}} className={boxItemClass}>
+                    <div style={{marginLeft:"10px", fontSize:"16px"}}>Empty</div>
+                </div>);
+            }
+        }
+        return items;
+    }
+    function kickButton(player, number){
+        if(wager.hostId === localStorage.getItem("ANTE_UP_SESSION_TOKEN") &&
+            player.id !== localStorage.getItem("ANTE_UP_SESSION_TOKEN")){
+            return <DefaultButton style={{marginRight:"10px", position: "absolute",
+                right: "10px"}} text={"Kick"} onClick={() => leavePlayer(player, number)}/>
+        }
+    };
+    function leaveButton(player, number){
+        if(player.id === localStorage.getItem("ANTE_UP_SESSION_TOKEN")) {
+            return <DefaultButton style={{
+                marginRight: "10px", position: "absolute",
+                right: "10px"
+            }} text={"Leave"} onClick={() => leavePlayer(player, number)}/>
+        }
+    }
+    function leavePlayer(player, teamNumber){
+        if(props.api !== undefined) {
+            props.api.post("/wager/leave", {
+                playerId: player.id,
+                wagerId : id,
+                teamNumber: teamNumber
             })
         }
     }
-    function joinButton(team, number){
-        if(team.length < (wager.playercap/2) && !team.some(player => player.id == cookies.ANTE_UP_SESSION_TOKEN)){
-            return <div style={{display:"flex", alignItems:"center"}} className={boxItemClass}>
-                <DefaultButton onClick={() => switchTeam(number)} style={{marginRight:"10px", position: "absolute", right: "10px"}} text={"Join"}/>
-            </div>
-        }
+
+    let boxItemClass = "lobbyBoxItemDark";
+    if(localStorage.getItem('darkMode') === 'false'){
+        boxItemClass = "lobbyBoxItemLight"
     }
+    let boxHeight = (((wager.playercap/2) * 50) + "px").toString();
+
     return<div>
         <div style={{fontSize:"40px", marginBottom:"10px"}}>Lobby for {wager.game}</div>
         <div style={{fontSize:"30px", marginBottom:"10px"}}>{wager.title}</div>
         <div style={{fontSize:"20px", marginBottom:"10px"}}>{wager.description}</div>
+        <div style={{fontSize:"20px", marginBottom:"10px"}}>maybe hostname and wager price here too?</div>
         <Separator/>
         <Row>
             <Col>
                 <div style={{fontSize:"20px"}}>Team 1</div>
-                <div className={"lobbyBox"}>
+                <div style={{height:boxHeight}} className={"lobbyBox"}>
                     {team1.map(player =>
                         <div style={{display:"flex", alignItems:"center"}} className={boxItemClass}>
-                            <div style={{marginLeft:"10px", fontSize:"16px"}}>{player.username}</div>
-                            {wager.hostId !== cookies.ANTE_UP_SESSION_TOKEN ? <DefaultButton style={{marginRight:"10px", position: "absolute",
-                                right: "10px"}} text={"Kick"}/> : null}
+                            <div style={{marginLeft:"10px", fontSize:"16px"}}><b>{player.username}</b></div>
+                            {kickButton(player, 1)}
+                            {leaveButton(player, 1)}
                         </div>
                     )}
-                    {joinButton(team1, 1)}
+                    {fillSlots(team1, 1).map(object => object)}
                 </div>
             </Col>
             <Col>
                 <div style={{fontSize:"20px"}}>Team 2</div>
-                <div className={"lobbyBox"}>
+                <div style={{height:boxHeight}}  className={"lobbyBox"}>
                     {team2.map(player =>
                         <div style={{display:"flex", alignItems:"center"}} className={boxItemClass}>
-                            <div style={{marginLeft:"10px", fontSize:"16px"}}>{player.username}</div>
-                            {wager.hostId !== cookies.ANTE_UP_SESSION_TOKEN ? <DefaultButton style={{marginRight:"10px", position: "absolute",
-                                right: "10px"}} text={"Kick"}/> : null}
+                            <div style={{marginLeft:"10px", fontSize:"16px"}}><b>{player.username}</b></div>
+                            {kickButton(player, 2)}
+                            {leaveButton(player, 2)}
                         </div>
                     )}
-                    {joinButton(team2, 2)}
+                    {fillSlots(team2, 2)}
                 </div>
             </Col>
         </Row>

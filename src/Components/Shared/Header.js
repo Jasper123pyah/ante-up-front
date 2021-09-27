@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
-import { CommandBar, ICommandBarItemProps } from '@fluentui/react/lib/CommandBar';
+import { CommandBar } from '@fluentui/react/lib/CommandBar';
 import {getAPI} from "../../Core/Global/global.selectors";
 import "../../App.css"
 import Logo from "./Logo";
 import {initializeIcons} from "@fluentui/font-icons-mdl2";
 import {useHistory} from "react-router-dom";
-import {useCookies} from "react-cookie";
 
 initializeIcons();
 
-function Header(props){
-
-    const [cookies, setCookie, removeCookie] = useCookies(["ANTE_UP_SESSION_TOKEN"]);
+function Header(){
     const [accountInfo, setAccountInfo] = useState({
         username: "Account",
         balance: 0
@@ -27,20 +24,20 @@ function Header(props){
     });
 
     useEffect(() => {
-        if(api !== undefined && cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
+        if(api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
             api.get('account/info', {
                 params: {
-                    id: cookies.ANTE_UP_SESSION_TOKEN
+                    id: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
                 }
             }).then(res => {
                 let resInfo = {username: res.data.username, balance: res.data.balance};
                 setAccountInfo(resInfo);
             })
         }
-    },[]);
+    },[api, accountInfo]);
 
     function handleAccount() {
-        if(cookies.ANTE_UP_SESSION_TOKEN !== undefined){
+        if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null){
             history.push("/settings");
         }
         else{
@@ -92,7 +89,7 @@ function Header(props){
             onClick: handleAccount
         },
     ];
-    if(cookies.ANTE_UP_SESSION_TOKEN === undefined){
+    if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") === null){
 
         _farItems =[
             {

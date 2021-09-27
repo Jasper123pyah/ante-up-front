@@ -27,7 +27,7 @@ function App (props){
         if(localStorage.getItem('darkMode') === undefined){
             localStorage.setItem('darkMode', "true")
         }
-    },[]);
+    },[props]);
 
     return <div style={{overflowX:"hidden"}}>
         <ThemeProvider applyTo={"body"} theme={localStorage.getItem('darkMode') === 'true' ? darkTheme : lightTheme}>
