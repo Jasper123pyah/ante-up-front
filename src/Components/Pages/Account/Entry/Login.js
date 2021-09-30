@@ -35,7 +35,6 @@ function Login(props){
         setEmailError("");
     }
 
-
     function CheckForErrors(){
         if(email===""||password===""){
             return "Please fill in all fields.";

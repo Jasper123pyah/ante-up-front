@@ -31,21 +31,6 @@ function GameList(props){
                 <GameCard key={Game.id} img={Game.image} name={Game.name} playercount={5615}/>
             </Col>
         ))}
-        {gameList.map((Game) => (
-            <Col sm={12}>
-                <GameCard key={Game.id} img={"test.png"} name={"Testgame"} playercount={1234}/>
-            </Col>
-        ))}
-        {gameList.map((Game) => (
-        <Col sm={12}>
-            <GameCard key={Game.id} img={"test.png"} name={"Testgame"} playercount={1234}/>
-        </Col>
-         ))}
-        {gameList.map((Game) => (
-        <Col sm={12}>
-            <GameCard key={Game.id} img={"test.png"} name={"Testgame"} playercount={1234}/>
-        </Col>
-        ))}
     </Row>
 }
 const mapStateToProps = (state) => {

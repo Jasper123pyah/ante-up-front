@@ -22,6 +22,7 @@ function Lobby(props){
                     ante: res.data.ante,
                     description: res.data.description,
                     hostId: res.data.hostId,
+                    hostName: res.data.hostName,
                     playercap: res.data.playerCap,
                     title: res.data.title,
                     game: res.data.game
@@ -39,14 +40,15 @@ function Lobby(props){
                     playerId: localStorage.getItem("ANTE_UP_SESSION_TOKEN"),
                     teamNumber: teamNumber
             }).then(res => {
-                console.log(res.data)
-                console.log(teamNumber)
                 if(res.data === teamNumber)
                     window.location.reload();
                 });
         }
     }
-
+    function playerCapToString(){
+        let teamCap = wager.playercap/2;
+        return teamCap.toString() + "v" + teamCap.toString()
+    }
     function fillSlots(team, number){
         let teamCap = wager.playercap/2;
         let emptySlots = teamCap - team.length;
@@ -97,10 +99,9 @@ function Lobby(props){
     let boxHeight = (((wager.playercap/2) * 50) + "px").toString();
 
     return<div>
-        <div style={{fontSize:"40px", marginBottom:"10px"}}>Lobby for {wager.game}</div>
-        <div style={{fontSize:"30px", marginBottom:"10px"}}>{wager.title}</div>
+        <div style={{fontSize:"40px"}}>{wager.hostName}'s game</div>
+        <div style={{fontSize:"20px", marginBottom:"10px"}}>{wager.game} ● {playerCapToString()} ● ${wager.ante}</div>
         <div style={{fontSize:"20px", marginBottom:"10px"}}>{wager.description}</div>
-        <div style={{fontSize:"20px", marginBottom:"10px"}}>maybe hostname and wager price here too?</div>
         <Separator/>
         <Row>
             <Col>

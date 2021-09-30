@@ -2,7 +2,8 @@ import {Actions} from "./global.actions";
 
 const initialState = {
     connection: undefined,
-    api: undefined
+    api: undefined,
+    accountInfo: undefined
 }
 
 export default function globalReducer(state = initialState, action) {
@@ -11,6 +12,8 @@ export default function globalReducer(state = initialState, action) {
             return {...state, connection: action.payload.connection}
         case Actions.setAPI:
             return {...state, api:action.payload.api}
+        case Actions.setAccountInfo:
+            return {...state, accountInfo: action.payload.info}
         default:
             return state;
     }
