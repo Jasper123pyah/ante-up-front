@@ -1,27 +1,22 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import { CommandBar } from '@fluentui/react/lib/CommandBar';
-import {getAPI} from "../../Core/Global/global.selectors";
+import {getAccountInfo, getAPI} from "../../Core/Global/global.selectors";
 import "../../App.css"
 import Logo from "./Logo";
 import {initializeIcons} from "@fluentui/font-icons-mdl2";
 import {useHistory} from "react-router-dom";
+import {setAccountInfo} from "../../Core/Global/global.actions";
 
 initializeIcons();
+const axios = require('axios');
+const api = axios.create({
+    baseURL:'http://localhost:5000/',
+    timeout: 10000
+});
 
-function Header(){
-    const [accountInfo, setAccountInfo] = useState({
-        username: "Account",
-        balance: 0
-    });
-
+function Header(props){
     let history = useHistory();
-
-    const axios = require('axios');
-    const api = axios.create({
-        baseURL:'http://localhost:5000/',
-        timeout: 10000
-    });
 
     useEffect(() => {
         if(api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
@@ -31,10 +26,10 @@ function Header(){
                 }
             }).then(res => {
                 let resInfo = {username: res.data.username, balance: res.data.balance};
-                setAccountInfo(resInfo);
+                props.dispatch(setAccountInfo(resInfo))
             })
         }
-    },[api, accountInfo]);
+    },[]);
 
     function handleAccount() {
         if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null){
@@ -84,7 +79,7 @@ function Header(){
         },
         {
             key: 'account',
-            text: accountInfo.username + " - $ " + accountInfo.balance.toString(),
+            text: props.accountInfo.username + " - $ " + props.accountInfo.balance.toString(),
             iconProps: { iconName: 'Contact' },
             onClick: handleAccount
         },
@@ -125,6 +120,7 @@ function Header(){
 }
 const mapStateToProps = (state) => {
     return {
+        accountInfo: getAccountInfo(state),
         api : getAPI(state)
     };
 };

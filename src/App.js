@@ -7,7 +7,7 @@ import {darkTheme, lightTheme} from "./themes";
 import {connect} from "react-redux";
 import { setConfiguration } from 'react-grid-system';
 import Router from "./Components/Router";
-import {setAPI, setConnection} from "./Core/Global/global.actions";
+import {setAPI, setConnection, setGames} from "./Core/Global/global.actions";
 import {getAPI, getGlobalState} from "./Core/Global/global.selectors";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 
@@ -23,18 +23,24 @@ const api = axios.create({
 // http://78.47.219.206:420/
 
 function App (props){
+
     useEffect(() => {
         const connection = new HubConnectionBuilder()
-            .withUrl("https://localhost:6001/antehub", {
+            .withUrl("https://localhost:5001/antehub", {
                 skipNegotiation: true,
                 transport: HttpTransportType.WebSockets
             })
             .configureLogging(LogLevel.Information)
             .withAutomaticReconnect()
             .build();
-        connection.start().then(r => props.dispatch(setConnection(connection)));
+        connection.start().then(() => props.dispatch(setConnection(connection)));
 
         props.dispatch(setAPI(api));
+
+        api.get('game').then(res => {
+            props.dispatch(setGames(res.data))
+        })
+
         if(localStorage.getItem('darkMode') === undefined){
             localStorage.setItem('darkMode', "true")
         }

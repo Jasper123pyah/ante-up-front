@@ -3,7 +3,10 @@ import {Actions} from "./global.actions";
 const initialState = {
     connection: undefined,
     api: undefined,
-    accountInfo: undefined,
+    accountInfo: {
+        username: "Account",
+        balance: 0
+    },
     games: []
 }
 

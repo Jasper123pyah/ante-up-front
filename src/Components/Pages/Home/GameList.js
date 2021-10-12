@@ -2,31 +2,14 @@ import React, {useEffect, useState} from "react";
 import "../../../App.css"
 import {Col, Row} from "react-bootstrap";
 import GameCard from "./GameCard";
-import {getAPI} from "../../../Core/Global/global.selectors";
+import {getAPI, getGames} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 
 function GameList(props){
 
-    const [gameList,setGameList] = useState([]);
-
-    useEffect(() => {
-        getGames();
-    });
-
-    useEffect( () =>
-        () => setGameList([]), [] );
-
-    function getGames(){
-        if(props.api !== undefined)
-        {
-            props.api.get('game').then(res => {
-                setGameList(res.data);
-            })
-        }
-    }
 
     return <Row sm={1} md={2} lg={5} >
-        {gameList.map((Game) => (
+        {props.games.map((Game) => (
             <Col sm={12}>
                 <GameCard key={Game.id} img={Game.image} name={Game.name} playercount={5615}/>
             </Col>
@@ -35,6 +18,7 @@ function GameList(props){
 }
 const mapStateToProps = (state) => {
     return {
+        games : getGames(state),
         api : getAPI(state)
     };
 };
