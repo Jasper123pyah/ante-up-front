@@ -9,7 +9,7 @@ const onRenderCell = (item) => {
     </div>
 }
 
-function ChatBox(){
+function ChatBox(props){
     const items =[
         {
             sender: "jasper",

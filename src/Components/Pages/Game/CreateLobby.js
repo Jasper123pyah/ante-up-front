@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-grid-system";
 import {Dropdown, PrimaryButton,  TextField} from "@fluentui/react";
-import {getAPI} from "../../../Core/Global/global.selectors";
+import {getAPI, getGlobalConnection} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 function CreateLobby(props){
@@ -66,7 +66,11 @@ function CreateLobby(props){
                 creatorid: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
             }).then(res => {
                 if(res.data !== ""){
-                    history.push("/lobby/"+res.data);
+                    let lobby = res.data
+                    let user = localStorage.getItem("ANTE_UP_SESSION_TOKEN")
+                    let team = 1;
+                    props.connection.invoke("CreateLobby", {user, lobby,  team});
+                    history.push("/lobby/"+lobby);
                 }
             })
         }
@@ -144,6 +148,7 @@ function CreateLobby(props){
 
 const mapStateToProps = (state) => {
     return {
+        connection : getGlobalConnection(state),
         api : getAPI(state)
     };
 };

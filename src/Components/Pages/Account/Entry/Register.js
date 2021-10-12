@@ -85,6 +85,12 @@ function Register(props){
     const handleConfirmPassword = (e, value) => {
         setConfirmPassword(value);
     }
+    function showError(){
+        if(registerError == "")
+            return <br/>
+        else
+            return <div style={{color:"#a4262c"}}>{registerError}</div>
+    }
     return <div>
         <Row>
             <Col/>
@@ -118,7 +124,7 @@ function Register(props){
                         required
                         onChange={handleConfirmPassword}
                     />
-                    <div style={{color:"#a4262c"}}>{registerError}</div>
+                    {showError()}
                     <PrimaryButton style={{float:"right"}} onClick={Confirm}>Register</PrimaryButton>
                 </div>
             </Col>

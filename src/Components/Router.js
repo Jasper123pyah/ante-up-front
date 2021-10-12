@@ -14,7 +14,7 @@ import Lobby from "./Pages/Game/Lobby";
 
 function Router(){
 
-    return <div style={{marginBottom:"20px"}}>
+    return <div style={{marginTop:"80px"}}>
             <Row>
                 <Col sm={12} md={1} lg={1}/>
                 <Col sm={12} md={10} lg={10}>

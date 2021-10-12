@@ -7,8 +7,9 @@ import {darkTheme, lightTheme} from "./themes";
 import {connect} from "react-redux";
 import { setConfiguration } from 'react-grid-system';
 import Router from "./Components/Router";
-import {setAPI} from "./Core/Global/global.actions";
-import {getAPI} from "./Core/Global/global.selectors";
+import {setAPI, setConnection} from "./Core/Global/global.actions";
+import {getAPI, getGlobalState} from "./Core/Global/global.selectors";
+import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 
 setConfiguration({ maxScreenClass: 'xl' });
 setRTL(true);
@@ -23,15 +24,25 @@ const api = axios.create({
 
 function App (props){
     useEffect(() => {
+        const connection = new HubConnectionBuilder()
+            .withUrl("https://localhost:6001/antehub", {
+                skipNegotiation: true,
+                transport: HttpTransportType.WebSockets
+            })
+            .configureLogging(LogLevel.Information)
+            .withAutomaticReconnect()
+            .build();
+        connection.start().then(r => props.dispatch(setConnection(connection)));
+
         props.dispatch(setAPI(api));
         if(localStorage.getItem('darkMode') === undefined){
             localStorage.setItem('darkMode', "true")
         }
-    },[props]);
+    },[]);
 
     return <div style={{overflowX:"hidden"}}>
         <ThemeProvider applyTo={"body"} theme={localStorage.getItem('darkMode') === 'true' ? darkTheme : lightTheme}>
-            <Header className={"Header"}/>
+            <Header/>
             <Router/>
         </ThemeProvider>
     </div>
@@ -39,7 +50,8 @@ function App (props){
 
 const mapStateToProps = (state) => {
     return {
-        api : getAPI(state)
+        api : getAPI(state),
+        connection : getGlobalState(state)
     };
 };
 

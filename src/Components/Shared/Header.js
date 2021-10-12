@@ -114,14 +114,13 @@ function Header(){
         backGroundColor = "#ffffff"
     }
 
-    return <div style={{backgroundColor:backGroundColor,  width:"100%", zIndex:1}}>
+    return <div className={"Header"} style={{backgroundColor:backGroundColor}}>
                 <CommandBar
                     className={"commandBar"}
                     items={_items}
                     farItems={_farItems}
                 />
-                <hr className={"Divider"}/>
-            </div>
+    </div>
 
 }
 const mapStateToProps = (state) => {

@@ -2,18 +2,20 @@ import React, {useEffect, useState} from "react";
 import {DefaultButton, Separator, TextField} from "@fluentui/react";
 import {Col, Row} from "react-grid-system";
 import "../../../App.css";
-import {getAPI} from "../../../Core/Global/global.selectors";
+import {getAPI, getGlobalConnection} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
-import ChatBox from "../../Chat/Chatbox";
 
 function Lobby(props){
     let id = props.id;
     const [wager, setWager] = useState({});
     const [team1, setTeam1] = useState([]);
     const [team2, setTeam2] = useState([]);
-    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
+        getWager()
+    },[id, props.api]);
+
+    function getWager(){
         if(props.api !== undefined) {
             props.api.get('/wager/getbyid', {
                 params: { id: id }
@@ -31,24 +33,24 @@ function Lobby(props){
                 setTeam2(res.data.team2.players);
             })
         }
-    },[id, props.api]);
-
-    const joinTeam = (teamNumber) =>{
-        if(props.api !== undefined) {
-            props.api.post("/wager/jointeam", {
-                    wagerId: id,
-                    playerId: localStorage.getItem("ANTE_UP_SESSION_TOKEN"),
-                    teamNumber: teamNumber
-            }).then(res => {
-                if(res.data === teamNumber)
-                    window.location.reload();
-                });
-        }
     }
+    async function joinTeam(team) {
+        let user = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
+        let lobby = id;
+
+        props.connection.on("LobbyJoined", (lobbyJoin) => {
+            console.log(lobbyJoin.player + " joined team " + lobbyJoin.team)
+            getWager();
+        });
+
+        await props.connection.invoke("JoinLobby", {user,lobby, team});
+    }
+
     function playerCapToString(){
         let teamCap = wager.playercap/2;
         return teamCap.toString() + "v" + teamCap.toString()
     }
+
     function fillSlots(team, number){
         let teamCap = wager.playercap/2;
         let emptySlots = teamCap - team.length;
@@ -82,14 +84,20 @@ function Lobby(props){
             }} text={"Leave"} onClick={() => leavePlayer(player, number)}/>
         }
     }
-    function leavePlayer(player, teamNumber){
-        if(props.api !== undefined) {
-            props.api.post("/wager/leave", {
-                playerId: player.id,
-                wagerId : id,
-                teamNumber: teamNumber
-            })
-        }
+    async function leavePlayer(player){
+        let user = player.id;
+        let lobby = id;
+
+        props.connection.on("LobbyLeft", (lobbyJoin) => {
+            console.log(lobbyJoin.player + " left the game. ")
+            getWager();
+        });
+        props.connection.on("YouLeft", ()=>{
+            console.log("You left");
+            getWager();
+        })
+        await props.connection.invoke("LeaveLobby", {user,lobby});
+
     }
 
     let boxItemClass = "lobbyBoxItemDark";
@@ -135,6 +143,7 @@ function Lobby(props){
 }
 const mapStateToProps = (state) => {
     return {
+        connection : getGlobalConnection(state),
         api : getAPI(state)
     };
 };
