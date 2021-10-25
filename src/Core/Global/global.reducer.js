@@ -7,7 +7,9 @@ const initialState = {
         username: "Account",
         balance: 0
     },
-    games: []
+    games: [],
+    wagerconnection: undefined,
+    wagerAPI: undefined
 }
 
 export default function globalReducer(state = initialState, action) {
@@ -20,6 +22,10 @@ export default function globalReducer(state = initialState, action) {
             return {...state, accountInfo: action.payload.info}
         case Actions.setGames:
             return {...state, games: action.payload.games}
+        case Actions.setWagerConnection:
+            return {...state, wagerconnection:action.payload.wagerconnection}
+        case Actions.setWagerAPI:
+            return {...state, wagerAPI: action.payload.wagerAPI}
         default:
             return state;
     }

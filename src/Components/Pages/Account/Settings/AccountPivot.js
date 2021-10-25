@@ -2,6 +2,8 @@ import * as React from 'react';
 import {Pivot, PivotItem, Separator} from '@fluentui/react';
 import Account from "./Account";
 import Balance from "./Balance";
+import Friends from "./Friends";
+import Profile from "./Profile";
 
 function AccountPivot(props){
     return (
@@ -9,7 +11,7 @@ function AccountPivot(props){
             <PivotItem headerText="Profile">
                 <div className={"pivotContent"}>
                     <Separator/>
-                    <Account/>
+                    <Profile/>
                 </div>
             </PivotItem>
             <PivotItem headerText="Balance">
@@ -21,7 +23,13 @@ function AccountPivot(props){
             <PivotItem headerText="Friends">
                 <div className={"pivotContent"}>
                     <Separator/>
-                    <div>You have none lmao</div>
+                    <Friends/>
+                </div>
+            </PivotItem>
+            <PivotItem headerText="Settings">
+                <div className={"pivotContent"}>
+                    <Separator/>
+                    <Account/>
                 </div>
             </PivotItem>
         </Pivot>

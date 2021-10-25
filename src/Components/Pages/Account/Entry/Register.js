@@ -86,7 +86,7 @@ function Register(props){
         setConfirmPassword(value);
     }
     function showError(){
-        if(registerError == "")
+        if(registerError === "")
             return <br/>
         else
             return <div style={{color:"#a4262c"}}>{registerError}</div>

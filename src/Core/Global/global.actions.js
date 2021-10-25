@@ -2,11 +2,19 @@ export const Actions = {
     setConnection: "[Global] Connection",
     setAPI:"[Global] API",
     setAccountInfo:"[Global] AccountInfo",
-    setGames:"[Global] Games"
+    setGames:"[Global] Games",
+    setWagerConnection: "[Global] WagerConnection",
+    setWagerAPI: "[Globa] WagerAPI"
 }
 
 export const setConnection = (connection) => ({
     type: Actions.setConnection,
+    payload: {
+        connection
+    }
+})
+export const setWagerConnection = (connection) =>({
+    type: Actions.setWagerConnection,
     payload: {
         connection
     }
@@ -25,6 +33,12 @@ export const setAccountInfo = (info) => ({
 })
 export const setAPI = (api) =>({
     type: Actions.setAPI,
+    payload:{
+        api
+    }
+})
+export const setWagerAPI = (api) =>({
+    type: Actions.setWagerAPI,
     payload:{
         api
     }

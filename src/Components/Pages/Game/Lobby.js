@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {DefaultButton, Separator, TextField} from "@fluentui/react";
+import {DefaultButton, PrimaryButton, Separator} from "@fluentui/react";
 import {Col, Row} from "react-grid-system";
 import "../../../App.css";
-import {getAPI, getGlobalConnection} from "../../../Core/Global/global.selectors";
+import {getAPI, getGlobalConnection, getWagerAPI} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import ChatBox from "../../Chat/Chatbox";
 import {useHistory} from "react-router-dom";
@@ -12,6 +12,7 @@ function Lobby(props) {
     const [team1, setTeam1] = useState([]);
     const [team2, setTeam2] = useState([]);
     const [messages, setMessages] = useState([]);
+
     let history = useHistory();
 
     useEffect(() => {
@@ -23,24 +24,26 @@ function Lobby(props) {
             props.connection.on("YouLeft", () => {
                 console.log("You left");
                 getWager();
-            })
+            });
             props.connection.on("LobbyGone", () => {
                 console.log("Lobby Gone");
                 history.push("/");
-            })
+            });
+
         }
         getWager()
     }, [props.id, props.api, props.connection]);
 
     useEffect(() =>
-        () => props.connection ? props.connection.off("LobbyLeft") && props.connection.off("YouLeft") : null, []);
-
+        () => props.connection ?
+            props.connection.off("LobbyLeft") &&
+            props.connection.off("YouLeft") &&
+            props.connection.off("LobbyGone")
+            : null, []);
 
     function getWager() {
         if (props.api !== undefined) {
-            props.api.get('/wager/getbyid', {
-                params: {id: props.id}
-            }).then(res => {
+            props.api.get('/wager/'+ props.id).then(res => {
                 setWager({
                     id: res.data.id,
                     ante: res.data.ante,
@@ -114,14 +117,15 @@ function Lobby(props) {
             }} text={"Leave"} onClick={() => leavePlayer(player, number)}/>
         }
     }
-
+    function startButton(){
+        return <PrimaryButton text={"Start Game"}/>
+    }
     async function leavePlayer(player) {
         let user = player.id;
         let lobby = wager.id;
 
         await props.connection.invoke("LeaveLobby", {user, lobby});
     }
-
     let boxItemClass = "lobbyBoxItemDark";
     if (localStorage.getItem('darkMode') === 'false') {
         boxItemClass = "lobbyBoxItemLight"
@@ -161,14 +165,29 @@ function Lobby(props) {
                 </div>
             </Col>
         </Row>
-        <ChatBox items={messages} lobbyId={wager.id}/></div> : <div>Loading...</div>
+        <Row>
+            <Col>
+                <ChatBox items={messages} lobbyId={wager.id}/>
+            </Col>
+            <Col>
+                <div style={{display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop:"82%"}}>
+                    {startButton()}
+                </div>
+            </Col>
+            <Col/>
+        </Row>
+    </div> : <div>Loading...</div>
 
 }
 
 const mapStateToProps = (state) => {
     return {
         connection: getGlobalConnection(state),
-        api: getAPI(state)
+        api: getAPI(state),
+        wagerAPI: getWagerAPI(state)
     };
 };
 export default connect(mapStateToProps)(Lobby);

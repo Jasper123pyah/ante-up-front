@@ -7,7 +7,7 @@ import {darkTheme, lightTheme} from "./themes";
 import {connect} from "react-redux";
 import { setConfiguration } from 'react-grid-system';
 import Router from "./Components/Router";
-import {setAPI, setConnection, setGames} from "./Core/Global/global.actions";
+import {setAPI, setConnection, setGames, setWagerAPI} from "./Core/Global/global.actions";
 import {getAPI, getGlobalState} from "./Core/Global/global.selectors";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 
@@ -19,6 +19,10 @@ const api = axios.create({
     baseURL:'http://localhost:5000/',
     timeout: 10000
 });
+const wagerApi = axios.create({
+    baseURL: 'http://localhost:6000/',
+    timeout: 10000
+})
 // http://localhost:5000/
 // http://78.47.219.206:420/
 
@@ -36,6 +40,7 @@ function App (props){
         connection.start().then(() => props.dispatch(setConnection(connection)));
 
         props.dispatch(setAPI(api));
+        props.dispatch(setWagerAPI(wagerApi));
 
         api.get('game').then(res => {
             props.dispatch(setGames(res.data))

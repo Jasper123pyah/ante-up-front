@@ -4,6 +4,7 @@ import {Dropdown, PrimaryButton,  TextField} from "@fluentui/react";
 import {getAPI, getGlobalConnection} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
+
 function CreateLobby(props){
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -29,7 +30,7 @@ function CreateLobby(props){
     function getGames(){
         if(props.api !== undefined)
         {
-            props.api.get('game/gamenames').then(res => {
+            props.api.get('game/names').then(res => {
                 res.data.map(gameName => {
                     dropDownItems.push({
                         key:gameName,
@@ -57,7 +58,7 @@ function CreateLobby(props){
             lobbysize: selectedLobbySize
         }
         if(CheckForErrors(wager) === ""){
-            props.api.post("/wager/create", {
+            props.api.post("/wager", {
                 title: title,
                 description: desc,
                 ante: ante,

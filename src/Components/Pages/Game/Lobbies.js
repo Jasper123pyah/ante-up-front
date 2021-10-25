@@ -12,9 +12,7 @@ function Lobbies(props){
     const [lobbies, setLobbies] = useState([]);
     useEffect(() => {
         if(props.api !== undefined) {
-            props.api.get('/wager/getbygame', {
-                params: { gamename: gameName }
-            }).then(res => {
+            props.api.get('/wager/game/' + gameName).then(res => {
                 let lobbiestoAdd = [];
                 res.data.map((wager) =>{
                     let team1 = wager.team1 !== null ? wager.team1.players.length : 0;
