@@ -2,11 +2,11 @@ import React from "react";
 import AccountPivot from "./AccountPivot";
 import {Col, Row} from "react-grid-system";
 
-function Settings(props){
+function Account(props){
     return <div>
         <Row>
             <Col/>
-            <Col sm={12} md={8} lg={8}>
+            <Col sm={12} md={10} lg={10}>
                 <div style={{fontSize:"40px", marginLeft:"15px", marginBottom:"10px"}}>Account</div>
                 <AccountPivot></AccountPivot>
             </Col>
@@ -15,4 +15,4 @@ function Settings(props){
     </div>
 }
 
-export default Settings;
+export default Account;

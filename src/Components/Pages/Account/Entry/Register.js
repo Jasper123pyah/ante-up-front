@@ -48,14 +48,16 @@ function Register(props){
                 username: username,
                 password: password,
                 email: email
-            }).then(res => {
-                if(res.data === ""){
-                    history.push("/login");
+            }).then(() => {
+                history.push("/login")
+            }).catch(err => {
+                if(err.response.status === 500) {
+                    setRegisterError("Internal server error.")
                 }
                 else{
-                    setRegisterError(res.data);
+                    setRegisterError(err.response.data);
                 }
-            })
+            });
         }
         else{
             setRegisterError(CheckForErrors)

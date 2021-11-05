@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {DefaultButton, PrimaryButton, Separator} from "@fluentui/react";
 import {Col, Row} from "react-grid-system";
 import "../../../App.css";
-import {getAPI, getGlobalConnection, getWagerAPI} from "../../../Core/Global/global.selectors";
+import {getAccountInfo, getAPI, getGlobalConnection, getWagerAPI} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
-import ChatBox from "../../Chat/Chatbox";
+import LobbyChatbox from "../../Chat/LobbyChatbox";
 import {useHistory} from "react-router-dom";
 
 function Lobby(props) {
@@ -29,7 +29,6 @@ function Lobby(props) {
                 console.log("Lobby Gone");
                 history.push("/");
             });
-
         }
         getWager()
     }, [props.id, props.api, props.connection]);
@@ -63,7 +62,7 @@ function Lobby(props) {
     }
 
     async function joinTeam(team) {
-        let user = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
+        let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
         let lobby = wager.id;
 
         props.connection.on("LobbyJoined", (lobbyJoin) => {
@@ -71,7 +70,7 @@ function Lobby(props) {
             getWager();
         });
 
-        await props.connection.invoke("JoinLobby", {user, lobby, team});
+        await props.connection.invoke("JoinLobby", {token, lobby, team});
     }
 
     function playerCapToString() {
@@ -84,7 +83,7 @@ function Lobby(props) {
         let emptySlots = teamCap - team.length;
         let items = [];
         for (let i = 0; i < emptySlots; i++) {
-            if (i === 0 && !team.some(player => player.id === localStorage.getItem("ANTE_UP_SESSION_TOKEN")))
+            if (i === 0 && !team.some(player => player.id === props.accountInfo.id))
                 items.push(<div style={{display: "flex", alignItems: "center"}} className={boxItemClass}>
                     <DefaultButton onClick={() => joinTeam(number)}
                                    style={{marginRight: "10px", position: "absolute", right: "10px"}} text={"Join"}/>
@@ -99,32 +98,39 @@ function Lobby(props) {
         return items;
     }
 
-    function kickButton(player, number) {
-        if (wager.hostId === localStorage.getItem("ANTE_UP_SESSION_TOKEN") &&
-            player.id !== localStorage.getItem("ANTE_UP_SESSION_TOKEN")) {
+    function kickButton(player) {
+        if (wager.hostId === props.accountInfo.id &&
+            player.id !== props.accountInfo.id) {
             return <DefaultButton style={{
                 marginRight: "10px", position: "absolute",
                 right: "10px"
-            }} text={"Kick"} onClick={() => leavePlayer(player, number)}/>
+            }} text={"Kick"} onClick={() => kickPlayer(player)}/>
         }
     };
 
-    function leaveButton(player, number) {
-        if (player.id === localStorage.getItem("ANTE_UP_SESSION_TOKEN")) {
+    function leaveButton(player) {
+        if (player.id === props.accountInfo.id) {
             return <DefaultButton style={{
                 marginRight: "10px", position: "absolute",
                 right: "10px"
-            }} text={"Leave"} onClick={() => leavePlayer(player, number)}/>
+            }} text={"Leave"} onClick={() => leaveLobby()}/>
         }
     }
     function startButton(){
         return <PrimaryButton text={"Start Game"}/>
     }
-    async function leavePlayer(player) {
+    async function leaveLobby() {
+        let lobby = wager.id;
+        let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
+
+        await props.connection.invoke("LeaveLobby", {token, lobby});
+    }
+    async function kickPlayer(player){
         let user = player.id;
         let lobby = wager.id;
+        let hostToken = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
 
-        await props.connection.invoke("LeaveLobby", {user, lobby});
+        await props.connection.invoke("KickPlayer", {user, lobby, hostToken});
     }
     let boxItemClass = "lobbyBoxItemDark";
     if (localStorage.getItem('darkMode') === 'false') {
@@ -167,7 +173,7 @@ function Lobby(props) {
         </Row>
         <Row>
             <Col>
-                <ChatBox items={messages} lobbyId={wager.id}/>
+                <LobbyChatbox items={messages} lobbyId={wager.id}/>
             </Col>
             <Col>
                 <div style={{display: "flex",
@@ -187,7 +193,8 @@ const mapStateToProps = (state) => {
     return {
         connection: getGlobalConnection(state),
         api: getAPI(state),
-        wagerAPI: getWagerAPI(state)
+        wagerAPI: getWagerAPI(state),
+        accountInfo: getAccountInfo(state)
     };
 };
 export default connect(mapStateToProps)(Lobby);

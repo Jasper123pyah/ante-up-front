@@ -66,13 +66,10 @@ function CreateLobby(props){
                 lobbysize: selectedLobbySize,
                 creatorid: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
             }).then(res => {
-                if(res.data !== ""){
-                    let lobby = res.data
-                    let user = localStorage.getItem("ANTE_UP_SESSION_TOKEN")
-                    let team = 1;
-                    props.connection.invoke("CreateLobby", {user, lobby,  team});
-                    history.push("/lobby/"+lobby);
-                }
+                let lobbyId = res.data;
+                props.connection.invoke("CreateLobby", lobbyId);
+                history.push("/lobby/"+lobbyId);
+
             })
         }
         else{

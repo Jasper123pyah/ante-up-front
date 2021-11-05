@@ -4,6 +4,9 @@ import { PrimaryButton, TextField} from "@fluentui/react";
 import {Link, useHistory} from "react-router-dom";
 import { getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
+import { setUserData} from "../../../../Core/Authentication/authentication.action";
+import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
+import {setConnection} from "../../../../Core/Global/global.actions";
 
 const mapStateToProps = (state) => {
     return {
@@ -23,7 +26,7 @@ function Login(props){
 
     useEffect(() => {
        if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null){
-           history.push("/settings")
+           history.push("/account")
        }
     });
     const handlePassword = (e, value) => {
@@ -46,7 +49,21 @@ function Login(props){
             return "";
         }
     }
+    async function loginSuccess(connection, res){
+        try{
+            await connection.start();
+            props.dispatch(setConnection(connection));
+            props.dispatch(setUserData(email, res.data.response, res.data.token));
 
+            connection.invoke("Login", res.data.token).then(() => console.log("success"));
+            localStorage.setItem("ANTE_UP_SESSION_TOKEN", res.data.token);
+
+            history.push("/account");
+            setLoading(false);
+        }catch{
+            console.log("Connection Failed")
+        }
+    }
     function Confirm(){
         if(CheckForErrors() === "") {
             if(props.api !== undefined) {
@@ -54,21 +71,27 @@ function Login(props){
                 props.api.post("/account/login", {
                     password: password,
                     email: email
+
                 }).then(res => {
-                    if(res.data.response === "1"){
-                        setLoginError("There is no account with this email.");
-                        setLoading(false);
-                    }
-                    else if(res.data.response === "2"){
-                        setLoginError("Incorrect password.");
+                    let connection = new HubConnectionBuilder()
+                        .withUrl("https://localhost:5001/antehub", {
+                            skipNegotiation: true,
+                            transport: HttpTransportType.WebSockets
+                        })
+                        .configureLogging(LogLevel.Information)
+                        .withAutomaticReconnect()
+                        .build();
+                    loginSuccess(connection, res);
+            }).catch(err => {
+                    if(err.response.status === 500) {
+                        setLoginError("Internal server error.")
                         setLoading(false);
                     }
                     else{
-                        localStorage.setItem("ANTE_UP_SESSION_TOKEN", res.data.response)
-                        history.push("/settings");
+                        setLoginError(err.response.data);
                         setLoading(false);
                     }
-            })}
+                });}
         }
         else {
             setLoginError(CheckForErrors())

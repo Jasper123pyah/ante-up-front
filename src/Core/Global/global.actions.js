@@ -4,7 +4,7 @@ export const Actions = {
     setAccountInfo:"[Global] AccountInfo",
     setGames:"[Global] Games",
     setWagerConnection: "[Global] WagerConnection",
-    setWagerAPI: "[Globa] WagerAPI"
+    setWagerAPI: "[Global] WagerAPI"
 }
 
 export const setConnection = (connection) => ({

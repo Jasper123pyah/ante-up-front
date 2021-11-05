@@ -177,6 +177,7 @@ function Lobbies(props){
                     layoutMode={DetailsListLayoutMode.justified}
                     isHeaderVisible={true}
                     onItemInvoked={_onItemInvoked}
+
                     styles={{
                         root :{
                             textAlign:"left",

@@ -7,13 +7,12 @@ import Login from "./Pages/Account/Entry/Login";
 import ForgottenPassword from "./Pages/Account/Entry/ForgottenPassword";
 import Register from "./Pages/Account/Entry/Register";
 import Balance from "./Pages/Account/Settings/Balance";
-import Settings from "./Pages/Account/Settings";
 import Lobbies from "./Pages/Game/Lobbies";
 import CreateLobby from "./Pages/Game/CreateLobby";
 import Lobby from "./Pages/Game/Lobby";
+import Account from "./Pages/Account/Settings";
 
 function Router(){
-
     return <div style={{marginTop:"80px"}}>
             <Row>
                 <Col sm={12} md={1} lg={1}/>
@@ -23,11 +22,11 @@ function Router(){
                     <Route path="/balance" component={Balance}/>
                     <Route path="/passwordforgotten" component={ForgottenPassword}/>
                     <Route path="/register" component={Register}/>
-                    <Route path={"/settings"} component={Settings}/>
+                    <Route path={"/account"} component={Account}/>
+                    <Route path={"/createlobby"} component={CreateLobby}/>
                     <Route exact path={"/game/:gameName"} render={(props) =>
                         <Lobbies gameName={props.match.params.gameName}/>
                     }/>
-                    <Route path={"/createlobby"} component={CreateLobby}/>
                     <Route exact path={"/lobby/:id"} render={(props) =>
                         <Lobby id={props.match.params.id}/>
                     }/>

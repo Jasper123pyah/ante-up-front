@@ -15,48 +15,46 @@ const api = axios.create({
     timeout: 10000
 });
 
-function Header(props){
+function Header(props) {
     let history = useHistory();
 
     useEffect(() => {
-        if(api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
+        if (api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
             api.get('account/info', {
                 params: {
-                    id: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
+                    token: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
                 }
             }).then(res => {
-                let resInfo = {username: res.data.username, balance: res.data.balance};
+                let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
                 props.dispatch(setAccountInfo(resInfo))
             })
         }
-    },[]);
+    }, []);
 
     function handleAccount() {
-        if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null){
-            history.push("/settings");
-        }
-        else{
+        if (localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
+            history.push("/account");
+        } else {
             history.push("/login");
         }
     }
 
-    function handleCreate(){
+    function handleCreate() {
         history.push("/createlobby")
     }
 
-    function setDarkTheme(){
-        if(localStorage.getItem('darkMode') === "true"){
+    function setDarkTheme() {
+        if (localStorage.getItem('darkMode') === "true") {
             localStorage.setItem('darkMode', 'false')
-        }
-        else{
+        } else {
             localStorage.setItem('darkMode', 'true')
         }
         window.location.reload();
     }
 
-    let _items =[
+    let _items = [
         {
-            key:"Home",
+            key: "Home",
             onRender: () => <Logo/>
         }
     ]
@@ -92,7 +90,7 @@ function Header(props){
                 text:'Dark Mode',
                 ariaLabel:'Dark Mode',
                 iconOnly: true,
-                cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
+                cacheKey: 'myCacheKey',
                 iconProps: { iconName: 'Contrast' },
                 onClick: setDarkTheme
             },

@@ -11,13 +11,13 @@ const onRenderCell = (item) => {
     </div>
 }
 
-function ChatBox(props) {
+function FriendChatbox(props) {
     const [items, setItems] = useState([]);
     const [text, setText] = useState("");
 
     useEffect(() => {
         if (props.connection !== undefined) {
-            props.connection.on("NewMessage", () => {
+            props.connection.on("NewFriendMessage", () => {
                 getChat();
                 gotoBottom();
             });
@@ -26,10 +26,14 @@ function ChatBox(props) {
         gotoBottom()
     }, [props.connection, props.items]);
 
+    useEffect(() =>
+        () => props.connection ? props.connection.off("NewFriendMessage") : null, []);
+
     function getChat(){
-        let id = props.lobbyId
         if(props.api !== undefined){
-            props.api.get('/wager/chat', { params: { id }}).then(res => {
+            let friendName = props.name;
+            let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
+            props.api.get('/account/friend/chat', {friendName : friendName, token: token}).then(res => {
                 setItems(res.data.message);
                 gotoBottom();
             })
@@ -41,23 +45,19 @@ function ChatBox(props) {
         element.scrollTop = element.scrollHeight - element.clientHeight;
     }
 
-    useEffect(() =>
-        () => props.connection ? props.connection.off("NewMessage") : null, []);
-
     async function sendMessage() {
         if(text.length > 0){
-            let lobbyMessage = {
-                lobbyid: props.lobbyId,
+            let friendMessage = {
                 sender: localStorage.getItem("ANTE_UP_SESSION_TOKEN"),
+                receiver: props.name,
                 message: text
             }
-            await props.connection.invoke("SendMessage", lobbyMessage);
+            await props.connection.invoke("SendFriendMessage", friendMessage);
             setText("");
         }
     }
 
     const handleUserInput = (e) => {
-        console.log(props.connection)
         setText(e.target.value);
     };
 
@@ -68,6 +68,9 @@ function ChatBox(props) {
     }
 
     return <div>
+        <div>
+            Chat with {props.name}
+        </div>
         <div id="chat" className={"chatBox"}>
             <List
                 items={items}
@@ -95,4 +98,4 @@ const mapStateToProps = (state) => {
         api: getAPI(state)
     };
 };
-export default connect(mapStateToProps)(ChatBox);
+export default connect(mapStateToProps)(FriendChatbox);

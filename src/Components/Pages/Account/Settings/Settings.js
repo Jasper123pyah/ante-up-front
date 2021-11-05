@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { getAPI} from "../../../../Core/Global/global.selectors";
+import {getAPI, getGlobalConnection} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {DefaultButton, PrimaryButton, Separator, TextField} from "@fluentui/react";
 import {useHistory} from "react-router-dom";
 
-function Account(){
+function Settings(props){
     const [accountInfo, setAccountInfo] = useState({
         username: "",
         email: "",
@@ -12,31 +12,35 @@ function Account(){
 
     let history = useHistory();
 
-    const axios = require('axios');
-    const api = axios.create({
-        baseURL:'http://localhost:5000/',
-        timeout: 10000
-    });
-    function LogOut(){
-        localStorage.removeItem("ANTE_UP_SESSION_TOKEN");
-        history.push("/");
-        window.location.reload();
+    async function LogOut(){
+        console.log(props.connection)
+        if(props.connection !== undefined){
+            let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
+
+            await props.connection.invoke("Logout", token);
+
+            localStorage.removeItem("ANTE_UP_SESSION_TOKEN");
+            history.push("/");
+            window.location.reload();
+        }else{
+
+        }
     }
     useEffect(() => {
         if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") === null){
             history.push("/login");
         }
-        else if(api !== undefined) {
-            api.get('account/info', {
+        if(props.api !== undefined) {
+            props.api.get('account/info', {
                 params: {
-                    id: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
+                    token: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
                 }
             }).then(res => {
                 let resInfo = {username: res.data.username, balance: res.data.balance, email: res.data.email};
                 setAccountInfo(resInfo);
             })
         }
-    },[api, history]);
+    },[props.api, history]);
 
     return<div>
         <div style={{fontSize:"20px"}}>Profile Settings</div>
@@ -65,7 +69,6 @@ function Account(){
                     <DefaultButton style={{ marginTop:"3px",marginLeft:"20px" }} text={"Log Out"} onClick={LogOut}/>
                     <PrimaryButton style={{float:"right",  marginTop:"3px"}} text={"Save Changes"}/>
                 </div>
-                <div style={{width:"6%"}}/>
             </div>
         </div>
         <div style={{fontSize:"20px"}}>Disabling Your Account</div>
@@ -84,7 +87,8 @@ function Account(){
 }
 const mapStateToProps = (state) => {
     return {
+        connection : getGlobalConnection(state),
         api : getAPI(state)
     };
 };
-export default connect(mapStateToProps)(Account);
+export default connect(mapStateToProps)(Settings);
