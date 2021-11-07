@@ -6,13 +6,15 @@ import {getAccountInfo, getAPI, getGlobalConnection, getWagerAPI} from "../../..
 import {connect} from "react-redux";
 import LobbyChatbox from "../../Chat/LobbyChatbox";
 import {useHistory} from "react-router-dom";
+import {setAccountInfo} from "../../../Core/Global/global.actions";
+import {PulseLoader} from "react-spinners";
 
 function Lobby(props) {
     const [wager, setWager] = useState({});
     const [team1, setTeam1] = useState([]);
     const [team2, setTeam2] = useState([]);
     const [messages, setMessages] = useState([]);
-
+    const [loading, setLoading] = useState(false);
     let history = useHistory();
 
     useEffect(() => {
@@ -30,6 +32,18 @@ function Lobby(props) {
                 history.push("/");
             });
         }
+        if(props.accountInfo.id === undefined ){
+            if (props.api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
+                props.api.get('account/info', {
+                    params: {
+                        token: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
+                    }
+                }).then(res => {
+                    let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
+                    props.dispatch(setAccountInfo(resInfo))
+                })
+            }
+        }
         getWager()
     }, [props.id, props.api, props.connection]);
 
@@ -42,6 +56,7 @@ function Lobby(props) {
 
     function getWager() {
         if (props.api !== undefined) {
+            setLoading(true);
             props.api.get('/wager/'+ props.id).then(res => {
                 setWager({
                     id: res.data.id,
@@ -53,18 +68,19 @@ function Lobby(props) {
                     title: res.data.title,
                     game: res.data.game,
                 });
-                setMessages(res.data.chat.message);
+                setMessages(res.data.chat.messages);
                 setTeam1(res.data.team1.players);
                 setTeam2(res.data.team2.players);
+                setLoading(false)
             })
         }
 
     }
 
     async function joinTeam(team) {
+        setLoading(true);
         let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
         let lobby = wager.id;
-
         props.connection.on("LobbyJoined", (lobbyJoin) => {
             console.log(lobbyJoin.player + " joined team " + lobbyJoin.team)
             getWager();
@@ -120,6 +136,7 @@ function Lobby(props) {
         return <PrimaryButton text={"Start Game"}/>
     }
     async function leaveLobby() {
+        setLoading(true);
         let lobby = wager.id;
         let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
 
@@ -138,7 +155,9 @@ function Lobby(props) {
     }
     let boxHeight = (((wager.playercap / 2) * 50) + "px").toString();
 
-    return wager.id ? <div>
+    return loading ? <div style={{position:"fixed", top:"45%", left:"46%", overflowX:"hidden"}}>
+        <PulseLoader color={"#39ff13"} size={40}/>
+    </div> : <div>
         <div style={{fontSize: "40px"}}>{wager.hostName}'s game</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.game} ● {playerCapToString()} ● ${wager.ante}</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.description}</div>
@@ -185,7 +204,7 @@ function Lobby(props) {
             </Col>
             <Col/>
         </Row>
-    </div> : <div>Loading...</div>
+    </div>
 
 }
 

@@ -10,6 +10,7 @@ import Router from "./Components/Router";
 import {setAPI, setConnection, setGames, setWagerAPI} from "./Core/Global/global.actions";
 import {getAPI, getGlobalConnection,} from "./Core/Global/global.selectors";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
+import Friends from "./Components/Shared/Friends/Friends";
 
 setConfiguration({ maxScreenClass: 'xl' });
 setRTL(true);
@@ -17,10 +18,7 @@ setRTL(true);
 const axios = require('axios');
 const api = axios.create({
     baseURL:'http://localhost:5000/',
-    timeout: 10000,
-    headers: {
-        authentication: "test"
-    }
+    timeout: 10000
 });
 
 const wagerApi = axios.create({
@@ -62,10 +60,6 @@ function App (props){
         props.dispatch(setAPI(api));
         props.dispatch(setWagerAPI(wagerApi));
 
-        api.get('game').then(res => {
-            props.dispatch(setGames(res.data))
-        })
-
         if(localStorage.getItem('darkMode') === undefined){
             localStorage.setItem('darkMode', "true")
         }
@@ -75,6 +69,7 @@ function App (props){
         <ThemeProvider applyTo={"body"} theme={localStorage.getItem('darkMode') === 'true' ? darkTheme : lightTheme}>
             <Header/>
             <Router/>
+            <Friends/>
         </ThemeProvider>
     </div>
 }

@@ -25,7 +25,7 @@ function CreateLobby(props){
 
     useEffect(() => {
         getGames();
-    },[]);
+    },[props.api]);
 
     function getGames(){
         if(props.api !== undefined)
@@ -88,9 +88,9 @@ function CreateLobby(props){
         }, [],
     );
 
-    return <div>
+    return <div style={{overflow:"hidden"}}>
         <Row>
-            <Col/>
+            <Col md={2} lg={2}/>
             <Col sm={12} md={8} lg={8}>
                 <div style={{fontSize:"40px"}}>Create a wager</div>
                 <Dropdown
@@ -139,7 +139,6 @@ function CreateLobby(props){
                 </Row>
                 <div style={{color:"#a4262c", float:"right"}}>{creationError}</div>
             </Col>
-            <Col/>
         </Row>
     </div>
 }

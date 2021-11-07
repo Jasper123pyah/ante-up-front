@@ -11,6 +11,7 @@ import Lobbies from "./Pages/Game/Lobbies";
 import CreateLobby from "./Pages/Game/CreateLobby";
 import Lobby from "./Pages/Game/Lobby";
 import Account from "./Pages/Account/Settings";
+import Admin from "./Pages/Admin";
 
 function Router(){
     return <div style={{marginTop:"80px"}}>
@@ -22,8 +23,9 @@ function Router(){
                     <Route path="/balance" component={Balance}/>
                     <Route path="/passwordforgotten" component={ForgottenPassword}/>
                     <Route path="/register" component={Register}/>
-                    <Route path={"/account"} component={Account}/>
-                    <Route path={"/createlobby"} component={CreateLobby}/>
+                    <Route path="/account" component={Account}/>
+                    <Route path="/admin" component={Admin}/>
+                    <Route path="/createlobby" component={CreateLobby}/>
                     <Route exact path={"/game/:gameName"} render={(props) =>
                         <Lobbies gameName={props.match.params.gameName}/>
                     }/>
@@ -31,7 +33,6 @@ function Router(){
                         <Lobby id={props.match.params.id}/>
                     }/>
                 </Col>
-                <Col sm={12} md={1} lg={1}/>
             </Row>
         </div>
 }

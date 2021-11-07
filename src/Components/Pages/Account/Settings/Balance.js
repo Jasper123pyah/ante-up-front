@@ -1,11 +1,24 @@
 import React from "react";
+import {DefaultButton, PrimaryButton, Separator, TextField} from "@fluentui/react";
 
 class Balance extends React.Component{
     render() {
         return <div>
-            <div>Transaction History</div>
-            <div>Up balance</div>
-            <div>Cash out</div>
+            <div style={{fontSize:"20px"}}>Deposit</div>
+            <div>Add money to your balance through PayPal.</div>
+            <div className={"accountDisable"}>
+
+            </div>
+            <div style={{fontSize:"20px"}}>Withdraw</div>
+            <div>Cash out your balance through PayPal.</div>
+            <div className={"accountDisable"}>
+
+            </div>
+            <div style={{fontSize:"20px"}}>Transaction History</div>
+            <div>See all your transactions.</div>
+            <div className={"accountProfile"}>
+
+            </div>
         </div>
     }
 }

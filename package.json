@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.5.0",
     "@fluentui/example-data": "^8.2.6",
     "@fluentui/react": "^8.30.2",
     "@microsoft/signalr": "^5.0.10",
@@ -20,6 +21,8 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
+    "react-spinners": "^0.11.0",
+    "react-spinners-loading": "^1.0.0",
     "react-transition-group": "^4.4.2",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",

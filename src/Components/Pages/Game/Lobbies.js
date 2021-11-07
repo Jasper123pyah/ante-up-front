@@ -10,6 +10,7 @@ function Lobbies(props){
 
     const history = useHistory();
     const [lobbies, setLobbies] = useState([]);
+    const [items, setItems] = useState(lobbies);
     useEffect(() => {
         if(props.api !== undefined) {
             props.api.get('/wager/game/' + gameName).then(res => {
@@ -118,7 +119,6 @@ function Lobbies(props){
             },
         },
     ]);
-    const [items, setItems] = useState(lobbies);
     function _onColumnClick(e, column){
 
         const newColumns = columns.slice();
@@ -161,11 +161,9 @@ function Lobbies(props){
             <Col sm={12} md={8} lg={8}>
                 <div style={{fontSize:"40px"}}>{gameName}</div>
                 <Row>
-                    <Col>
+                    <Col md={4} lg={4}>
                         <TextField label="Filter by name" onChange={_onChangeText} />
                     </Col>
-                    <Col/>
-                    <Col/>
                 </Row>
 
                 <DetailsList

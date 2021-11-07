@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import { CommandBar } from '@fluentui/react/lib/CommandBar';
 import {getAccountInfo, getAPI} from "../../Core/Global/global.selectors";
@@ -7,6 +7,7 @@ import Logo from "./Logo";
 import {initializeIcons} from "@fluentui/font-icons-mdl2";
 import {useHistory} from "react-router-dom";
 import {setAccountInfo} from "../../Core/Global/global.actions";
+import {PulseLoader} from "react-spinners";
 
 initializeIcons();
 const axios = require('axios');
@@ -17,9 +18,10 @@ const api = axios.create({
 
 function Header(props) {
     let history = useHistory();
-
+    const[loading, setLoading] = useState(false);
     useEffect(() => {
         if (api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
+            setLoading(true);
             api.get('account/info', {
                 params: {
                     token: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
@@ -27,6 +29,7 @@ function Header(props) {
             }).then(res => {
                 let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
                 props.dispatch(setAccountInfo(resInfo))
+                setLoading(false);
             })
         }
     }, []);
@@ -113,6 +116,9 @@ function Header(props) {
                     items={_items}
                     farItems={_farItems}
                 />
+        {loading ? <div style={{position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
+            <PulseLoader color={"#39ff13"} size={40}/>
+        </div> : <div></div>}
     </div>
 
 }

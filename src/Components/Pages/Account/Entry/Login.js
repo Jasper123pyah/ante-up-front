@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import { setUserData} from "../../../../Core/Authentication/authentication.action";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 import {setConnection} from "../../../../Core/Global/global.actions";
+import {PulseLoader} from "react-spinners";
 
 const mapStateToProps = (state) => {
     return {
@@ -60,6 +61,7 @@ function Login(props){
 
             history.push("/account");
             setLoading(false);
+            window.location.reload();
         }catch{
             console.log("Connection Failed")
         }
@@ -115,7 +117,9 @@ function Login(props){
                         onChange={handlePassword}
                     />
                     <div style={{color:"#a4262c"}}>{loginError}</div>
-                    <div>{loading ? "Loading..." : ""}</div>
+                    <div>{loading ? <div style={{position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
+                        <PulseLoader color={"#39ff13"} size={40}/>
+                    </div> : ""}</div>
                     <PrimaryButton onClick={Confirm} style={{float:"right"}}>Login</PrimaryButton>
                     <Link to={"/passwordforgotten"}>Forgotten Password?</Link>
                     <br/>

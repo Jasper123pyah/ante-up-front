@@ -1,20 +1,14 @@
 import * as React from 'react';
-import {IconButton, List, TextField} from '@fluentui/react';
+import {IconButton, List, Separator, TextField} from '@fluentui/react';
 import {useEffect, useState} from "react";
 import {getAPI, getGlobalConnection} from "../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 
-const onRenderCell = (item) => {
-    let fullString= item.sender + ": " + item.text
-    return <div style={{marginLeft: "5px", width:"95%", overflowWrap:"break-word"}}>
-        {fullString}
-    </div>
-}
 
 function FriendChatbox(props) {
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState(props.messages);
     const [text, setText] = useState("");
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (props.connection !== undefined) {
             props.connection.on("NewFriendMessage", () => {
@@ -22,9 +16,9 @@ function FriendChatbox(props) {
                 gotoBottom();
             });
         }
-        setItems(props.items)
+        setItems(props.messages)
         gotoBottom()
-    }, [props.connection, props.items]);
+    }, [props.connection, props.messages, props.name]);
 
     useEffect(() =>
         () => props.connection ? props.connection.off("NewFriendMessage") : null, []);
@@ -33,11 +27,17 @@ function FriendChatbox(props) {
         if(props.api !== undefined){
             let friendName = props.name;
             let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
-            props.api.get('/account/friend/chat', {friendName : friendName, token: token}).then(res => {
-                setItems(res.data.message);
+            props.api.get('/account/friend/chat',  {params:{ friendName, token}}).then(res => {
+                setItems(res.data.messages);
                 gotoBottom();
-            })
+            }).catch(err => console.log(err.response.status))
         }
+    }
+    const renderItem = (item) => {
+        let fullString = item.senderName + ": " + item.text;
+        return <div style={{height:"22px", margin:"1%"}}>
+            {fullString}
+        </div>
     }
 
     function gotoBottom(){
@@ -67,15 +67,20 @@ function FriendChatbox(props) {
         }
     }
 
-    return <div>
-        <div>
-            Chat with {props.name}
+    function closeChat(){
+        props.closeChat("");
+    }
+
+    return <div className={"friendChatBox"}>
+        <div style={{textAlign:"center", fontSize:"24px"}}>
+            {props.name}
+            <div style={{float:"right"}}>
+                <IconButton onClick={closeChat} iconProps={{iconName:"Cancel"}}/>
+            </div>
         </div>
-        <div id="chat" className={"chatBox"}>
-            <List
-                items={items}
-                onRenderCell={onRenderCell}
-            />
+        <Separator className={"separator"}/>
+        <div id="chat" className={"fChatBox"}>
+            {items.map(item => <div>{renderItem(item)}</div>)}
         </div>
         <div>
             <div style={{width: "90%", float: "left"}}>
@@ -85,7 +90,7 @@ function FriendChatbox(props) {
                            onChange={handleUserInput}
                 />
             </div>
-            <div style={{width: "10%", paddingLeft:"7px",float: "right"}}>
+            <div style={{width: "10%",float: "right"}}>
                 <IconButton iconProps={{iconName: 'Send'}} onClick={() => sendMessage()}/>
             </div>
         </div>

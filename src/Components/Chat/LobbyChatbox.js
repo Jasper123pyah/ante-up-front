@@ -4,13 +4,6 @@ import {useEffect, useState} from "react";
 import {getAPI, getGlobalConnection} from "../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 
-const onRenderCell = (item) => {
-    let fullString= item.sender + ": " + item.text
-    return <div style={{marginLeft: "5px", width:"95%", overflowWrap:"break-word"}}>
-        {fullString}
-    </div>
-}
-
 function LobbyChatbox(props) {
     const [items, setItems] = useState([]);
     const [text, setText] = useState("");
@@ -28,11 +21,12 @@ function LobbyChatbox(props) {
 
     useEffect(() =>
         () => props.connection ? props.connection.off("NewLobbyMessage") : null, []);
+
     function getChat(){
         let id = props.lobbyId
         if(props.api !== undefined){
             props.api.get('/wager/chat', { params: { id }}).then(res => {
-                setItems(res.data.message);
+                setItems(res.data.messages);
                 gotoBottom();
             })
         }
@@ -56,7 +50,6 @@ function LobbyChatbox(props) {
     }
 
     const handleUserInput = (e) => {
-        console.log(props.connection)
         setText(e.target.value);
     };
 
@@ -65,9 +58,15 @@ function LobbyChatbox(props) {
             sendMessage()
         }
     }
+    const onRenderCell = (item) => {
+        let fullString= item.senderName + ": " + item.text
+        return <div style={{marginLeft: "5px", width:"95%", overflowWrap:"break-word"}}>
+            {fullString}
+        </div>
+    }
 
     return <div>
-        <div id="chat" className={"chatBox"}>
+        <div id="chat" className={"lChatBox"}>
             <List
                 items={items}
                 onRenderCell={onRenderCell}
