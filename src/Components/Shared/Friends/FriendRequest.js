@@ -7,8 +7,7 @@ function FriendRequest(props){
     function respondFriendRequest(friendName, input){
         props.api.post("account/friendrequest", {
             accepted: input,
-            friendName: friendName,
-            token: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
+            friendName: friendName
         }).then(() => props.getRequests())
     }
 

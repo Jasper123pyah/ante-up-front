@@ -31,11 +31,7 @@ function Settings(props){
             history.push("/login");
         }
         if(props.api !== undefined) {
-            props.api.get('account/info', {
-                params: {
-                    token: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
-                }
-            }).then(res => {
+            props.api.get('account/info').then(res => {
                 let resInfo = {username: res.data.username, balance: res.data.balance, email: res.data.email};
                 setAccountInfo(resInfo);
             })

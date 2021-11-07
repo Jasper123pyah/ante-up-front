@@ -27,7 +27,7 @@ function FriendChatbox(props) {
         if(props.api !== undefined){
             let friendName = props.name;
             let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
-            props.api.get('/account/friend/chat',  {params:{ friendName, token}}).then(res => {
+            props.api.get('/account/friend/chat' + friendName).then(res => {
                 setItems(res.data.messages);
                 gotoBottom();
             }).catch(err => console.log(err.response.status))

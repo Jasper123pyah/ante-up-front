@@ -12,7 +12,7 @@ const initialState = {
     wagerAPI: undefined
 }
 
-export default function globalReducer(state = initialState, action) {
+export default function globalReducer(state= initialState, action) {
     switch (action.type) {
         case Actions.setConnection:
             return {...state, connection: action.payload.connection}

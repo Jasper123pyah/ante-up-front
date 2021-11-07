@@ -15,7 +15,7 @@ function Lobbies(props){
         if(props.api !== undefined) {
             props.api.get('/wager/game/' + gameName).then(res => {
                 let lobbiestoAdd = [];
-                res.data.map((wager) =>{
+                res.data.map((wager) => {
                     let team1 = wager.team1 !== null ? wager.team1.players.length : 0;
                     let team2 = wager.team2 !== null ? wager.team2.players.length : 0;
                     let teamlength = team1 + team2;

@@ -30,9 +30,8 @@ function FriendRequestList(props){
 
 
     function getFriendRequests(){
-        let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
         if(props.api !== undefined) {
-            props.api.get("account/friendrequests/"+token).then(res => {
+            props.api.get("account/friendrequests").then(res => {
                 setFriendRequests(res.data);
             })
         }

@@ -9,12 +9,6 @@ import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/sign
 import {setConnection} from "../../../../Core/Global/global.actions";
 import {PulseLoader} from "react-spinners";
 
-const mapStateToProps = (state) => {
-    return {
-        api : getAPI(state)
-    };
-};
-
 function Login(props){
 
     const [password, setPassword] = useState("");
@@ -73,7 +67,6 @@ function Login(props){
                 props.api.post("/account/login", {
                     password: password,
                     email: email
-
                 }).then(res => {
                     let connection = new HubConnectionBuilder()
                         .withUrl("https://localhost:5001/antehub", {
@@ -131,5 +124,10 @@ function Login(props){
     </div>
 
 }
+const mapStateToProps = (state) => {
+    return {
+        api : getAPI(state)
+    };
+};
 
 export default connect(mapStateToProps)(Login);

@@ -16,9 +16,8 @@ function Admin(props){
 
     useEffect(()=>{
         setLoading(true);
-        let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
         if(props.api !== undefined){
-            props.api.get('account/admin/'+ token).then(res => {
+            props.api.get('admin').then(res => {
                 if(!res.data){
                     history.push("/");
                 }else{

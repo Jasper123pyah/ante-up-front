@@ -63,13 +63,11 @@ function CreateLobby(props){
                 description: desc,
                 ante: ante,
                 game: selectedGame,
-                lobbysize: selectedLobbySize,
-                creatorid: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
+                lobbysize: selectedLobbySize
             }).then(res => {
                 let lobbyId = res.data;
                 props.connection.invoke("CreateLobby", lobbyId);
                 history.push("/lobby/"+lobbyId);
-
             })
         }
         else{

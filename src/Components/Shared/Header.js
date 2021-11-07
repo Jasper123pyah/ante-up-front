@@ -22,11 +22,7 @@ function Header(props) {
     useEffect(() => {
         if (api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
             setLoading(true);
-            api.get('account/info', {
-                params: {
-                    token: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
-                }
-            }).then(res => {
+            api.get('account/info').then(res => {
                 let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
                 props.dispatch(setAccountInfo(resInfo))
                 setLoading(false);

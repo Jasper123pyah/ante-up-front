@@ -13,11 +13,9 @@ function FriendList(props){
     },[props.api]);
 
     async function getFriends(){
-        let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
-
         if(props.api !== undefined) {
             setLoading(true);
-            let res  = await props.api.get("account/friends/"+token);
+            let res  = await props.api.get("account/friends");
             setFriends(res.data);
             setItems(res.data);
             setLoading(false);

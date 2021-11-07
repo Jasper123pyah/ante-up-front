@@ -22,8 +22,7 @@ function FriendPanel(props){
     }
     function getChat(friendName){
         if(props.api !== undefined){
-            let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
-            props.api.get('/account/friend/chat',  {params:{ friendName, token}}).then(res => {
+            props.api.get('/account/friend/chat'+ friendName).then(res => {
                 setChatMessages(res.data.messages);
             }).catch(err => console.log(err.response.status))
         }

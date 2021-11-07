@@ -7,8 +7,8 @@ import {darkTheme, lightTheme} from "./themes";
 import {connect} from "react-redux";
 import { setConfiguration } from 'react-grid-system';
 import Router from "./Components/Router";
-import {setAPI, setConnection, setGames, setWagerAPI} from "./Core/Global/global.actions";
-import {getAPI, getGlobalConnection,} from "./Core/Global/global.selectors";
+import {setAPI, setConnection, setWagerAPI} from "./Core/Global/global.actions";
+import {getGlobalConnection,} from "./Core/Global/global.selectors";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 import Friends from "./Components/Shared/Friends/Friends";
 
@@ -16,6 +16,13 @@ setConfiguration({ maxScreenClass: 'xl' });
 setRTL(true);
 
 const axios = require('axios');
+
+if (localStorage.getItem('ANTE_UP_SESSION_TOKEN')) {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('ANTE_UP_SESSION_TOKEN');
+} else {
+    axios.defaults.headers.common['Authorization'] = null;
+}
+
 const api = axios.create({
     baseURL:'http://localhost:5000/',
     timeout: 10000
@@ -76,7 +83,6 @@ function App (props){
 
 const mapStateToProps = (state) => {
     return {
-        api : getAPI(state),
         connection : getGlobalConnection(state)
     };
 };
