@@ -10,25 +10,20 @@ import {setAccountInfo} from "../../Core/Global/global.actions";
 import {PulseLoader} from "react-spinners";
 
 initializeIcons();
-const axios = require('axios');
-const api = axios.create({
-    baseURL:'http://localhost:5000/',
-    timeout: 10000
-});
 
 function Header(props) {
     let history = useHistory();
     const[loading, setLoading] = useState(false);
     useEffect(() => {
-        if (api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
+        if (props.api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== undefined ) {
             setLoading(true);
-            api.get('account/info').then(res => {
+            props.api.get('account/info').then(res => {
                 let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
                 props.dispatch(setAccountInfo(resInfo))
                 setLoading(false);
             })
         }
-    }, []);
+    }, [props.api, localStorage]);
 
     function handleAccount() {
         if (localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {

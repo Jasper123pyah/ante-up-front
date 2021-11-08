@@ -19,8 +19,8 @@ function Lobby(props) {
 
     useEffect(() => {
         if (props.connection !== undefined) {
-            props.connection.on("LobbyLeft", (lobbyJoin) => {
-                console.log(lobbyJoin.player + " left the game. ")
+            props.connection.on("LobbyLeft", (lobbyLeave) => {
+                console.log(lobbyLeave.player + " left the game. ")
                 getWager();
             });
             props.connection.on("YouLeft", () => {
@@ -155,7 +155,7 @@ function Lobby(props) {
     }
     let boxHeight = (((wager.playercap / 2) * 50) + "px").toString();
 
-    return loading ? <div style={{position:"fixed", top:"45%", left:"46%", overflowX:"hidden"}}>
+    return loading ? <div style={{position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
         <PulseLoader color={"#39ff13"} size={40}/>
     </div> : <div>
         <div style={{fontSize: "40px"}}>{wager.hostName}'s game</div>

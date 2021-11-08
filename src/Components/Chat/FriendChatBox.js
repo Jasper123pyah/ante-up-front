@@ -9,6 +9,7 @@ function FriendChatbox(props) {
     const [items, setItems] = useState(props.messages);
     const [text, setText] = useState("");
     const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (props.connection !== undefined) {
             props.connection.on("NewFriendMessage", () => {
@@ -26,16 +27,15 @@ function FriendChatbox(props) {
     function getChat(){
         if(props.api !== undefined){
             let friendName = props.name;
-            let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
-            props.api.get('/account/friend/chat' + friendName).then(res => {
+            props.api.get('/account/friend/chat/' + friendName).then(res => {
                 setItems(res.data.messages);
                 gotoBottom();
             }).catch(err => console.log(err.response.status))
         }
     }
     const renderItem = (item) => {
-        let fullString = item.senderName + ": " + item.text;
-        return <div style={{height:"22px", margin:"1%"}}>
+        let fullString= item.senderName + ": " + item.text
+        return <div style={{marginLeft: "5px", width:"95%", overflowWrap:"break-word"}}>
             {fullString}
         </div>
     }
@@ -70,7 +70,9 @@ function FriendChatbox(props) {
     function closeChat(){
         props.closeChat("");
     }
-
+    if(items === undefined){
+        getChat();
+    };
     return <div className={"friendChatBox"}>
         <div style={{textAlign:"center", fontSize:"24px"}}>
             {props.name}

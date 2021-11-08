@@ -73,8 +73,8 @@ function Register(props){
     const handleUsername = (e, value) => {
         setUsername(value);
         setUsernameError("");
-        if(username.length > 30){
-            setUsernameError("Username can't be longer than 30 characters.")
+        if(username.length > 20){
+            setUsernameError("Username can't be longer than 20 characters.")
         }
     }
     const handleEmail = (e, value) => {

@@ -32,7 +32,7 @@ function FriendList(props){
         {loading ? <div style={{paddingLeft:"110px", paddingTop:"40px"}}>
             <PulseLoader color={"#39ff13"} size={20}/>
         </div> : friends.length === 0 ?
-            <div style={{textAlign:"center"}}>"You have no friends, go to Friend Requests to add friends."</div> :
+            <div style={{margin:"10px", textAlign:"center"}}>You have no friends, go to Friend Requests to add friends.</div> :
             <div>
                 <div style={{height:"44px", marginTop:"10px", marginLeft:"10px"}}>
                     <TextField placeholder={"Filter friends by name..."}

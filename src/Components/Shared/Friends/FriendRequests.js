@@ -1,5 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {DetailsList, DetailsListLayoutMode, IconButton, SelectionMode, Separator, TextField} from "@fluentui/react";
+import {
+    Text,
+    Callout,
+    IconButton,
+    TextField
+} from "@fluentui/react";
 import {getAPI, getGlobalConnection} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import FriendRequest from "./FriendRequest";
@@ -9,6 +14,7 @@ function FriendRequestList(props){
     const [text, setText] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [friendRequests, setFriendRequests] = useState([]);
+    const [addedName, setAddedName] = useState("");
 
     useEffect(() => {
         getFriendRequests();
@@ -18,6 +24,7 @@ function FriendRequestList(props){
             });
             props.connection.on("FriendRequest Sent", (friendName) =>{
                 setText("");
+                setAddedName(friendName);
             });
         }
     },[props.api]);
@@ -40,6 +47,7 @@ function FriendRequestList(props){
     const handleText = (e, value) => {
         setText(value)
         setErrorMessage("");
+        setAddedName("");
     }
     const keyPress = (e) =>{
         if(e.charCode === 13){
@@ -57,20 +65,22 @@ function FriendRequestList(props){
         }
     }
     return<div>
-        <div style={{paddingLeft: "10px", marginTop:"10px", height:"45px"}}>
+        <div style={{paddingLeft: "10px", marginTop:"10px", height:"35px"}}>
             <div style={{width: "90%", float: "left"}}>
                 <TextField errorMessage={errorMessage} placeholder={"Add friend..."}
                            value={text}
                            onKeyPress={keyPress}
                            onChange={handleText}
+                           id={"textField"}
                 />
             </div>
             <div style={{width:"10%", float: "right"}}>
                 <IconButton iconProps={{iconName: 'Add'}} onClick={addFriend}/>
             </div>
         </div>
+        {addedName !== "" ? <div style={{color:"#39ff13", marginLeft:"10px"}}>Friendrequest sent to {addedName}.</div> : <div/>}
         {friendRequests.length === 0 ?
-            <div style={{textAlign:"center"}}>You have no new friendrequests.</div> :
+            <div style={{marginTop:"20px", textAlign:"center"}}>You have no new friendrequests.</div> :
             friendRequests.map(item => <FriendRequest getRequests={getFriendRequests} api={props.api} name={item}/>)}
     </div>
 }

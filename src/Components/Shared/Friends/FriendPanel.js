@@ -14,15 +14,15 @@ function FriendPanel(props){
             setChatName("");
         }
         else{
-            setChatName(newName);
             if(newName !== ""){
                 getChat(newName)
             }
+            setChatName(newName);
         }
     }
     function getChat(friendName){
         if(props.api !== undefined){
-            props.api.get('/account/friend/chat'+ friendName).then(res => {
+            props.api.get('/account/friend/chat/'+ friendName).then(res => {
                 setChatMessages(res.data.messages);
             }).catch(err => console.log(err.response.status))
         }
