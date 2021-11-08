@@ -17,8 +17,8 @@ function GameCard (props){
     return <Card tag="a" onClick={redirectToGame} style={{cursor: "pointer", marginBottom:"15px", width:"100%"}}>
         <Card.Img  width={285}  variant="top" src={"./Images/"+props.img} />
         <Card.Body style={{backgroundColor: cardBodyColor}}>
-            <Card.Title>{props.name}</Card.Title>
-            <Card.Text>{props.playercount} Players</Card.Text>
+            <Card.Title style={{fontSize:"2.5vh"}} >{props.name}</Card.Title>
+            <Card.Text style={{fontSize:"2vh"}} >{props.playercount} Players</Card.Text>
         </Card.Body>
     </Card>
 

@@ -14,6 +14,7 @@ initializeIcons();
 function Header(props) {
     let history = useHistory();
     const[loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (props.api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== undefined ) {
             setLoading(true);

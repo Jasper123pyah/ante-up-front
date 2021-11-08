@@ -146,5 +146,12 @@
   border: 0;
   marginTop:"7px";
 }
+.adminCreatePanel{
+  height: 105px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #575759;
+  margin-bottom: 20px;
+}
 
 

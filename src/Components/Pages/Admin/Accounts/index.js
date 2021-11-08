@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {getAPI} from "../../../Core/Global/global.selectors";
+import {getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 
 function AdminAccounts(props){
