@@ -3,14 +3,14 @@ import React, {useEffect} from "react";
 import Header from "./Components/Shared/Header";
 import { setRTL } from '@fluentui/react/lib/Utilities';
 import { ThemeProvider} from '@fluentui/react';
-import {darkTheme, lightTheme} from "./themes";
+import {darkTheme} from "./themes";
 import {connect} from "react-redux";
 import { setConfiguration } from 'react-grid-system';
 import Router from "./Components/Router";
 import {setAPI, setConnection, setWagerAPI} from "./Core/Global/global.actions";
 import {getGlobalConnection,} from "./Core/Global/global.selectors";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
-import Friends from "./Components/Shared/Friends/Friends";
+import Friends from "./Components/Shared/Friends";
 
 setConfiguration({ maxScreenClass: 'xl' });
 setRTL(true);
@@ -24,7 +24,7 @@ if (localStorage.getItem('ANTE_UP_SESSION_TOKEN')) {
 }
 
 const api = axios.create({
-    baseURL:'http://localhost:5000/',
+    baseURL:'https://localhost:5001/',
     timeout: 10000
 });
 
@@ -67,13 +67,10 @@ function App (props){
         props.dispatch(setAPI(api));
         props.dispatch(setWagerAPI(wagerApi));
 
-        if(localStorage.getItem('darkMode') === undefined){
-            localStorage.setItem('darkMode', "true")
-        }
     },[]);
 
     return <div style={{overflowX:"hidden"}}>
-        <ThemeProvider applyTo={"body"} theme={localStorage.getItem('darkMode') === 'true' ? darkTheme : lightTheme}>
+        <ThemeProvider applyTo={"body"} theme={darkTheme}>
             <Header/>
             <Router/>
             <Friends/>

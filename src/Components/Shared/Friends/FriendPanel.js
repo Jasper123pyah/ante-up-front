@@ -5,12 +5,13 @@ import FriendRequestList from "./FriendRequests";
 import FriendChatBox from "../../Chat/FriendChatBox";
 import {getAPI} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
+import "./Friends.css";
 
 function FriendPanel(props){
     const [chatName, setChatName] = useState("");
     const [chatMessages, setChatMessages] = useState([]);
     const handleChat = (newName) =>{
-        if(chatName == newName){
+        if(chatName === newName){
             setChatName("");
         }
         else{

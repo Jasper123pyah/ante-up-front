@@ -87,57 +87,55 @@ function CreateLobby(props){
     );
 
     return <div style={{overflow:"hidden"}}>
-        <Row>
-            <Col md={2} lg={2}/>
-            <Col sm={12} md={8} lg={8}>
-                <div style={{fontSize:"40px"}}>Create a wager</div>
-                <Dropdown
-                    placeholder={"Select Game"}
-                    style={{width:"30%"}}label={"Game"}
-                    options={dropDownItems}
-                    onChange={(e, option) => {
-                        setSelectedGame(option.text);
-                        setCreationError("");
-                    }}
-                />
-                <TextField label={"Name"} onChange={(e, value) =>{
-                    setTitle(value);
+        <div>
+            <div style={{fontSize:"40px"}}>Create a wager</div>
+            <Dropdown
+                placeholder={"Select Game"}
+                style={{width:"30%"}}label={"Game"}
+                options={dropDownItems}
+                onChange={(e, option) => {
+                    setSelectedGame(option.text);
                     setCreationError("");
-                }} />
-                <TextField multiline rows={3} label="Description" onChange={(e, value) =>{
-                    setDesc(value);
-                    setCreationError("");
-                }} />
-                <Row>
-                    <Col>
-                        <Dropdown
-                            placeholder={"Select Lobby Size"}
-                            label={"Lobby Size"}
-                            options={lobbySizes}
-                            onChange={(e, option) =>{
-                                setSelectedLobbySize(option.text);
-                                setCreationError("");}}
-                        />
-                    </Col>
-                    <Col>
-                        <TextField
-                            value={ante}
-                            onChange={onChangeAnte}
-                            prefix="$"
-                            label="Ante"
-                        />
-                    </Col>
-                    <Col>
-                        <PrimaryButton
-                            style={{position:"absolute", right:15, bottom:0}}
-                            text={"Create"}
-                            onClick={createWager}
-                        />
-                    </Col>
-                </Row>
-                <div style={{color:"#a4262c", float:"right"}}>{creationError}</div>
-            </Col>
-        </Row>
+                }}
+            />
+            <TextField label={"Name"} onChange={(e, value) =>{
+                setTitle(value);
+                setCreationError("");
+            }} />
+            <TextField multiline rows={3} label="Description" onChange={(e, value) =>{
+                setDesc(value);
+                setCreationError("");
+            }} />
+            <Row>
+                <Col>
+                    <Dropdown
+                        placeholder={"Select Lobby Size"}
+                        label={"Lobby Size"}
+                        options={lobbySizes}
+                        onChange={(e, option) =>{
+                            setSelectedLobbySize(option.text);
+                            setCreationError("");}}
+                    />
+                </Col>
+                <Col>
+                    <TextField
+                        value={ante}
+                        onChange={onChangeAnte}
+                        prefix="$"
+                        label="Ante"
+                    />
+                </Col>
+                <Col>
+                    <PrimaryButton
+                        style={{position:"absolute", right:15, bottom:0}}
+                        text={"Create"}
+                        onClick={createWager}
+                    />
+                </Col>
+            </Row>
+            <div style={{color:"#a4262c", float:"right"}}>{creationError}</div>
+        </div>
+
     </div>
 }
 

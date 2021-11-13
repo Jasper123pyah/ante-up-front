@@ -3,6 +3,7 @@ import {getAPI} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {TextField} from "@fluentui/react";
 import {PulseLoader} from "react-spinners";
+import "./Friends.css";
 
 function FriendList(props){
     const [friends, setFriends] = useState([]);

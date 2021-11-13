@@ -1,29 +1,3 @@
-export const lightTheme ={
-    palette: {
-        themePrimary: '#098a00',
-        themeLighterAlt: '#f1faf0',
-        themeLighter: '#c9ecc6',
-        themeLight: '#9edc9a',
-        themeTertiary: '#51b94a',
-        themeSecondary: '#1b9812',
-        themeDarkAlt: '#087c00',
-        themeDark: '#076900',
-        themeDarker: '#054d00',
-        neutralLighterAlt: '#f8f8f8',
-        neutralLighter: '#f4f4f4',
-        neutralLight: '#eaeaea',
-        neutralQuaternaryAlt: '#dadada',
-        neutralQuaternary: '#d0d0d0',
-        neutralTertiaryAlt: '#c8c8c8',
-        neutralTertiary: '#204159',
-        neutralSecondary: '#0c2537',
-        neutralPrimaryAlt: '#091f2f',
-        neutralPrimary: '#000000',
-        neutralDark: '#020d15',
-        black: '#01070b',
-        white: '#ffffff',
-    }};
-
 export const darkTheme ={
     palette: {
         themePrimary: '#39ff13',

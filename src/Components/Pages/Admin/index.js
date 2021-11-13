@@ -8,37 +8,34 @@ import {PulseLoader} from "react-spinners";
 import AdminWagers from "./Wagers";
 import AdminGames from "./Games";
 import AdminAccounts from "./Accounts";
+import CenteredLoader from "../../Shared/CenteredLoader";
 
-function Admin(props){
+function Admin(props) {
 
     const [loading, setLoading] = useState(true);
     let history = useHistory();
 
-    useEffect(()=>{
+    useEffect(() => {
         setLoading(true);
-        if(props.api !== undefined){
+        if (props.api !== undefined) {
             props.api.get('admin').then(res => {
-                if(!res.data){
+                if (!res.data) {
                     history.push("/");
-                }else{
+                } else {
                     setLoading(false);
                 }
             });
         }
-    },[props.api]);
+    }, [props.api]);
 
-    return<div>
-        {loading ? <div style={{position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
-                <PulseLoader color={"#39ff13"} size={40}/>
-            </div> :
-        <Row>
-            <Col/>
-            <Col sm={12} md={10} lg={10}>
-                <div style={{fontSize:"40px", marginLeft:"15px", marginBottom:"10px"}}>Admin Panel</div>
+    return <div>
+        {loading ? <CenteredLoader/> :
+            <div>
+                <div style={{fontSize: "40px", marginLeft: "15px", marginBottom: "10px"}}>Admin Panel</div>
                 <Pivot>
                     <PivotItem headerText={"Wagers"}>
                         <div className={"pivotContent"}>
-                           <AdminWagers/>
+                            <AdminWagers/>
                         </div>
                     </PivotItem>
                     <PivotItem headerText={"Games"}>
@@ -52,11 +49,12 @@ function Admin(props){
                         </div>
                     </PivotItem>
                 </Pivot>
-            </Col>
-            <Col/>
-        </Row>}
+            </div>
+
+        }
     </div>
 }
+
 const mapStateToProps = (state) => {
     return {
         api: getAPI(state)

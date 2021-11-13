@@ -14,7 +14,7 @@ function GameCard (props){
         cardBodyColor = "#ffffff"
     }
 
-    return <Card tag="a" onClick={redirectToGame} style={{cursor: "pointer", marginBottom:"15px", width:"100%"}}>
+    return <Card tag="a" onClick={redirectToGame} className={"gameCard"}>
         <Card.Img  width={285}  variant="top" src={"./Images/"+props.img} />
         <Card.Body style={{backgroundColor: cardBodyColor}}>
             <Card.Title style={{fontSize:"2.5vh"}} >{props.name}</Card.Title>

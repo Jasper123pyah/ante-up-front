@@ -8,6 +8,7 @@ import LobbyChatbox from "../../Chat/LobbyChatbox";
 import {useHistory} from "react-router-dom";
 import {setAccountInfo} from "../../../Core/Global/global.actions";
 import {PulseLoader} from "react-spinners";
+import CenteredLoader from "../../Shared/CenteredLoader";
 
 function Lobby(props) {
     const [wager, setWager] = useState({});
@@ -99,7 +100,9 @@ function Lobby(props) {
         let emptySlots = teamCap - team.length;
         let items = [];
         for (let i = 0; i < emptySlots; i++) {
-            if (i === 0 && !team.some(player => player.id === props.accountInfo.id))
+            if (i === 0 &&
+                !team.some(player => player.id === props.accountInfo.id) &&
+                localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null)
                 items.push(<div style={{display: "flex", alignItems: "center"}} className={boxItemClass}>
                     <DefaultButton onClick={() => joinTeam(number)}
                                    style={{marginRight: "10px", position: "absolute", right: "10px"}} text={"Join"}/>
@@ -155,9 +158,7 @@ function Lobby(props) {
     }
     let boxHeight = (((wager.playercap / 2) * 50) + "px").toString();
 
-    return loading ? <div style={{position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
-        <PulseLoader color={"#39ff13"} size={40}/>
-    </div> : <div>
+    return loading ? <CenteredLoader/> : <div>
         <div style={{fontSize: "40px"}}>{wager.hostName}'s game</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.game} ● {playerCapToString()} ● ${wager.ante}</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.description}</div>
@@ -190,7 +191,7 @@ function Lobby(props) {
                 </div>
             </Col>
         </Row>
-        <Row>
+        {localStorage.getItem("ANTE_UP_SESSION_TOKEN") != null ? <Row>
             <Col>
                 <LobbyChatbox items={messages} lobbyId={wager.id}/>
             </Col>
@@ -203,7 +204,7 @@ function Lobby(props) {
                 </div>
             </Col>
             <Col/>
-        </Row>
+        </Row> : <div/>}
     </div>
 
 }

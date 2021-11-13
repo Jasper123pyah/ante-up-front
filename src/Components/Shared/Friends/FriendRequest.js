@@ -1,5 +1,6 @@
 import React from "react";
-import {IconButton, Separator} from "@fluentui/react";
+import {IconButton} from "@fluentui/react";
+import "./Friends.css";
 
 function FriendRequest(props){
 

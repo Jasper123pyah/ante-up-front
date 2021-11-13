@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {
-    Text,
-    Callout,
     IconButton,
     TextField
 } from "@fluentui/react";
 import {getAPI, getGlobalConnection} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import FriendRequest from "./FriendRequest";
+import "./Friends.css";
 
 function FriendRequestList(props){
 

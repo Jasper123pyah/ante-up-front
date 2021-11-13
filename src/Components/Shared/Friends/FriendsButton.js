@@ -1,5 +1,6 @@
 import React from "react";
 import {FontIcon} from "@fluentui/react";
+import "./Friends.css";
 
 function FriendsButton(props){
 

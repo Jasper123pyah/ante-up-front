@@ -1,157 +1,129 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
-.cardTitle{
-  margin-top: 10px;
-  text-align: center;
-  font-size: xx-large;
+.cardTitle {
+    margin-top: 10px;
+    text-align: center;
+    font-size: xx-large;
 }
-.Logo{
-  left: 20px;
-  margin-top: 7px;
-  z-index: 1;
+
+.Logo {
+    left: 20px;
+    margin-top: 7px;
+    z-index: 1;
 }
-.commandBar{
-  margin-top: 15px;
+
+.commandBar {
+    margin-top: 15px;
 }
-.Header{
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index:100;
-  padding-bottom:15px;
+
+.Header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding-bottom: 15px;
 }
-.pivotContent{
-  margin-left: 15px;
-  margin-top: 10px;
+
+.pivotContent {
+    margin-left: 15px;
+    margin-top: 10px;
 }
-.friendPanel{
-  padding-right: 10px;
-  border: 1px solid #575759;
-  border-radius: 5px;
-  background-color: #1e1f21;
-  position: fixed;
-  bottom: 90px;
-  right:5px;
-  z-index:100;
-  width:20%;
-  height: 70%;
+
+
+
+.friendChatBox {
+    border: 1px solid #575759;
+    border-radius: 5px;
+    background-color: #1e1f21;
+    position: fixed;
+    bottom: 90px;
+    right: 5px;
+    z-index: 100;
+    margin-right: 20%;
+    padding-bottom: 74px;
+    width: 20%;
+    height: 70%;
 }
-.friendChatBox{
-  border:1px solid #575759;
-  border-radius:5px;
-  background-color:#1e1f21;
-  position:fixed;
-  bottom: 90px;
-  right:5px;
-  z-index:100;
-  margin-right:20%;
-  padding-bottom:74px;
-  width:20%;
-  height:70%;
+
+.accountProfile {
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border: 1px solid #575759;
 }
-.friendItem{
-  display: flex;
-  align-items: center;
-  width:100%;
-  height:35px;
-  padding-left: 10px;
-  float: left;
-  font-size:16px;
+
+.accountDisable {
+    width: 100%;
+    height: 70px;
+    margin-top: 10px;
+    border: 1px solid #575759;
 }
-.friendItem:hover{
-  background-color: #2F3133 ;
-  cursor: pointer;
+
+.Divider {
+    font-size: 1px;
+    border-top: 1px solid;
+    margin-bottom: 15px;
 }
-.friendItem:active{
-  background-color: #3C3E41;
-}
-.friendsButton {
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  padding: 20px;
-}
-.roundedFixedBtn{
-  height: 60px;
-  line-height: 80px;
-  width: 60px;
-  font-size: 2em;
-  font-weight: bold;
-  border-radius: 50%;
-  background-color: #39ff13;
-  text-align: center;
-  cursor: pointer;
-}
-.friendsIcon{
-  position:absolute;
-  top:10%;
-  left:36%;
-  color: black;
-}
-.accountProfile{
-  width: 100%;
-  height: 200px;
-  margin-top: 10px;
-  margin-bottom: 30px;
-  border: 1px solid #575759;
-}
-.accountDisable{
-  width: 100%;
-  height: 70px;
-  margin-top: 10px;
-  border: 1px solid #575759;
-}
-.Divider{
-  font-size: 1px;
-  border-top: 1px solid;
-  margin-bottom: 15px;
-}
+
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-}
-.lobbyBox{
-  width: 100%;
-}
-.fChatBox{
-  height:100%;
-  overflow-y: scroll;
-}
-.lChatBox{
-  margin-top: 30px;
-  height:300px;
-  overflow-y: scroll;
-}
-.lobbyBoxItemDark{
-  width: 100%;
-  height: 50px;
-  border-bottom: 1px solid #39ff13;
-}
-.lobbyBoxItemLight{
-  width: 100%;
-  height: 50px;
-  border-bottom: 1px solid #098a00;
-}
-.separator{
-  font-size:1px;
-  margin-bottom: 5px;
-  padding:0px;
-}
-.headerLogo{
-  border: 0;
-  marginTop:"7px";
-}
-.adminCreatePanel{
-  height: 105px;
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #575759;
-  margin-bottom: 20px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
 
+.lobbyBox {
+    width: 100%;
+}
 
+.fChatBox {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.lChatBox {
+    margin-top: 30px;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.lobbyBoxItemDark {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #39ff13;
+}
+
+.lobbyBoxItemLight {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #098a00;
+}
+
+.separator {
+    font-size: 1px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+
+.gameCard {
+    cursor: pointer;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.headerLogo {
+    border: 0;
+    margin-top: 7px;
+}
+
+.adminCreatePanel {
+    height: 105px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #575759;
+    margin-bottom: 20px;
+}

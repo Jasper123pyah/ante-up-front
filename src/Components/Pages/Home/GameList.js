@@ -6,6 +6,7 @@ import {getAPI, getGames} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {setGames} from "../../../Core/Global/global.actions";
 import {PulseLoader} from "react-spinners";
+import CenteredLoader from "../../Shared/CenteredLoader";
 
 function GameList(props){
 
@@ -32,9 +33,7 @@ function GameList(props){
     }
 
     return <div>
-        {loading ? <div style={{position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
-                <PulseLoader color={"#39ff13"} size={40}/>
-            </div> :
+        {loading ? <CenteredLoader/>:
             <Row sm={1} md={2} lg={5} >
                 {gameList.map((Game) => (
                     <Col sm={12}>

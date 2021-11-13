@@ -7,7 +7,7 @@ import Logo from "./Logo";
 import {initializeIcons} from "@fluentui/font-icons-mdl2";
 import {useHistory} from "react-router-dom";
 import {setAccountInfo} from "../../Core/Global/global.actions";
-import {PulseLoader} from "react-spinners";
+import CenteredLoader from "./CenteredLoader";
 
 initializeIcons();
 
@@ -55,7 +55,7 @@ function Header(props) {
     ]
 
     let _farItems = [
-        {
+        /*{
             key: 'darkMode',
             text:'Dark Mode',
             ariaLabel:'Dark Mode',
@@ -63,7 +63,7 @@ function Header(props) {
             cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
             iconProps: { iconName: 'Contrast' },
             onClick: setDarkTheme
-        },
+        },*/
         {
             key: 'Wager',
             text: "Wager",
@@ -80,6 +80,7 @@ function Header(props) {
     if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") === null){
 
         _farItems =[
+            /*
             {
                 key: 'darkMode',
                 text:'Dark Mode',
@@ -88,7 +89,7 @@ function Header(props) {
                 cacheKey: 'myCacheKey',
                 iconProps: { iconName: 'Contrast' },
                 onClick: setDarkTheme
-            },
+            },*/
             {
                 key: 'account',
                 text: "Account" ,
@@ -108,9 +109,7 @@ function Header(props) {
                     items={_items}
                     farItems={_farItems}
                 />
-        {loading ? <div style={{position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
-            <PulseLoader color={"#39ff13"} size={40}/>
-        </div> : <div></div>}
+        {loading ? <CenteredLoader/> : <div></div>}
     </div>
 
 }

@@ -156,9 +156,6 @@ function Lobbies(props){
     };
 
     return<div>
-        <Row>
-            <Col/>
-            <Col sm={12} md={8} lg={8}>
                 <div style={{fontSize:"40px"}}>{gameName}</div>
                 <Row>
                     <Col md={4} lg={4}>
@@ -188,9 +185,6 @@ function Lobbies(props){
 
                     }}
                 />
-            </Col>
-            <Col/>
-        </Row>
     </div>
 }
 const mapStateToProps = (state) => {
