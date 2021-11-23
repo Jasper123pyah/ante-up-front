@@ -1,0 +1,16 @@
+.footer {
+    background-color: #0b0b0c;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+.logoSocials{
+    display: flex;
+    flex-direction: row ;
+}
+.socialsIcon{
+    margin:1vh;
+    color: #39ff13;
+    height:3vh;
+    width:3vh;
+}

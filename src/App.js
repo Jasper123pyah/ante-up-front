@@ -11,6 +11,8 @@ import {setAPI, setConnection, setWagerAPI} from "./Core/Global/global.actions";
 import {getGlobalConnection,} from "./Core/Global/global.selectors";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 import Friends from "./Components/Shared/Friends";
+import Footer from "./Components/Shared/Footer/Footer";
+import GameList from "./Components/Pages/Home/GameList";
 
 setConfiguration({ maxScreenClass: 'xl' });
 setRTL(true);
@@ -74,6 +76,7 @@ function App (props){
             <Header/>
             <Router/>
             <Friends/>
+            <Footer/>
         </ThemeProvider>
     </div>
 }

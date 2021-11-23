@@ -55,15 +55,6 @@ function Header(props) {
     ]
 
     let _farItems = [
-        /*{
-            key: 'darkMode',
-            text:'Dark Mode',
-            ariaLabel:'Dark Mode',
-            iconOnly: true,
-            cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
-            iconProps: { iconName: 'Contrast' },
-            onClick: setDarkTheme
-        },*/
         {
             key: 'Wager',
             text: "Wager",
@@ -80,16 +71,6 @@ function Header(props) {
     if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") === null){
 
         _farItems =[
-            /*
-            {
-                key: 'darkMode',
-                text:'Dark Mode',
-                ariaLabel:'Dark Mode',
-                iconOnly: true,
-                cacheKey: 'myCacheKey',
-                iconProps: { iconName: 'Contrast' },
-                onClick: setDarkTheme
-            },*/
             {
                 key: 'account',
                 text: "Account" ,
