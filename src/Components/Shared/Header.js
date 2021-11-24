@@ -6,14 +6,16 @@ import "../../App.css"
 import Logo from "./Logo";
 import {initializeIcons} from "@fluentui/font-icons-mdl2";
 import {useHistory} from "react-router-dom";
-import {setAccountInfo} from "../../Core/Global/global.actions";
+import {setAccountInfo, setWagerModalOpen} from "../../Core/Global/global.actions";
 import CenteredLoader from "./CenteredLoader";
+import WagerModal from "../Pages/Game/Create Wager/WagerModal";
 
 initializeIcons();
 
 function Header(props) {
     let history = useHistory();
     const[loading, setLoading] = useState(false);
+    const[showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         if (props.api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== undefined ) {
@@ -34,19 +36,6 @@ function Header(props) {
         }
     }
 
-    function handleCreate() {
-        history.push("/createlobby")
-    }
-
-    function setDarkTheme() {
-        if (localStorage.getItem('darkMode') === "true") {
-            localStorage.setItem('darkMode', 'false')
-        } else {
-            localStorage.setItem('darkMode', 'true')
-        }
-        window.location.reload();
-    }
-
     let _items = [
         {
             key: "Home",
@@ -59,7 +48,7 @@ function Header(props) {
             key: 'Wager',
             text: "Wager",
             iconProps: { iconName: 'Add' },
-            onClick: handleCreate
+            onClick: changeShowModal
         },
         {
             key: 'account',
@@ -79,20 +68,20 @@ function Header(props) {
             },
         ]
     }
-    let backGroundColor = "#1e1f21";
-    if(localStorage.getItem('darkMode') === 'false'){
-        backGroundColor = "#ffffff"
+    function changeShowModal(){
+        showModal ? setShowModal(false) : setShowModal(true);
     }
-
-    return <div className={"Header"} style={{backgroundColor:backGroundColor}}>
-                <CommandBar
-                    className={"commandBar"}
-                    items={_items}
-                    farItems={_farItems}
-                />
-        {loading ? <CenteredLoader/> : <div></div>}
+    return<div>
+        <WagerModal show={showModal} setShowModal={changeShowModal}/>
+        <div className={"Header"} style={{backgroundColor:"#1e1f21"}}>
+            <CommandBar
+                className={"commandBar"}
+                items={_items}
+                farItems={_farItems}
+            />
+            {loading ? <CenteredLoader/> : <div></div>}
+        </div>
     </div>
-
 }
 const mapStateToProps = (state) => {
     return {

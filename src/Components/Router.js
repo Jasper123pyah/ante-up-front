@@ -8,10 +8,11 @@ import ForgottenPassword from "./Pages/Account/Entry/ForgottenPassword";
 import Register from "./Pages/Account/Entry/Register";
 import Balance from "./Pages/Account/Settings/Balance";
 import Lobbies from "./Pages/Game/Lobbies";
-import CreateLobby from "./Pages/Game/CreateLobby";
 import Lobby from "./Pages/Game/Lobby";
 import Account from "./Pages/Account/Settings";
 import Admin from "./Pages/Admin";
+import Footer from "./Shared/Footer/Footer";
+import WagerModal from "./Pages/Game/Create Wager/WagerModal";
 
 function Router(){
     return <div style={{marginTop:"80px"}}>
@@ -25,7 +26,6 @@ function Router(){
                     <Route path="/register" component={Register}/>
                     <Route path="/account" component={Account}/>
                     <Route path="/admin" component={Admin}/>
-                    <Route path="/createlobby" component={CreateLobby}/>
                     <Route exact path={"/game/:gameName"} render={(props) =>
                         <Lobbies gameName={props.match.params.gameName}/>
                     }/>
@@ -34,6 +34,8 @@ function Router(){
                     }/>
                 </Col>
             </Row>
+
+        <Footer/>
         </div>
 }
 export default Router;

@@ -1,0 +1,25 @@
+.createButton{
+    display:flex;
+    height:100%;
+    justify-content:flex-end;
+    align-items:flex-end;
+}
+.creationError{
+    color:#a4262c;
+    float:right;
+}
+@media(max-width: 600px){
+    .createButton{
+        display:flex;
+        height:100%;
+        justify-content:flex-end;
+        align-items:flex-end;
+        margin-top: 2vw;
+    }
+    .creationError{
+        color:#a4262c;
+        float:right;
+        padding-top: 2vw;
+        padding-bottom: 2vw;
+    }
+}

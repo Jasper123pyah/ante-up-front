@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-grid-system";
 import {Dropdown, PrimaryButton,  TextField} from "@fluentui/react";
-import {getAPI, getGlobalConnection} from "../../../Core/Global/global.selectors";
+import {getAPI, getGlobalConnection} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
+import './CreateWager.css';
 
 function CreateLobby(props){
     const [title, setTitle] = useState("");
@@ -86,12 +87,12 @@ function CreateLobby(props){
         }, [],
     );
 
-    return <div style={{overflow:"hidden"}}>
-        <div>
+    return <div>
+        <div style={{paddingBottom:"2vh", paddingRight:'2vh', paddingLeft:'2vh', textAlign:"left"}}>
             <div style={{fontSize:"40px"}}>Create a wager</div>
             <Dropdown
                 placeholder={"Select Game"}
-                style={{width:"30%"}}label={"Game"}
+                label={"Game"}
                 options={dropDownItems}
                 onChange={(e, option) => {
                     setSelectedGame(option.text);
@@ -107,7 +108,7 @@ function CreateLobby(props){
                 setCreationError("");
             }} />
             <Row>
-                <Col>
+                <Col sm={12} md={4} lg={4}>
                     <Dropdown
                         placeholder={"Select Lobby Size"}
                         label={"Lobby Size"}
@@ -117,7 +118,7 @@ function CreateLobby(props){
                             setCreationError("");}}
                     />
                 </Col>
-                <Col>
+                <Col sm={12} md={4} lg={4}>
                     <TextField
                         value={ante}
                         onChange={onChangeAnte}
@@ -125,15 +126,17 @@ function CreateLobby(props){
                         label="Ante"
                     />
                 </Col>
-                <Col>
-                    <PrimaryButton
-                        style={{position:"absolute", right:15, bottom:0}}
-                        text={"Create"}
-                        onClick={createWager}
-                    />
+                <Col sm={12} md={4} lg={4}>
+                    <div className={'createButton'}>
+                        <PrimaryButton
+                            text={"Create"}
+                            onClick={createWager}
+                        />
+                    </div>
+
                 </Col>
             </Row>
-            <div style={{color:"#a4262c", float:"right"}}>{creationError}</div>
+            <div className={'creationError'}>{creationError}</div>
         </div>
 
     </div>

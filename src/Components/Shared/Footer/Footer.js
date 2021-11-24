@@ -3,10 +3,10 @@ import logo from "../../../Images/logo.png";
 import './Footer.css'
 import {Col, Row} from "react-grid-system";
 import {FaTwitch, GrFacebook, GrInstagram, GrTwitter, SiDiscord} from "react-icons/all";
+import {Link} from "react-router-dom";
 class Footer extends React.Component{
 
     render(){
-
         return<div className={"footer"}>
             <Row>
                 <Col sm={12} md={1} lg={1.5}/>
@@ -15,7 +15,7 @@ class Footer extends React.Component{
                         <Col sm={12} md={12} lg={6}>
                             <div style={{marginTop:"2vh", marginBottom:"2vh"}}>
                                 <div>
-                                    <img src={logo} style={{height: "43px", marginRight:"2vh"}} alt={"Logo"}></img>
+                                    <img src={logo} style={{height: "43px", marginRight: "2vh"}} alt={"Logo"}/>
                                     <GrInstagram className={"socialsIcon"}/>
                                     <GrFacebook className={"socialsIcon"}/>
                                     <SiDiscord className={"socialsIcon"}/>
@@ -36,18 +36,18 @@ class Footer extends React.Component{
                             <Row style={{ paddingBottom:"2vh"}}>
                                 <Col sm={12} md={6} lg={6}>
                                     <div style={{marginTop:"2vh"}}>
-                                        <div><b style={{color:'#39ff13', fontSize:"18px"}}>Customer Service</b></div>
-                                        <div>FAQ</div>
-                                        <div>Rules</div>
-                                        <div>Contact</div>
-                                        <div>About Us</div>
+                                        <b style={{color:'#39ff13', fontSize:"18px"}}>Customer Service</b>
+                                        <div><Link className={'link'}>FAQ</Link></div>
+                                        <div><Link className={'link'}>Rules</Link></div>
+                                        <div><Link className={'link'}>Contact</Link></div>
+                                        <div><Link className={'link'}>About Us</Link></div>
                                     </div>
                                 </Col>
                                 <Col sm={12} md={6} lg={6}>
                                     <div style={{marginTop:"2vh"}}>
-                                        <div><b style={{color:'#39ff13', fontSize:"18px"}}>Terms</b></div>
-                                        <div>Terms of Service</div>
-                                        <div>Privacy Policy</div>
+                                        <b style={{color:'#39ff13', fontSize:"18px"}}>Terms</b>
+                                        <div><Link className={'link'}>Terms of Service</Link></div>
+                                        <div><Link className={'link'}>Privacy Policy</Link></div>
                                     </div>
                                 </Col>
                             </Row>
