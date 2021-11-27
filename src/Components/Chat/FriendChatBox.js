@@ -3,11 +3,13 @@ import {IconButton, List, Separator, TextField} from '@fluentui/react';
 import {useEffect, useState} from "react";
 import {getAPI, getGlobalConnection} from "../../Core/Global/global.selectors";
 import {connect} from "react-redux";
+import {useCookies} from "react-cookie";
 
 
 function FriendChatbox(props) {
     const [items, setItems] = useState(props.messages);
     const [text, setText] = useState("");
+    const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -48,7 +50,7 @@ function FriendChatbox(props) {
     async function sendMessage() {
         if(text.length > 0){
             let friendMessage = {
-                sender: localStorage.getItem("ANTE_UP_SESSION_TOKEN"),
+                sender: cookies.ANTE_UP_SESSION_TOKEN,
                 receiver: props.name,
                 message: text
             }

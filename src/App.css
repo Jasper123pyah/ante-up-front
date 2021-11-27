@@ -83,16 +83,10 @@
     overflow-y: scroll;
 }
 
-.lobbyBoxItemDark {
+.lobbyBoxItem {
     width: 100%;
     height: 50px;
     border-bottom: 1px solid #39ff13;
-}
-
-.lobbyBoxItemLight {
-    width: 100%;
-    height: 50px;
-    border-bottom: 1px solid #098a00;
 }
 
 .separator {
@@ -100,13 +94,6 @@
     margin-bottom: 5px;
     padding: 0px;
 }
-
-.gameCard {
-    cursor: pointer;
-    margin-bottom: 15px;
-    width: 100%;
-}
-
 .headerLogo {
     border: 0;
     margin-top: 7px;

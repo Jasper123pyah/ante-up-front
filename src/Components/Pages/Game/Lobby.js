@@ -7,8 +7,8 @@ import {connect} from "react-redux";
 import LobbyChatbox from "../../Chat/LobbyChatbox";
 import {useHistory} from "react-router-dom";
 import {setAccountInfo} from "../../../Core/Global/global.actions";
-import {PulseLoader} from "react-spinners";
 import CenteredLoader from "../../Shared/CenteredLoader";
+import {useCookies} from "react-cookie";
 
 function Lobby(props) {
     const [wager, setWager] = useState({});
@@ -16,6 +16,7 @@ function Lobby(props) {
     const [team2, setTeam2] = useState([]);
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
     let history = useHistory();
 
     useEffect(() => {
@@ -34,10 +35,10 @@ function Lobby(props) {
             });
         }
         if(props.accountInfo.id === undefined ){
-            if (props.api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
+            if (props.api !== undefined && cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
                 props.api.get('account/info', {
                     params: {
-                        token: localStorage.getItem("ANTE_UP_SESSION_TOKEN")
+                        token: cookies.ANTE_UP_SESSION_TOKEN
                     }
                 }).then(res => {
                     let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
@@ -80,7 +81,7 @@ function Lobby(props) {
 
     async function joinTeam(team) {
         setLoading(true);
-        let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
+        let token = cookies.ANTE_UP_SESSION_TOKEN;
         let lobby = wager.id;
         props.connection.on("LobbyJoined", (lobbyJoin) => {
             console.log(lobbyJoin.player + " joined team " + lobbyJoin.team)
@@ -102,14 +103,14 @@ function Lobby(props) {
         for (let i = 0; i < emptySlots; i++) {
             if (i === 0 &&
                 !team.some(player => player.id === props.accountInfo.id) &&
-                localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null)
-                items.push(<div style={{display: "flex", alignItems: "center"}} className={boxItemClass}>
+                cookies.ANTE_UP_SESSION_TOKEN !== undefined)
+                items.push(<div style={{display: "flex", alignItems: "center"}} className={'lobbyBoxItem'}>
                     <DefaultButton onClick={() => joinTeam(number)}
                                    style={{marginRight: "10px", position: "absolute", right: "10px"}} text={"Join"}/>
                     <div style={{marginLeft: "10px", fontSize: "16px"}}>Empty</div>
                 </div>);
             else {
-                items.push(<div style={{display: "flex", alignItems: "center"}} className={boxItemClass}>
+                items.push(<div style={{display: "flex", alignItems: "center"}} className={'lobbyBoxItem'}>
                     <div style={{marginLeft: "10px", fontSize: "16px"}}>Empty</div>
                 </div>);
             }
@@ -141,21 +142,18 @@ function Lobby(props) {
     async function leaveLobby() {
         setLoading(true);
         let lobby = wager.id;
-        let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
+        let token = cookies.ANTE_UP_SESSION_TOKEN;
 
         await props.connection.invoke("LeaveLobby", {token, lobby});
     }
     async function kickPlayer(player){
         let user = player.id;
         let lobby = wager.id;
-        let hostToken = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
+        let hostToken = cookies.ANTE_UP_SESSION_TOKEN;
 
         await props.connection.invoke("KickPlayer", {user, lobby, hostToken});
     }
-    let boxItemClass = "lobbyBoxItemDark";
-    if (localStorage.getItem('darkMode') === 'false') {
-        boxItemClass = "lobbyBoxItemLight"
-    }
+
     let boxHeight = (((wager.playercap / 2) * 50) + "px").toString();
 
     return loading ? <CenteredLoader/> : <div>
@@ -168,7 +166,7 @@ function Lobby(props) {
                 <div style={{fontSize: "20px"}}>Team 1</div>
                 <div style={{height: boxHeight}} className={"lobbyBox"}>
                     {team1.map(player =>
-                        <div style={{display: "flex", alignItems: "center"}} className={boxItemClass}>
+                        <div style={{display: "flex", alignItems: "center"}} className={'lobbyBoxItem'}>
                             <div style={{marginLeft: "10px", fontSize: "16px"}}><b>{player.username}</b></div>
                             {kickButton(player, 1)}
                             {leaveButton(player, 1)}
@@ -181,7 +179,7 @@ function Lobby(props) {
                 <div style={{fontSize: "20px"}}>Team 2</div>
                 <div style={{height: boxHeight}} className={"lobbyBox"}>
                     {team2.map(player =>
-                        <div style={{display: "flex", alignItems: "center"}} className={boxItemClass}>
+                        <div style={{display: "flex", alignItems: "center"}} className={'lobbyBoxItem'}>
                             <div style={{marginLeft: "10px", fontSize: "16px"}}><b>{player.username}</b></div>
                             {kickButton(player, 2)}
                             {leaveButton(player, 2)}
@@ -191,7 +189,7 @@ function Lobby(props) {
                 </div>
             </Col>
         </Row>
-        {localStorage.getItem("ANTE_UP_SESSION_TOKEN") != null ? <Row>
+        {cookies.ANTE_UP_SESSION_TOKEN !== undefined ? <Row>
             <Col>
                 <LobbyChatbox items={messages} lobbyId={wager.id}/>
             </Col>

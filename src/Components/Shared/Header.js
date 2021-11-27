@@ -6,9 +6,10 @@ import "../../App.css"
 import Logo from "./Logo";
 import {initializeIcons} from "@fluentui/font-icons-mdl2";
 import {useHistory} from "react-router-dom";
-import {setAccountInfo, setWagerModalOpen} from "../../Core/Global/global.actions";
+import {setAccountInfo} from "../../Core/Global/global.actions";
 import CenteredLoader from "./CenteredLoader";
 import WagerModal from "../Pages/Game/Create Wager/WagerModal";
+import {useCookies} from "react-cookie";
 
 initializeIcons();
 
@@ -16,9 +17,10 @@ function Header(props) {
     let history = useHistory();
     const[loading, setLoading] = useState(false);
     const[showModal, setShowModal] = useState(false);
+    const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
 
     useEffect(() => {
-        if (props.api !== undefined && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null && localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== undefined ) {
+        if (props.api !== undefined && cookies.ANTE_UP_SESSION_TOKEN !== undefined ) {
             setLoading(true);
             props.api.get('account/info').then(res => {
                 let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
@@ -29,7 +31,7 @@ function Header(props) {
     }, [props.api, localStorage]);
 
     function handleAccount() {
-        if (localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null) {
+        if (cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
             history.push("/account");
         } else {
             history.push("/login");
@@ -57,7 +59,7 @@ function Header(props) {
             onClick: handleAccount
         },
     ];
-    if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") === null){
+    if(cookies.ANTE_UP_SESSION_TOKEN === undefined){
 
         _farItems =[
             {

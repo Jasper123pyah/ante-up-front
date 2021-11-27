@@ -47,6 +47,9 @@
     text-align: center;
     cursor: pointer;
 }
+.roundedFixedBtn:hover{
+    box-shadow: 0 0 10px #39ff13;
+}
 
 .friendsIcon {
     position: absolute;

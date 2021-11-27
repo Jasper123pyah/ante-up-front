@@ -7,6 +7,7 @@ import {getAPI, getGlobalConnection} from "../../../Core/Global/global.selectors
 import {connect} from "react-redux";
 import FriendRequest from "./FriendRequest";
 import "./Friends.css";
+import {useCookies} from "react-cookie";
 
 function FriendRequestList(props){
 
@@ -14,6 +15,7 @@ function FriendRequestList(props){
     const [errorMessage, setErrorMessage] = useState("");
     const [friendRequests, setFriendRequests] = useState([]);
     const [addedName, setAddedName] = useState("");
+    const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
 
     useEffect(() => {
         getFriendRequests();
@@ -57,7 +59,7 @@ function FriendRequestList(props){
         if(text.length > 0){
             let hubFriend = {
                 friendName: text,
-                token: localStorage.getItem("ANTE_UP_SESSION_TOKEN"),
+                token: cookies.ANTE_UP_SESSION_TOKEN,
             }
             await props.connection.invoke("SendFriendRequest", hubFriend)
             setText("");

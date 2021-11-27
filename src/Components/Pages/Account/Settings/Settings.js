@@ -3,8 +3,10 @@ import {getAPI, getGlobalConnection} from "../../../../Core/Global/global.select
 import {connect} from "react-redux";
 import {DefaultButton, PrimaryButton, Separator, TextField} from "@fluentui/react";
 import {useHistory} from "react-router-dom";
+import {useCookies} from "react-cookie";
 
 function Settings(props){
+    const [cookies, setCookie, removeCookie] = useCookies(['ANTE_UP_SESSION_TOKEN']);
     const [accountInfo, setAccountInfo] = useState({
         username: "",
         email: "",
@@ -13,13 +15,12 @@ function Settings(props){
     let history = useHistory();
 
     async function LogOut(){
-        console.log(props.connection)
         if(props.connection !== undefined){
-            let token = localStorage.getItem("ANTE_UP_SESSION_TOKEN");
-
+            let token = cookies.ANTE_UP_SESSION_TOKEN;
+            removeCookie('ANTE_UP_SESSION_TOKEN')
             await props.connection.invoke("Logout", token);
 
-            localStorage.removeItem("ANTE_UP_SESSION_TOKEN");
+
             history.push("/");
             window.location.reload();
         }else{
@@ -27,9 +28,6 @@ function Settings(props){
         }
     }
     useEffect(() => {
-        if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") === null){
-            history.push("/login");
-        }
         if(props.api !== undefined) {
             props.api.get('account/info').then(res => {
                 let resInfo = {username: res.data.username, balance: res.data.balance, email: res.data.email};

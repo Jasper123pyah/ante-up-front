@@ -1,18 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
-import GameList from "./GameList";
-import "../../../App.css"
-import Friends from "../../Shared/Friends";
-import Footer from "../../Shared/Footer/Footer";
-import {ThemeProvider} from "@fluentui/react";
+import PostLoginHome from "./PostLogin";
+import {useCookies} from "react-cookie";
+import PreLoginHome from "./PreLogin";
 
-class Home extends React.Component{
+function Home(){
+    const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
 
-    render() {
-        return <div>
-                <GameList/>
-            </div>
-    }
+    return <div>
+        {cookies.ANTE_UP_SESSION_TOKEN !== undefined ? <PostLoginHome/> : <PreLoginHome/>}
+    </div>
+
 }
 
 const mapStateToProps = (state) => {

@@ -10,10 +10,11 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "bootstrap": "^5.1.0",
     "office-ui-fabric-core": "^11.0.0",
     "react": "^17.0.2",
+    "react-alice-carousel": "^2.5.1",
     "react-bootstrap": "^2.0.0-beta.6",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
@@ -27,6 +28,7 @@
     "react-transition-group": "^4.4.2",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import FriendsButton from "./FriendsButton";
 import FriendPanel from "./FriendPanel";
+import {useCookies} from "react-cookie";
 
 function Friends(){
 
     const [panel, setPanel] = useState(false);
+    const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
 
     const handlePanel = () =>{
         if(panel === false)
@@ -17,7 +19,7 @@ function Friends(){
             return <FriendPanel/>
     }
     function showButton(){
-        if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null){
+        if(cookies.ANTE_UP_SESSION_TOKEN !== undefined){
             return <FriendsButton setPanel={handlePanel}/>
         }
     }

@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
-import "../../../App.css"
-import {Col, Row} from "react-bootstrap";
-import GameCard from "./GameCard";
-import {getAPI, getGames} from "../../../Core/Global/global.selectors";
+import "../../../../App.css"
+import {getAPI, getGames} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
-import {setGames} from "../../../Core/Global/global.actions";
-import {PulseLoader} from "react-spinners";
-import CenteredLoader from "../../Shared/CenteredLoader";
+import {setGames} from "../../../../Core/Global/global.actions";
+import CenteredLoader from "../../../Shared/CenteredLoader";
+import CardSlider from "./CardSlider";
+import {FaTwitch, GrTwitter} from "react-icons/all";
 
-function GameList(props){
+function WagerList(props){
 
     const [gameList, setGameList] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -32,15 +31,12 @@ function GameList(props){
         }
     }
 
-    return <div>
+    return <div style={{marginLeft:'1vh', marginBottom:'4vh'}}>
+        <div style={{fontSize:"40px"}}>Wagers</div>
         {loading ? <CenteredLoader/>:
-            <Row sm={1} md={2} lg={5} >
-                {gameList.map((Game) => (
-                    <Col sm={12}>
-                        <GameCard key={Game.id} img={Game.image} name={Game.name} playercount={5615}/>
-                    </Col>
-                ))}
-            </Row>}
+            <div>
+                <CardSlider items={gameList}/>
+            </div>}
     </div>
 }
 const mapStateToProps = (state) => {
@@ -51,4 +47,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps)(GameList);
+export default connect(mapStateToProps)(WagerList);

@@ -1,0 +1,19 @@
+.gameCard {
+    margin-top:20px;
+    cursor: pointer;
+    width: 90%;
+    height: auto;
+    -webkit-transition: margin 0.3s ease-out;
+    -moz-transition: margin 0.3s ease-out;
+    -o-transition: margin 0.3s ease-out;
+}
+.gameCard:hover{
+    margin-top: 0px;
+}
+.gameCard .info{
+    font-size: large;
+    display: flex;
+    text-align:left;
+    flex-direction: column;
+    justify-content: flex-end;
+}

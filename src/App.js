@@ -11,39 +11,42 @@ import {setAPI, setConnection, setWagerAPI} from "./Core/Global/global.actions";
 import {getGlobalConnection,} from "./Core/Global/global.selectors";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 import Friends from "./Components/Shared/Friends";
+import {useCookies} from "react-cookie";
 
 setConfiguration({maxScreenClass: 'xl'});
 setRTL(true);
 
-const axios = require('axios');
 
-if (localStorage.getItem('ANTE_UP_SESSION_TOKEN')) {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('ANTE_UP_SESSION_TOKEN');
-} else {
-    axios.defaults.headers.common['Authorization'] = null;
-}
-
-const api = axios.create({
-    baseURL: 'https://localhost:5001/',
-    timeout: 10000
-});
-
-const wagerApi = axios.create({
-    baseURL: 'http://localhost:6000/',
-    timeout: 10000
-})
 // http://localhost:5000/
 // http://78.47.219.206:420/
 
 function App(props) {
+    const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
+    const axios = require('axios');
+
+    if (cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
+        axios.defaults.headers.common['Authorization'] = cookies.ANTE_UP_SESSION_TOKEN;
+    } else {
+        axios.defaults.headers.common['Authorization'] = null;
+    }
+
+    const api = axios.create({
+        baseURL: 'https://localhost:5001/',
+        timeout: 10000
+    });
+
+    const wagerApi = axios.create({
+        baseURL: 'http://localhost:6000/',
+        timeout: 10000
+    })
 
     async function buildConnection(connection) {
         try {
             await connection.start();
             props.dispatch(setConnection(connection));
 
-            if (localStorage.getItem('ANTE_UP_SESSION_TOKEN') !== undefined) {
-                let token = localStorage.getItem('ANTE_UP_SESSION_TOKEN');
+            if (cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
+                let token = cookies.ANTE_UP_SESSION_TOKEN;
                 await connection.invoke("Login", token);
             }
         } catch {
@@ -52,7 +55,7 @@ function App(props) {
     }
 
     useEffect(() => {
-        if (localStorage.getItem('ANTE_UP_SESSION_TOKEN') !== null && props.connection === undefined) {
+        if (cookies.ANTE_UP_SESSION_TOKEN !== undefined && props.connection === undefined) {
             let connection = new HubConnectionBuilder()
                 .withUrl("https://localhost:5001/antehub", {
                     skipNegotiation: true,

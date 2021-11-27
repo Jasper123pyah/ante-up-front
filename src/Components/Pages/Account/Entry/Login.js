@@ -7,11 +7,13 @@ import {connect} from "react-redux";
 import { setUserData} from "../../../../Core/Authentication/authentication.action";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 import {setConnection} from "../../../../Core/Global/global.actions";
-import {PulseLoader} from "react-spinners";
+import {useCookies} from "react-cookie";
+import CenteredLoader from "../../../Shared/CenteredLoader";
 
 function Login(props){
 
     const [password, setPassword] = useState("");
+    const [cookies, setCookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
     const [email, setEmail] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [emailError, setEmailError] = useState("");
@@ -20,7 +22,7 @@ function Login(props){
     let history = useHistory();
 
     useEffect(() => {
-       if(localStorage.getItem("ANTE_UP_SESSION_TOKEN") !== null){
+       if(cookies.ANTE_UP_SESSION_TOKEN !== undefined){
            history.push("/account")
        }
     });
@@ -51,7 +53,7 @@ function Login(props){
             props.dispatch(setUserData(email, res.data.response, res.data.token));
 
             connection.invoke("Login", res.data.token).then(() => console.log("success"));
-            localStorage.setItem("ANTE_UP_SESSION_TOKEN", res.data.token);
+            setCookies("ANTE_UP_SESSION_TOKEN", res.data.token);
 
             history.push("/account");
             setLoading(false);
@@ -110,9 +112,7 @@ function Login(props){
                         onChange={handlePassword}
                     />
                     <div style={{color:"#a4262c"}}>{loginError}</div>
-                    <div>{loading ? <div style={{position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
-                        <PulseLoader color={"#39ff13"} size={40}/>
-                    </div> : ""}</div>
+                    <div>{loading ? <CenteredLoader/> : ""}</div>
                     <PrimaryButton onClick={Confirm} style={{float:"right"}}>Login</PrimaryButton>
                     <Link to={"/passwordforgotten"}>Forgotten Password?</Link>
                     <br/>

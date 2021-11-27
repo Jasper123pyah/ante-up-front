@@ -3,10 +3,12 @@ import {IconButton, List, TextField} from '@fluentui/react';
 import {useEffect, useState} from "react";
 import {getAPI, getGlobalConnection} from "../../Core/Global/global.selectors";
 import {connect} from "react-redux";
+import {useCookies} from "react-cookie";
 
 function LobbyChatbox(props) {
     const [items, setItems] = useState([]);
     const [text, setText] = useState("");
+    const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
 
     useEffect(() => {
         if (props.connection !== undefined) {
@@ -41,7 +43,7 @@ function LobbyChatbox(props) {
         if(text.length > 0){
             let lobbyMessage = {
                 lobbyid: props.lobbyId,
-                sender: localStorage.getItem("ANTE_UP_SESSION_TOKEN"),
+                sender: cookies.ANTE_UP_SESSION_TOKEN,
                 message: text
             }
             await props.connection.invoke("SendLobbyMessage", lobbyMessage);
