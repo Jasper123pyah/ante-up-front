@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import GameCard from "./GameCard";
 import 'react-alice-carousel/lib/alice-carousel.css';
 import AliceCarousel from "react-alice-carousel";

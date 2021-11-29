@@ -31,29 +31,26 @@ function Admin(props) {
 
     return <div>
         {loading ? <CenteredLoader/> :
-            <Row>
-                <Col sm={12} md={1} lg={1.5}/>
-                <Col sm={12} md={10} lg={9}>
-                    <div style={{fontSize: "40px", marginLeft: "15px", marginBottom: "10px"}}>Admin Panel</div>
-                    <Pivot>
-                        <PivotItem headerText={"Wagers"}>
-                            <div className={"pivotContent"}>
-                                <AdminWagers/>
-                            </div>
-                        </PivotItem>
-                        <PivotItem headerText={"Games"}>
-                            <div className={"pivotContent"}>
-                                <AdminGames/>
-                            </div>
-                        </PivotItem>
-                        <PivotItem headerText={"Accounts"}>
-                            <div className={"pivotContent"}>
-                                <AdminAccounts/>
-                            </div>
-                        </PivotItem>
-                    </Pivot>
-                </Col>
-            </Row>
+            <div>
+                <div style={{fontSize: "40px", marginLeft: "15px", marginBottom: "10px"}}>Admin Panel</div>
+                <Pivot>
+                    <PivotItem headerText={"Wagers"}>
+                        <div className={"pivotContent"}>
+                            <AdminWagers/>
+                        </div>
+                    </PivotItem>
+                    <PivotItem headerText={"Games"}>
+                        <div className={"pivotContent"}>
+                            <AdminGames/>
+                        </div>
+                    </PivotItem>
+                    <PivotItem headerText={"Accounts"}>
+                        <div className={"pivotContent"}>
+                            <AdminAccounts/>
+                        </div>
+                    </PivotItem>
+                </Pivot>
+            </div>
         }
     </div>
 }

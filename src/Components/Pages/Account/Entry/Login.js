@@ -21,11 +21,6 @@ function Login(props){
     const [loading, setLoading] = useState(false);
     let history = useHistory();
 
-    useEffect(() => {
-       if(cookies.ANTE_UP_SESSION_TOKEN !== undefined){
-           history.push("/account")
-       }
-    });
     const handlePassword = (e, value) => {
         setPassword(value);
         setPasswordError("");

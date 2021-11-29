@@ -95,8 +95,8 @@ function Header(props) {
     function changeShowModal(){
         showModal ? setShowModal(false) : setShowModal(true);
     }
-    return<div>
-        <WagerModal show={showModal} setShowModal={changeShowModal}/>
+    return<div >
+        {cookies.ANTE_UP_SESSION_TOKEN !== undefined ? <WagerModal show={showModal} setShowModal={changeShowModal}/> : ''}
         <div className={"Header"} style={{backgroundColor:"#1e1f21"}}>
             <CommandBar
                 className={"commandBar"}

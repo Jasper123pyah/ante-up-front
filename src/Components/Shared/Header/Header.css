@@ -8,7 +8,16 @@
     width: 100%;
     z-index: 100;
     padding-bottom: 15px;
+
 }
+@media only screen and (min-width: 700px) {
+    .Header{
+        padding-left: 4vw;
+        padding-right: 4vw;
+    }
+}
+
+
 .infoButton{
     margin-left:1vw;
     padding:10px;

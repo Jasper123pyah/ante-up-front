@@ -4,8 +4,7 @@ import {getAPI, getGames} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {setGames} from "../../../../Core/Global/global.actions";
 import CenteredLoader from "../../../Shared/CenteredLoader";
-import CardSlider from "./CardSlider";
-import {FaTwitch, GrTwitter} from "react-icons/all";
+import CardSlider from "./Cards/CardSlider";
 
 function WagerList(props){
 

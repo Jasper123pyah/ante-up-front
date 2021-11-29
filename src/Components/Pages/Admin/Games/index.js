@@ -3,7 +3,7 @@ import {getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {PrimaryButton, TextField} from "@fluentui/react";
 import {Col, Row} from "react-bootstrap";
-import GameCard from "../../Home/PostLogin/GameCard";
+import GameCard from "../../Home/PostLogin/Cards/GameCard";
 import AdminGameCard from "./AdminGameCard";
 import CenteredLoader from "../../../Shared/CenteredLoader";
 

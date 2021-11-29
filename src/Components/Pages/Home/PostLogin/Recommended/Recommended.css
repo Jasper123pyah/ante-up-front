@@ -1,0 +1,37 @@
+.recommendedImage {
+    opacity: 0.5;
+}
+
+.recommendedBig {
+    position: relative;
+    height: 50vh;
+}
+
+.recommendedBig:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px #5f5f5f;
+}
+
+.recommendedMed {
+    height: 24vh;
+    width: 100%;
+    margin-bottom: 1vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.recommendedMed:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px #5f5f5f;
+}
+
+.recommendedSmall {
+    height: 25vh;
+    width: 49%;
+    position: relative;
+}
+
+.recommendedSmall:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px #5f5f5f;
+}

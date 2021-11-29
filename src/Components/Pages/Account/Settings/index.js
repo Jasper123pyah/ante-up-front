@@ -14,13 +14,8 @@ function Account(props) {
         }
     });
     return <div>
-        <Row>
-            <Col sm={12} md={1} lg={1.5}/>
-            <Col sm={12} md={10} lg={9}>
-                <div style={{fontSize: "40px", marginLeft: "15px", marginBottom: "10px"}}>Account</div>
-                <AccountPivot/>
-            </Col>
-        </Row>
+        <div style={{fontSize: "40px", marginLeft: "15px", marginBottom: "10px"}}>Account</div>
+        <AccountPivot/>
     </div>
 }
 
