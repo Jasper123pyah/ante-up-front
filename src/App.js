@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useEffect} from "react";
-import Header from "./Components/Shared/Header";
+import Header from "./Components/Shared/Header/Header";
 import {setRTL} from '@fluentui/react/lib/Utilities';
 import {ThemeProvider} from '@fluentui/react';
 import {darkTheme} from "./themes";

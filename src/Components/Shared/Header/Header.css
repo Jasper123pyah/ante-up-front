@@ -1,0 +1,63 @@
+.commandBar {
+    margin-top: 15px;
+}
+
+.Header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding-bottom: 15px;
+}
+.infoButton{
+    margin-left:1vw;
+    padding:10px;
+    display:flex;
+    align-items: center;
+    border-radius:5%;
+    font-size: medium;
+}
+.infoButton:hover{
+    cursor:pointer;
+    background-color: #2F3133;
+}
+.infoButton:active{
+    cursor:pointer;
+    background-color: #3C3E41;
+}
+.registerButton{
+    margin-left:1vw;
+    padding:10px;
+    display:flex;
+    align-items: center;
+    border-radius:10%;
+    background-color: #39ff13;
+    color: black;
+    font-size: medium;
+}
+.registerButton:hover{
+    cursor:pointer;
+    background-color: #2cc20e;
+}
+.registerButton:active{
+    cursor:pointer;
+    background-color: #208f0a;
+}
+
+.logInButton{
+    margin-left:1vw;
+    padding:10px;
+    display:flex;
+    align-items: center;
+    border-radius:10%;
+    border: 2px solid white;
+    font-size: medium;
+}
+.logInButton:hover{
+    cursor:pointer;
+    background-color: #2F3133;
+}
+.logInButton:active{
+    cursor:pointer;
+    background-color: #3C3E41;
+}

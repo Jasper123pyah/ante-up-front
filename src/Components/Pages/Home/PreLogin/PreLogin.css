@@ -1,0 +1,77 @@
+.paymentIcon {
+    margin: 1vh;
+    color: #39ff13;
+    height: 4vh;
+    width: 4vh;
+}
+
+.title {
+    text-align: center;
+    font-size: xxx-large;
+    padding: 1vh;
+    text-decoration-color: #39ff13;
+    text-decoration: underline;
+}
+
+.mainBox {
+    width: 80%;
+    border-radius: 2%;
+    border-top: 4px solid #39ff13;
+    height: 20vh;
+    background-color: #27282b;
+    margin-bottom: 4vh;
+}
+
+.reviewBox {
+    width: 80%;
+    border-radius: 2%;
+    height: 20vh;
+    background-color: #121212;
+    margin-bottom: 6vh;
+}
+
+.reviewContent {
+    margin: 12%
+}
+
+.reviewName {
+    color: #2cc20e;
+}
+
+.statsIcon {
+    margin: 1vh;
+    color: #39ff13;
+    height: 6vh;
+    width: 6vh;
+}
+
+.statsText {
+    font-size: x-large;
+    margin-top: 1vh;
+}
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signUpLink {
+    text-decoration: none;
+    color: #2cc20e;
+    font-size: medium;
+}
+
+.signUpLink:hover {
+    color: #39ff13;
+    text-decoration: underline;
+}
+
+.howItWorksCard {
+    margin: 2vh;
+    border-radius: 2%;
+    height: 75vh;
+    width: 300px;
+    border: 1px solid white;
+}

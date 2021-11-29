@@ -55,7 +55,7 @@ function Login(props){
             connection.invoke("Login", res.data.token).then(() => console.log("success"));
             setCookies("ANTE_UP_SESSION_TOKEN", res.data.token);
 
-            history.push("/account");
+            history.push("/");
             setLoading(false);
             window.location.reload();
         }catch{

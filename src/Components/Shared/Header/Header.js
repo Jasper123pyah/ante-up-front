@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import { CommandBar } from '@fluentui/react/lib/CommandBar';
-import {getAccountInfo, getAPI} from "../../Core/Global/global.selectors";
-import "../../App.css"
-import Logo from "./Logo";
+import {getAccountInfo, getAPI} from "../../../Core/Global/global.selectors";
+import './Header.css';
+import Logo from "../Logo";
 import {initializeIcons} from "@fluentui/font-icons-mdl2";
 import {useHistory} from "react-router-dom";
-import {setAccountInfo} from "../../Core/Global/global.actions";
-import CenteredLoader from "./CenteredLoader";
-import WagerModal from "../Pages/Game/Create Wager/WagerModal";
+import {setAccountInfo} from "../../../Core/Global/global.actions";
+import CenteredLoader from "../CenteredLoader";
+import WagerModal from "../../Pages/Game/Create Wager/WagerModal";
 import {useCookies} from "react-cookie";
 
 initializeIcons();
@@ -37,6 +37,12 @@ function Header(props) {
             history.push("/login");
         }
     }
+    function handleHIW(){
+        history.push("/howitworks")
+    }
+    function handleSupport(){
+        history.push("/support")
+    }
 
     let _items = [
         {
@@ -61,12 +67,28 @@ function Header(props) {
     ];
     if(cookies.ANTE_UP_SESSION_TOKEN === undefined){
 
+        _items =[
+            {
+                key: "Home",
+                onRender: () => <Logo/>
+            },
+            {
+                key: "HowItWorks",
+                onRender: () => <div onClick={handleHIW} className={'infoButton'}>How it works</div>
+            },
+            {
+                key: "Support",
+                onRender: () => <div onClick={handleSupport} className={'infoButton'}>Support</div>
+            },
+        ]
         _farItems =[
             {
-                key: 'account',
-                text: "Account" ,
-                iconProps: { iconName: 'Contact' },
-                onClick: handleAccount
+                key: 'LogIn',
+                onRender: () => <div onClick={handleAccount} className={'logInButton'}>Log In</div>
+            },
+            {
+                key: 'Register',
+                onRender: () => <div onClick={handleAccount} className={'registerButton'}>Register</div>
             },
         ]
     }

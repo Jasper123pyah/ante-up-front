@@ -37,17 +37,17 @@ class Footer extends React.Component{
                                 <Col sm={12} md={6} lg={6}>
                                     <div style={{marginTop:"2vh"}}>
                                         <b style={{color:'#39ff13', fontSize:"18px"}}>Customer Service</b>
-                                        <div><Link className={'link'}>FAQ</Link></div>
-                                        <div><Link className={'link'}>Rules</Link></div>
-                                        <div><Link className={'link'}>Contact</Link></div>
-                                        <div><Link className={'link'}>About Us</Link></div>
+                                        <div><Link className={'link'} to={"/faq"}>FAQ</Link></div>
+                                        <div><Link className={'link'} to={"/rules"}>Rules</Link></div>
+                                        <div><Link className={'link'} to={"/contact"}>Contact</Link></div>
+                                        <div><Link className={'link'} to={"/about"}>About Us</Link></div>
                                     </div>
                                 </Col>
                                 <Col sm={12} md={6} lg={6}>
                                     <div style={{marginTop:"2vh"}}>
                                         <b style={{color:'#39ff13', fontSize:"18px"}}>Terms</b>
-                                        <div><Link className={'link'}>Terms of Service</Link></div>
-                                        <div><Link className={'link'}>Privacy Policy</Link></div>
+                                        <div><Link className={'link'} to={"/tos"}>Terms of Service</Link></div>
+                                        <div><Link className={'link'} to={"/privacy"}>Privacy Policy</Link></div>
                                     </div>
                                 </Col>
                             </Row>
