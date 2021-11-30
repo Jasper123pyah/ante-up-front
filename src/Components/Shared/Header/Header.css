@@ -39,7 +39,7 @@
     padding:10px;
     display:flex;
     align-items: center;
-    border-radius:10%;
+    border-radius:100px;
     background-color: #39ff13;
     color: black;
     font-size: medium;
@@ -58,7 +58,7 @@
     padding:10px;
     display:flex;
     align-items: center;
-    border-radius:10%;
+    border-radius:100px;
     border: 2px solid white;
     font-size: medium;
 }

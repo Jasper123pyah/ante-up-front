@@ -93,11 +93,11 @@ function Register(props){
         else
             return <div style={{color:"#a4262c"}}>{registerError}</div>
     }
-    return <div>
+    return <div style={{height:"100vh"}}>
         <Row>
             <Col/>
             <Col sm={12} md={6} lg={4}>
-                <div style={{alignContent:"center"}}>
+                <div style={{alignContent:"center", marginTop:"20vh"}}>
                     <div style={{fontSize:"40px"}}>Register</div>
                     <TextField
                         label="Username"

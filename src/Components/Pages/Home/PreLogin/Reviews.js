@@ -13,7 +13,7 @@ function Reviews(){
                             <div className={'reviewBox'}>
                                 <div className={'reviewContent'}>
                                     <div>
-                                        It's me Sonic the hedgehog!
+                                        Cool website!
                                     </div>
                                     <br/>
                                     <div className={'reviewName'}>
@@ -28,7 +28,7 @@ function Reviews(){
                             <div className={'reviewBox'}>
                                 <div className={'reviewContent'}>
                                     <div>
-                                        It's me Sonic the hedgehog!
+                                        Cool website!
                                     </div>
                                     <br/>
                                     <div className={'reviewName'}>
@@ -43,7 +43,7 @@ function Reviews(){
                             <div className={'reviewBox'}>
                                 <div className={'reviewContent'}>
                                     <div>
-                                        It's me Sonic the hedgehog!
+                                        Cool website!
                                     </div>
                                     <br/>
                                     <div className={'reviewName'}>

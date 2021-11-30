@@ -90,11 +90,11 @@ function Login(props){
         }
     }
 
-    return <div>
+    return <div style={{height:"100vh"}}>
         <Row>
             <Col/>
             <Col sm={12} md={6} lg={4}>
-                <div style={{alignContent:"center"}}>
+                <div style={{alignContent:"center", marginTop:'25vh'}}>
                     <div style={{fontSize:"40px"}}>Login</div>
                     <TextField label="Email " required errorMessage={emailError}  onChange={handleEmail}/>
                     <TextField

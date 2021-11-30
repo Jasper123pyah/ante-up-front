@@ -1,9 +1,12 @@
 import React from "react";
 import fortniteRec from "../../../../../Images/fortniteRec.jpg";
 import '../PostLogin.css'
-function RecommendedSmall(){
+import {useHistory} from "react-router-dom";
 
-    return<div className={'recommendedSmall'}>
+function RecommendedSmall(){
+    let history = useHistory();
+
+    return<div onClick={() => history.push("lobby/08d9b3d5-5f7b-4e90-8654-2b646f9d6257")}  className={'recommendedSmall'}>
         <img className={'recommendedImage'} src={fortniteRec} style={{height:"100%", width:'100%'}}/>
         <div style={{position:"absolute", top:'10px', left:'10px', fontSize:'x-large'}}>Big Boys 4v4</div>
         <div style={{position:"absolute", top:'10px', right:'10px', fontSize:'x-large'}}>$200 Ante</div>

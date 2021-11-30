@@ -43,6 +43,9 @@ function Header(props) {
     function handleSupport(){
         history.push("/support")
     }
+    function handleRegister(){
+        history.push("/register");
+    }
 
     let _items = [
         {
@@ -88,7 +91,7 @@ function Header(props) {
             },
             {
                 key: 'Register',
-                onRender: () => <div onClick={handleAccount} className={'registerButton'}>Register</div>
+                onRender: () => <div onClick={handleRegister} className={'registerButton'}>Register</div>
             },
         ]
     }
