@@ -35,7 +35,7 @@ function GameStatsCard(props){
             <div className={'gameStatsTextLeft'}>
                 Skill
             </div>
-            <div className={'gameStatsTextRight'}>
+            <div style={{border:'1px solid #00ff1a', borderRadius:'10px', padding:'2px'}} className={'gameStatsTextRight'}>
                 Champion
             </div>
         </div>

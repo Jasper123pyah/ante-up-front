@@ -31,7 +31,7 @@ function App(props) {
     }
 
     const api = axios.create({
-        baseURL: 'https://localhost:5001/',
+        baseURL: 'http://78.47.219.206:420/',
         timeout: 10000
     });
 
