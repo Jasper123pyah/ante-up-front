@@ -1,6 +1,5 @@
 import React from "react";
-import {DefaultButton, PrimaryButton, Separator, TextField} from "@fluentui/react";
-
+import './Account.css';
 class Balance extends React.Component{
     render() {
         return <div>

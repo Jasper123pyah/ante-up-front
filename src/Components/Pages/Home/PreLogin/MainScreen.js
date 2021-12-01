@@ -7,7 +7,7 @@ import Gaming from "../../../../Images/gaming.jpg";
 import SiteStats from "./SiteStats";
 
 function MainScreen(){ // style={{ backgroundImage: `url(${Gaming})` }}
-    return <div style={{marginTop:'10vh', marginBottom:"6vh"}}>
+    return <div style={{marginTop:'10vh', marginBottom:"7vh"}}>
         <Row>
             <Col lg={1}/>
             <Col sm={12} md={4} lg={3}>
@@ -20,11 +20,11 @@ function MainScreen(){ // style={{ backgroundImage: `url(${Gaming})` }}
                 </div>
             </Col>
             <Col sm={12} md={8} lg={7}>
-                <img style={{opacity:"0.5", width:"100%"}} src={Gaming}/>
+                <img style={{opacity:"0.5", width:"100%", borderRadius:'10px'}} src={Gaming}/>
             </Col>
             <Col lg={1}/>
         </Row>
-        <div style={{width:'100%', height:'10vh'}}/>
+        <div style={{width:'100%', height:'12vh'}}/>
        <SiteStats/>
     </div>
 }

@@ -13,10 +13,9 @@ import Account from "./Pages/Account/Settings";
 import Admin from "./Pages/Admin";
 import Footer from "./Shared/Footer/Footer";
 import WagerModal from "./Pages/Game/Create Wager/WagerModal";
-import HIW from "./Pages/Info/HIW";
 
 function Router() {
-    return <div style={{marginTop: "80px"}}>
+    return <div style={{ marginTop: "80px"}}>
         <Row>
             <Col sm={12} md={1} lg={1.5}/>
             <Col sm={12} md={10} lg={9}>
@@ -29,7 +28,6 @@ function Router() {
                 <Route exact path={"/lobby/:id"} render={(props) =>
                     <Lobby id={props.match.params.id}/>
                 }/>
-                <Route path={"/howitworks"} component={HIW}/>
             </Col>
         </Row>
 

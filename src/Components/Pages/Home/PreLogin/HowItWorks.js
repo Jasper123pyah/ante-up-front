@@ -4,7 +4,7 @@ import "./PreLogin.css";
 function HowItWorks(){
 
     return<div style={{marginTop:'5vh', marginBottom:"6vh"}}>
-        <div className={'title'}>How it works</div>
+        <div id={'hiw'} className={'title'}>How it works</div>
         <div style={{ display:'flex', justifyContent:'center'}}>
             <div className={'howItWorksCard centered'}>
                 Create/Join a lobby.

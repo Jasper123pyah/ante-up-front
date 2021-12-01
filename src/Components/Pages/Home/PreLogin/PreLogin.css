@@ -9,25 +9,28 @@
     text-align: center;
     font-size: xxx-large;
     padding: 1vh;
+    margin-bottom: 2vh;
     text-decoration: underline;
     text-decoration-color: #39ff13;
 }
 
-.mainBox {
+.statsBox {
     width: 80%;
-    border-radius: 2%;
-    border-top: 4px solid #39ff13;
+    border-radius: 10px;
     height: 20vh;
+    box-shadow: 5px 5px 2px #39ff13;
     background-color: #27282b;
     margin-bottom: 4vh;
 }
 
 .reviewBox {
+    border-top: 5px solid #39ff13 ;
     width: 80%;
-    border-radius: 2%;
+    border-radius: 10px;
     height: 20vh;
     background-color: #121212;
     margin-bottom: 6vh;
+    transition: all 0.3s ease-in-out;
 }
 
 .reviewContent {
@@ -69,8 +72,10 @@
 }
 
 .howItWorksCard {
-    margin: 2vh;
-    border-radius: 2%;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    margin-bottom: 2vh;
+    border-radius: 10px;
     height: 75vh;
     width: 300px;
     border: 1px solid white;

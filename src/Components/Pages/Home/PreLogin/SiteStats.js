@@ -8,7 +8,7 @@ function SiteStats(){
         <Row>
             <Col sm={12} md={6} lg={4}>
                 <div className={'centered'}>
-                    <div className={'mainBox'}>
+                    <div className={'statsBox'}>
                         <div className={'centered'} style={{marginTop:'3vh'}}>
                             <div className={'iconCircle centered'}>
                                 <GiCrossedSwords className={'statsIcon'}/>
@@ -22,7 +22,7 @@ function SiteStats(){
             </Col>
             <Col sm={12} md={6} lg={4}>
                 <div className={'centered'}>
-                    <div className={'mainBox'}>
+                    <div className={'statsBox'}>
                         <div className={'centered'} style={{marginTop:'3vh'}}>
                             <div className={'iconCircle centered'}>
                                 <GiPayMoney className={'statsIcon'}/>
@@ -36,7 +36,7 @@ function SiteStats(){
             </Col>
             <Col sm={12} md={6} lg={4}>
                 <div className={'centered'}>
-                    <div className={'mainBox'}>
+                    <div className={'statsBox'}>
                         <div className={'centered'} style={{marginTop:'3vh'}}>
                             <div className={'iconCircle centered'}>
                                 <GiPokerHand className={'statsIcon'}/>

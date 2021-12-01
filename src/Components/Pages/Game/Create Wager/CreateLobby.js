@@ -51,7 +51,7 @@ function CreateLobby(props){
     }
 
     function createWager(){
-        let wager ={
+        let wager = {
             title: title,
             description: desc,
             ante: ante,
@@ -67,6 +67,7 @@ function CreateLobby(props){
                 lobbysize: selectedLobbySize
             }).then(res => {
                 let lobbyId = res.data;
+                props.setModal();
                 props.connection.invoke("CreateLobby", lobbyId);
                 history.push("/lobby/"+lobbyId);
             })

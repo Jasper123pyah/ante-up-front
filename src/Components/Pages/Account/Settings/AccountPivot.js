@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Pivot, PivotItem} from '@fluentui/react';
 import Settings from "./Settings.js";
 import Balance from "./Balance";
-import Profile from "./Profile";
+import Profile from "../Profile";
 
 function AccountPivot(props){
     return (

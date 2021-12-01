@@ -17,7 +17,7 @@ function PreLoginHome(){
         <Row>
             <Col sm={12} md={1} lg={1.5}/>
             <Col sm={12} md={10} lg={9}>
-                <HowItWorks/>
+                <HowItWorks />
             </Col>
         </Row>
     </div>

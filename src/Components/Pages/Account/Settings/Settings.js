@@ -16,15 +16,18 @@ function Settings(props){
 
     async function LogOut(){
         if(props.connection !== undefined){
-            let token = cookies.ANTE_UP_SESSION_TOKEN;
-            removeCookie('ANTE_UP_SESSION_TOKEN')
-            await props.connection.invoke("Logout", token);
-
-
-            history.push("/");
-            window.location.reload();
+            try{
+                let token = cookies.ANTE_UP_SESSION_TOKEN;
+                await props.connection.invoke("Logout", token);
+                removeCookie('ANTE_UP_SESSION_TOKEN')
+                history.push("/");
+                window.location.reload();
+            }
+            catch(e){
+                console.log(e);
+            }
         }else{
-
+            window.location.reload();
         }
     }
     useEffect(() => {

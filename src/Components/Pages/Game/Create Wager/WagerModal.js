@@ -35,7 +35,7 @@ function WagerModal(props){
                     />
                 </div>
                 <div>
-                    <CreateLobby/>
+                    <CreateLobby setModal={props.setShowModal}/>
                 </div>
             </Modal>
         </div>
