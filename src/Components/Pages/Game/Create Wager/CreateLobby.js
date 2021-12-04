@@ -89,7 +89,7 @@ function CreateLobby(props){
     );
 
     return <div>
-        <div style={{paddingBottom:"2vh", paddingRight:'2vh', paddingLeft:'2vh', textAlign:"left"}}>
+        <div style={{paddingBottom:"2vw", paddingRight:'2vw', paddingLeft:'2vw', textAlign:"left"}}>
             <div style={{fontSize:"40px"}}>Create a wager</div>
             <Dropdown
                 placeholder={"Select Game"}

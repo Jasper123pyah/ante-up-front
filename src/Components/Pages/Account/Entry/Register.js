@@ -4,6 +4,10 @@ import {PrimaryButton, TextField} from "@fluentui/react";
 import {getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
+import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
+import {setConnection} from "../../../../Core/Global/global.actions";
+import {setUserData} from "../../../../Core/Authentication/authentication.action";
+import {useCookies} from "react-cookie";
 
 function Register(props){
     const [password, setPassword] = useState("");
@@ -15,6 +19,7 @@ function Register(props){
     const [emailError, setEmailError] = useState("");
     const [usernameError, setUsernameError] = useState("");
     const [registerError, setRegisterError] = useState("");
+    const [cookies, setCookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
 
     let history = useHistory();
 
@@ -42,14 +47,37 @@ function Register(props){
             return "";
         }
     }
+    async function loginSuccess(connection, res){
+        try{
+            await connection.start();
+            props.dispatch(setConnection(connection));
+            props.dispatch(setUserData(email, res.data.response, res.data.token));
+
+            connection.invoke("Login", res.data.token).then(() => console.log("success"));
+            setCookies("ANTE_UP_SESSION_TOKEN", res.data.token);
+
+            history.push("/");
+            window.location.reload();
+        }catch{
+            console.log("Connection Failed")
+        }
+    }
     function Confirm(){
         if(CheckForErrors() === "") {
             props.api.post("/account/register", {
                 username: username,
                 password: password,
                 email: email
-            }).then(() => {
-                history.push("/login")
+            }).then(res => {
+                let connection = new HubConnectionBuilder()
+                    .withUrl("https://localhost:5001/antehub", {
+                        skipNegotiation: true,
+                        transport: HttpTransportType.WebSockets
+                    })
+                    .configureLogging(LogLevel.Information)
+                    .withAutomaticReconnect()
+                    .build();
+                loginSuccess(connection, res);
             }).catch(err => {
                 if(err.response.status === 500) {
                     setRegisterError("Internal server error.")

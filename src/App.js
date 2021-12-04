@@ -17,8 +17,8 @@ setConfiguration({maxScreenClass: 'xl'});
 setRTL(true);
 
 
-// http://localhost:5000/
-// http://78.47.219.206:420/
+// https://localhost:5001/
+// https://78.47.219.206:420/
 
 function App(props) {
     const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
@@ -31,12 +31,12 @@ function App(props) {
     }
 
     const api = axios.create({
-        baseURL: 'https://78.47.219.206:420/',
+        baseURL: 'https://localhost:5001/',
         timeout: 10000
     });
 
     const wagerApi = axios.create({
-        baseURL: 'http://localhost:6000/',
+        baseURL: 'https://localhost:6001/',
         timeout: 10000
     })
 

@@ -7,29 +7,9 @@ import BasicInfo from "./BasicInfo";
 import {Col, Row} from "react-grid-system";
 import GameStatsCard from "./GameStatsCard";
 
-function Profile() {
+function Profile(props) {
     const [accountInfo, setAccountInfo] = useState({});
-    const [gameStats, setGameStats] = useState([
-        {
-            gameName: 'Fortnite'
-        },
-        {
-            gameName: 'Fortnite'
-        },
-        {
-            gameName: 'Fortnite'
-        },
-        {
-            gameName: 'Fortnite'
-        },
-        {
-            gameName: 'Fortnite'
-        },
-        {
-            gameName: 'Fortnite'
-        },
-
-    ]);
+    const [gameStats, setGameStats] = useState([{gameName:'hurb'}]);
 
     useEffect(() => {
     }, []);

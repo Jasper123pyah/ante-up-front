@@ -6,14 +6,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./Pages/Account/Entry/Login";
 import ForgottenPassword from "./Pages/Account/Entry/ForgottenPassword";
 import Register from "./Pages/Account/Entry/Register";
-import Balance from "./Pages/Account/Settings/Balance";
 import Lobbies from "./Pages/Game/Lobbies";
 import Lobby from "./Pages/Game/Lobby";
 import Account from "./Pages/Account/Settings";
 import Admin from "./Pages/Admin";
 import Footer from "./Shared/Footer/Footer";
-import WagerModal from "./Pages/Game/Create Wager/WagerModal";
-
+import Profile from "../Components/Pages/Account/Profile/index"
 function Router() {
     return <div style={{ marginTop: "80px"}}>
         <Row>
@@ -28,6 +26,8 @@ function Router() {
                 <Route exact path={"/lobby/:id"} render={(props) =>
                     <Lobby id={props.match.params.id}/>
                 }/>
+                <Route path={"/profile/:id"} render={(props) =>
+                    <Profile id={props.match.params.id}/>}/>
             </Col>
         </Row>
 

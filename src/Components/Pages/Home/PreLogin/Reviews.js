@@ -17,7 +17,7 @@ function Reviews(){
                                     </div>
                                     <br/>
                                     <div className={'reviewName'}>
-                                        - Sonic
+                                        - Person
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@ function Reviews(){
                                     </div>
                                     <br/>
                                     <div className={'reviewName'}>
-                                        - Sonic
+                                        - Person
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@ function Reviews(){
                                     </div>
                                     <br/>
                                     <div className={'reviewName'}>
-                                        - Sonic
+                                        - Person
                                     </div>
                                 </div>
                             </div>

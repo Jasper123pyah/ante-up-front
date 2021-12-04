@@ -6,7 +6,7 @@ import {useHistory} from "react-router-dom";
 function RecommendedMed(){
     let history = useHistory();
 
-    return<div onClick={() => history.push("lobby/08d9b3d5-5f7b-4e90-8654-2b646f9d6257")}  className={"recommendedMed"}>
+    return<div onClick={() => history.push("lobby/08d9b71e-24e2-4390-8649-192d9a8b2961")}  className={"recommendedMed"}>
         <img className={'recommendedImage'} src={fortniteRec} style={{height:"auto", width:'100%'}}/>
         <div style={{position:"absolute", top:'10px', left:'10px', fontSize:'x-large'}}>Big Boys 4v4</div>
         <div style={{position:"absolute", top:'10px', right:'10px', fontSize:'x-large'}}>$200 Ante</div>

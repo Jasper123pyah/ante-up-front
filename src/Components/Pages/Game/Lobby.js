@@ -20,6 +20,9 @@ function Lobby(props) {
     let history = useHistory();
 
     useEffect(() => {
+        if(cookies.ANTE_UP_SESSION_TOKEN === undefined){
+            history.push("/");
+        }
         if (props.connection !== undefined) {
             props.connection.on("LobbyLeft", (lobbyLeave) => {
                 console.log(lobbyLeave.player + " left the game. ")
@@ -136,9 +139,9 @@ function Lobby(props) {
             }} text={"Leave"} onClick={() => leaveLobby()}/>
         }
     }
-    function startButton(){
-        return <PrimaryButton text={"Start Game"}/>
+    function startLobby(){
     }
+
     async function leaveLobby() {
         setLoading(true);
         let lobby = wager.id;
@@ -156,7 +159,7 @@ function Lobby(props) {
 
     let boxHeight = (((wager.playercap / 2) * 50) + "px").toString();
 
-    return loading ? <CenteredLoader/> : <div>
+    return loading ? <CenteredLoader/> : <div style={{marginTop:"2vw", marginBottom:"2vw"}}>
         <div style={{fontSize: "40px"}}>{wager.hostName}'s game</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.game} ● {playerCapToString()} ● ${wager.ante}</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.description}</div>
@@ -194,11 +197,8 @@ function Lobby(props) {
                 <LobbyChatbox items={messages} lobbyId={wager.id}/>
             </Col>
             <Col>
-                <div style={{display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop:"82%"}}>
-                    {startButton()}
+                <div style={{height:"100%", display: "flex", flexDirection:"column", justifyContent: "flex-end", alignItems: "center"}}>
+                    <PrimaryButton onClick={startLobby} text={"Start Game"}/>
                 </div>
             </Col>
             <Col/>

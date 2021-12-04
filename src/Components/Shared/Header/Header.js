@@ -109,7 +109,14 @@ function Header(props) {
     ];
 
     function handleHIW(){
-        window.scrollBy(0, document.getElementById('hiw').getBoundingClientRect().top-80);
+        if(window.location.href !== "http://localhost:3000/"){
+            history.push("/")
+        }
+        else{
+            window.scrollBy(0, document.getElementById('hiw').getBoundingClientRect().top-80);
+        }
+
+
     }
     function handleSupport(){
         history.push("/support")

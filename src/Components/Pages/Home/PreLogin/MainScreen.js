@@ -11,7 +11,7 @@ function MainScreen(){ // style={{ backgroundImage: `url(${Gaming})` }}
         <Row>
             <Col lg={1}/>
             <Col sm={12} md={4} lg={3}>
-                <div style={{textAlign:'center', marginTop:"11vh"}}>
+                <div style={{textAlign:'center', marginTop:"5vw", marginBottom:"2vh"}}>
                     <div style={{fontSize:"xxx-large"}}>Play games <br/> for cash</div>
                     <div style={{fontSize:"large", margin:'1vh'}}>Wager matches, play in tournaments, earn money while gaming.</div>
                     <Link className={'signUpLink'} to={"/register"}>Sign up now</Link>
