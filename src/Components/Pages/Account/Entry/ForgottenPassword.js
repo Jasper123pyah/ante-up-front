@@ -4,7 +4,7 @@ class ForgottenPassword extends React.Component{
 
     render() {
         return <div>
-            I FORGOR
+            Still to be made
         </div>;
     }
 }

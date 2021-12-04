@@ -24,7 +24,7 @@ function HowItWorks(){
     return<div style={{marginTop:'5vh', marginBottom:"6vh"}}>
 
         <div id={'hiw'} className={'title'}>How it works</div>
-        <div style={{ display:'flex', justifyContent:'center'}}>
+        <div style={{ display:'flex', justifyContent:'center', alignItems:'center'}}>
             <AliceCarousel
                 paddingLeft={20}
                 paddingRight={15}

@@ -89,8 +89,13 @@ function Login(props){
             setLoginError(CheckForErrors())
         }
     }
-
-    return <div style={{height:"100vh"}}>
+    function showError(){
+        if(loginError === "")
+            return <br/>
+        else
+            return <div style={{color:"#a4262c"}}>{loginError}</div>
+    }
+    return <div style={{height:"100vh", margin:'2vh'}}>
         <Row>
             <Col/>
             <Col sm={12} md={6} lg={4}>
@@ -106,7 +111,7 @@ function Login(props){
                         errorMessage={passwordError}
                         onChange={handlePassword}
                     />
-                    <div style={{color:"#a4262c"}}>{loginError}</div>
+                    {showError()}
                     <div>{loading ? <CenteredLoader/> : ""}</div>
                     <PrimaryButton onClick={Confirm} style={{float:"right"}}>Login</PrimaryButton>
                     <Link to={"/passwordforgotten"}>Forgotten Password?</Link>

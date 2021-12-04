@@ -121,7 +121,7 @@ function Register(props){
         else
             return <div style={{color:"#a4262c"}}>{registerError}</div>
     }
-    return <div style={{height:"100vh"}}>
+    return <div style={{height:"100vh",margin:'2vh'}}>
         <Row>
             <Col/>
             <Col sm={12} md={6} lg={4}>
