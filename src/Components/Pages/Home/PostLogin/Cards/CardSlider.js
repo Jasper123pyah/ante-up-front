@@ -11,7 +11,7 @@ function CardSlider(props) {
     };
 
     const items = props.items.map((Game) => <div>
-            <GameCard key={Game.id} img={Game.image} name={Game.name} playercount={5615}/>
+            <GameCard key={Game.id} img={Game.image} name={Game.name} wagers={Game.wagers}/>
         </div>);
 
     return (

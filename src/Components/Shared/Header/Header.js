@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
-import { CommandBar } from '@fluentui/react/lib/CommandBar';
+import {CommandBar} from '@fluentui/react/lib/CommandBar';
 import {getAccountInfo, getAPI, getGlobalConnection} from "../../../Core/Global/global.selectors";
 import './Header.css';
 import Logo from "../Logo";
@@ -10,21 +10,26 @@ import {setAccountInfo} from "../../../Core/Global/global.actions";
 import CenteredLoader from "../CenteredLoader";
 import WagerModal from "../../Pages/Game/Create Wager/WagerModal";
 import {useCookies} from "react-cookie";
-import { CommandButton } from '@fluentui/react/lib/Button';
+import {CommandButton} from '@fluentui/react/lib/Button';
 
 initializeIcons();
 
 function Header(props) {
     let history = useHistory();
-    const[loading, setLoading] = useState(false);
-    const[showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [cookies, setCookie, removeCookie] = useCookies(['ANTE_UP_SESSION_TOKEN']);
 
     useEffect(() => {
-        if (props.api !== undefined && cookies.ANTE_UP_SESSION_TOKEN !== undefined ) {
+        if (props.api !== undefined && cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
             setLoading(true);
             props.api.get('account/info').then(res => {
-                let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
+                let resInfo = {
+                    id: res.data.id,
+                    username: res.data.username,
+                    balance: res.data.balance,
+                    email: res.data.email
+                };
                 props.dispatch(setAccountInfo(resInfo))
                 setLoading(false);
             })
@@ -38,23 +43,35 @@ function Header(props) {
             history.push("/login");
         }
     }
-    async function LogOut(){
-        if(props.connection !== undefined){
+
+    function handleProfile() {
+        history.push("/account/profile")
+    }
+
+    function handleSettings() {
+        history.push("/account/settings")
+    }
+
+    function handleBalance() {
+        history.push("/account/balance")
+    }
+
+    async function LogOut() {
+        if (props.connection !== undefined) {
             let token = cookies.ANTE_UP_SESSION_TOKEN;
-            await props.connection.invoke("Logout", token).then(() =>{
+            await props.connection.invoke("Logout", token).then(() => {
                 removeCookie('ANTE_UP_SESSION_TOKEN');
                 history.push("/");
                 window.location.reload();
             });
 
-        }
-        else{
+        } else {
             console.log('err')
             window.location.reload();
         }
     }
 
-    function changeShowModal(){
+    function changeShowModal() {
         showModal ? setShowModal(false) : setShowModal(true);
     }
 
@@ -69,29 +86,31 @@ function Header(props) {
             {
                 key: 'Profile',
                 text: 'Profile',
-                iconProps: { iconName: 'Contact' },
-                onClick: handleAccount
-            },
-            {
-                key: 'Settings',
-                text: 'Settings',
-                iconProps: { iconName: 'Settings' },
+                iconProps: {iconName: 'Contact'},
+                onClick: handleProfile
             },
             {
                 key: 'Balance',
                 text: 'Balance',
-                iconProps: { iconName: 'Money' },
+                iconProps: {iconName: 'Money'},
+                onClick: handleBalance
+            },
+            {
+                key: 'Settings',
+                text: 'Settings',
+                iconProps: {iconName: 'Settings'},
+                onClick: handleSettings
             },
             {
                 key: 'Wager',
-                text:'Wager',
+                text: 'Wager',
                 iconProps: {iconName: 'Add'},
                 onClick: changeShowModal,
             },
             {
                 key: 'Logout',
                 text: 'Log Out',
-                iconProps: { iconName: 'SignOut' },
+                iconProps: {iconName: 'SignOut'},
                 onClick: LogOut,
             },
 
@@ -102,32 +121,35 @@ function Header(props) {
     let _farItems = [
         {
             key: 'Account',
-            onRender: () => <CommandButton menuProps={menuProps} style={{fontSize:'large', border:'3px solid #39ff13'}} className={'infoButton'}>
+            onRender: () => <CommandButton menuProps={menuProps}
+                                           style={{fontSize: 'large', border: '3px solid #39ff13'}}
+                                           className={'infoButton'}>
                 {props.accountInfo.username + " - $ " + props.accountInfo.balance.toString()}
             </CommandButton>,
         },
     ];
 
-    function handleHIW(){
-        if(window.location.href !== "http://localhost:3000/"){
+    function handleHIW() {
+        if (window.location.href !== "http://localhost:3000/") {
             history.push("/")
-        }
-        else{
-            window.scrollBy(0, document.getElementById('hiw').getBoundingClientRect().top-80);
+        } else {
+            window.scrollBy(0, document.getElementById('hiw').getBoundingClientRect().top - 80);
         }
 
 
     }
-    function handleSupport(){
+
+    function handleSupport() {
         history.push("/support")
     }
-    function handleRegister(){
+
+    function handleRegister() {
         history.push("/register");
     }
 
-    if(cookies.ANTE_UP_SESSION_TOKEN === undefined){
+    if (cookies.ANTE_UP_SESSION_TOKEN === undefined) {
 
-        _items =[
+        _items = [
             {
                 key: "Home",
                 onRender: () => <Logo/>
@@ -141,7 +163,7 @@ function Header(props) {
                 onRender: () => <div onClick={handleSupport} className={'infoButton'}>Support</div>
             },
         ]
-        _farItems =[
+        _farItems = [
             {
                 key: 'LogIn',
                 onRender: () => <div onClick={handleAccount} className={'logInButton'}>Log In</div>
@@ -153,8 +175,9 @@ function Header(props) {
         ]
     }
 
-    return<div >
-        {cookies.ANTE_UP_SESSION_TOKEN !== undefined ? <WagerModal show={showModal} setShowModal={changeShowModal}/> : ''}
+    return <div>
+        {cookies.ANTE_UP_SESSION_TOKEN !== undefined ?
+            <WagerModal show={showModal} setShowModal={changeShowModal}/> : ''}
         <div className={"Header"}>
             <CommandBar
                 className={"commandBar"}
@@ -165,11 +188,12 @@ function Header(props) {
         </div>
     </div>
 }
+
 const mapStateToProps = (state) => {
     return {
         accountInfo: getAccountInfo(state),
-        api : getAPI(state),
-        connection : getGlobalConnection(state)
+        api: getAPI(state),
+        connection: getGlobalConnection(state)
     };
 };
 export default connect(mapStateToProps)(Header);

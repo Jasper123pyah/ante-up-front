@@ -1,7 +1,15 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 function GameStatsCard(props){
+    const[winrate, setWinrate] = useState(0);
 
+    useEffect(() => {
+        if(props.stats !== undefined){
+            let winRate = Math.round((props.stats.wins+props.stats.losses)/props.stats.wins);
+            setWinrate(winRate)
+        }
+
+    },[props]);
     return <div className={'gameStatsCard'}>
         <div className={'gameStatsTitle'}>
             {props.stat.gameName.toUpperCase()}
@@ -11,7 +19,7 @@ function GameStatsCard(props){
                 Record
             </div>
             <div className={'gameStatsTextRight'}>
-                124/56
+                {props.stat.wins}/{props.stat.losses}
             </div>
         </div>
         <div className={'gameStatsTextLine'}>
@@ -19,7 +27,7 @@ function GameStatsCard(props){
                 Win Rate
             </div>
             <div className={'gameStatsTextRight'}>
-                70%
+                {winrate}%
             </div>
         </div>
         <div className={'gameStatsTextLine'}>
@@ -27,16 +35,16 @@ function GameStatsCard(props){
                 Earnings
             </div>
             <div className={'gameStatsTextRight'}>
-                $124
+                ${props.stat.earnings}
             </div>
         </div>
         <div className={'horizontalSeparator'} />
         <div className={'gameStatsTextLine'}>
             <div className={'gameStatsTextLeft'}>
-                Skill
+                Elo
             </div>
             <div style={{border:'1px solid #00ff1a', borderRadius:'10px', padding:'2px'}} className={'gameStatsTextRight'}>
-                Champion
+                {props.stat.elo}
             </div>
         </div>
     </div>

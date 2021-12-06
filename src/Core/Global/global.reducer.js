@@ -4,7 +4,7 @@ const initialState = {
     connection: undefined,
     api: undefined,
     accountInfo: {
-        username: "Account",
+        username: undefined,
         balance: 0
     },
     games: [],

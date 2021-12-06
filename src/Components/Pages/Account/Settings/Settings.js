@@ -7,10 +7,7 @@ import {useCookies} from "react-cookie";
 
 function Settings(props){
     const [cookies, setCookie, removeCookie] = useCookies(['ANTE_UP_SESSION_TOKEN']);
-    const [accountInfo, setAccountInfo] = useState({
-        username: "",
-        email: "",
-    });
+
 
     let history = useHistory();
 
@@ -30,14 +27,6 @@ function Settings(props){
             window.location.reload();
         }
     }
-    useEffect(() => {
-        if(props.api !== undefined) {
-            props.api.get('account/info').then(res => {
-                let resInfo = {username: res.data.username, balance: res.data.balance, email: res.data.email};
-                setAccountInfo(resInfo);
-            })
-        }
-    },[props.api, history]);
 
     return<div>
         <div style={{fontSize:"20px"}}>Profile Settings</div>
@@ -48,7 +37,7 @@ function Settings(props){
                     <b>Username</b>
                 </div>
                 <div style={{width:"70%",marginLeft:"20px", marginTop:"15px"}}>
-                    <TextField defaultValue={accountInfo.username} />
+                    <TextField defaultValue={props.accountInfo.username} />
                 </div>
             </div>
             <Separator/>
@@ -57,7 +46,7 @@ function Settings(props){
                     <b>Email</b>
                 </div>
                 <div style={{width:"70%",marginLeft:"20px", marginTop:"5px"}}>
-                    <TextField defaultValue={accountInfo.email} />
+                    <TextField defaultValue={props.accountInfo.email} />
                 </div>
             </div>
             <Separator/>

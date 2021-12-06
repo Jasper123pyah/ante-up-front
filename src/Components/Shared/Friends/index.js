@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import FriendsButton from "./FriendsButton";
 import FriendPanel from "./FriendPanel";
 import {useCookies} from "react-cookie";
+import OutsideListener from "./OutsideListener";
 
 function Friends(){
 
@@ -16,7 +17,7 @@ function Friends(){
     }
     function showPanel(){
         if(panel)
-            return <FriendPanel/>
+            return<OutsideListener showPanel={handlePanel}><FriendPanel/></OutsideListener>
     }
     function showButton(){
         if(cookies.ANTE_UP_SESSION_TOKEN !== undefined){

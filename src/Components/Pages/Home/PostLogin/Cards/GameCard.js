@@ -13,7 +13,7 @@ function GameCard (props){
         <div className={'info'}>
             <div style={{marginLeft:'5px'}}>
                 <div><b>{props.name}</b></div>
-                <div>{props.playercount} Players</div>
+                <div>{props.wagers} wager{props.wagers !== 1 ? "s" : ""}</div>
             </div>
         </div>
     </div>

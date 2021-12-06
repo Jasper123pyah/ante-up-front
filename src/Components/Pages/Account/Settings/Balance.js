@@ -5,12 +5,12 @@ class Balance extends React.Component{
         return <div>
             <div style={{fontSize:"20px"}}>Deposit</div>
             <div>Add money to your balance through PayPal.</div>
-            <div className={"accountDisable"}>
+            <div className={"balanceBox"}>
 
             </div>
             <div style={{fontSize:"20px"}}>Withdraw</div>
             <div>Cash out your balance through PayPal.</div>
-            <div className={"accountDisable"}>
+            <div className={"balanceBox"}>
 
             </div>
             <div style={{fontSize:"20px"}}>Transaction History</div>

@@ -10,18 +10,17 @@ function AdminGameCard(props) {
 
     }, []);
 
-    let cardBodyColor = "#1e1f21";
-    if (localStorage.getItem('darkMode') === 'false') {
-        cardBodyColor = "#ffffff"
-    }
 
     return <Card style={{marginBottom: "15px", width: "100%"}}>
         <Card.Img width={285} variant="top" src={"./Images/" + props.img}/>
-        <Card.Body style={{backgroundColor: cardBodyColor}}>
+        <Card.Body style={{backgroundColor: "#1e1f21"}}>
             <Card.Title style={{fontSize: "2.5vh"}}>{props.name}</Card.Title>
             <PrimaryButton style={{
                 margin: "0 auto",
-                display: "block", backgroundColor: "#a4262c", borderColor: "#a4262c"
+                display: "block",
+                backgroundColor: "#a4262c",
+                borderColor: "#a4262c",
+                color:"#ffffff"
             }} text={"Delete"}/>
         </Card.Body>
     </Card>

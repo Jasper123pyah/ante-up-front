@@ -3,8 +3,11 @@ import {PulseLoader} from "react-spinners";
 
 function CenteredLoader(){
 
-    return<div style={{position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
-        <PulseLoader color={"#39ff13"} size={40}/>
+    return<div style={{height:'100vh', width:'100vw'}}>
+        <div style={{ position:"fixed", top:"45%", left:"45%", overflowX:"hidden"}}>
+            <PulseLoader color={"#39ff13"} size={40}/>
+        </div>
     </div>
+
 }
 export default CenteredLoader;
