@@ -5,14 +5,14 @@ import {Col, Row} from "react-grid-system";
 import {getAPI} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 
-function Lobbies(props){
+function Lobbies(props) {
     const gameName = props.gameName;
 
     const history = useHistory();
     const [lobbies, setLobbies] = useState([]);
     const [items, setItems] = useState(lobbies);
     useEffect(() => {
-        if(props.api !== undefined) {
+        if (props.api !== undefined) {
             props.api.get('/wager/game/' + gameName).then(res => {
                 let lobbiestoAdd = [];
                 res.data.map((wager) => {
@@ -24,7 +24,7 @@ function Lobbies(props){
                         name: wager.title,
                         description: wager.description,
                         host: wager.hostName,
-                        ante: "$"+wager.ante,
+                        ante: "$" + wager.ante,
                         queue: teamlength + "/" + wager.playerCap
                     })
                 });
@@ -32,7 +32,8 @@ function Lobbies(props){
                 setItems(lobbiestoAdd);
             })
         }
-    },[gameName, props.api]);
+    }, [gameName, props.api]);
+
     const [columns, setColumns] = useState([
         {
             key: 'nameColumn',
@@ -56,7 +57,7 @@ function Lobbies(props){
             name: 'Description',
             fieldName: 'description',
             minWidth: 150,
-            maxWidth: 450,
+            maxWidth: 1000,
             isRowHeader: true,
             isSorted: true,
             isSortedDescending: false,
@@ -119,7 +120,8 @@ function Lobbies(props){
             },
         },
     ]);
-    function _onColumnClick(e, column){
+
+    function _onColumnClick(e, column) {
 
         const newColumns = columns.slice();
         const currColumn = newColumns.filter(currCol => column.key === currCol.key)[0];
@@ -127,8 +129,7 @@ function Lobbies(props){
             if (newCol === currColumn) {
                 currColumn.isSortedDescending = !currColumn.isSortedDescending;
                 currColumn.isSorted = true;
-            }
-            else {
+            } else {
                 newCol.isSorted = false;
                 newCol.isSortedDescending = true;
             }
@@ -138,58 +139,59 @@ function Lobbies(props){
         setItems(newLobbies)
 
     };
+
     function _copyAndSort(items, columnKey, isSortedDescending?) {
         const key = columnKey;
         return items.slice(0).sort((a, b) => ((isSortedDescending ? a[key] < b[key] : a[key] > b[key]) ? 1 : -1));
     };
 
     function _onItemInvoked(item) {
-        history.push("/lobby/"+item.key)
+        history.push("/lobby/" + item.key)
     };
 
     function _getKey(item, index): string {
         return item.key;
     };
 
-    function _onChangeText(e, text){
+    function _onChangeText(e, text) {
         setItems(text ? lobbies.filter(i => i.name.toLowerCase().indexOf(text) > -1) : lobbies);
     };
 
-    return<div>
-                <div style={{fontSize:"40px"}}>{gameName}</div>
-                <Row>
-                    <Col md={4} lg={4}>
-                        <TextField label="Filter by name" onChange={_onChangeText} />
-                    </Col>
-                </Row>
-
-                <DetailsList
-                    items={items}
-                    columns={columns}
-                    selectionMode={SelectionMode.none}
-                    getKey={_getKey}
-                    setKey="none"
-                    layoutMode={DetailsListLayoutMode.justified}
-                    isHeaderVisible={true}
-                    onItemInvoked={_onItemInvoked}
-
-                    styles={{
-                        root :{
-                            textAlign:"left",
-                            selectors: {
-                                ':hover': {
-                                    cursor: "pointer"
-                                }
+    return <div>
+        <div style={{fontSize: "xxx-large"}}>{gameName}</div>
+        <Row>
+            <Col md={4} lg={4}>
+                <TextField label="Filter by name" onChange={_onChangeText}/>
+            </Col>
+        </Row>
+        <div style={{width:'100%', minHeight:'30vw', marginBottom:'5vw'}}>
+            <DetailsList
+                items={items}
+                columns={columns}
+                selectionMode={SelectionMode.none}
+                getKey={_getKey}
+                setKey="none"
+                layoutMode={DetailsListLayoutMode.justified}
+                isHeaderVisible={true}
+                onItemInvoked={_onItemInvoked}
+                styles={{
+                    root: {
+                        textAlign: "left",
+                        selectors: {
+                            ':hover': {
+                                cursor: "pointer"
                             }
                         }
-
-                    }}
-                />
+                    }
+                }}
+            />
+        </div>
     </div>
 }
+
 const mapStateToProps = (state) => {
     return {
-        api : getAPI(state)
+        api: getAPI(state)
     };
 };
 export default connect(mapStateToProps)(Lobbies);

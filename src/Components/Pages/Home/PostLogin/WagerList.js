@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {setGames} from "../../../../Core/Global/global.actions";
 import CenteredLoader from "../../../Shared/CenteredLoader";
 import CardSlider from "./Cards/CardSlider";
+import CenteredLoaderFS from "../../../Shared/CenteredLoaderFS";
 
 function WagerList(props){
 
@@ -32,7 +33,7 @@ function WagerList(props){
 
     return <div style={{marginLeft:'1vh', marginBottom:'4vh'}}>
         <div style={{fontSize:"40px"}}>Wagers</div>
-        {loading ? <CenteredLoader/>:
+        {loading ? <CenteredLoaderFS/>:
             <div>
                 <CardSlider items={gameList}/>
             </div>}

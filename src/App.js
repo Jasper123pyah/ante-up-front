@@ -19,6 +19,7 @@ setRTL(true);
 
 // https://localhost:5001/
 // https://78.47.219.206:420/
+// https://api.jaspervandenmeiracker.nl/
 
 function App(props) {
     const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
@@ -31,7 +32,7 @@ function App(props) {
     }
 
     const api = axios.create({
-        baseURL: 'https://localhost:5001/',
+        baseURL: 'https://api.jaspervandenmeiracker.nl/',
         timeout: 10000
     });
 
@@ -57,7 +58,7 @@ function App(props) {
     useEffect(() => {
         if (cookies.ANTE_UP_SESSION_TOKEN !== undefined && props.connection === undefined) {
             let connection = new HubConnectionBuilder()
-                .withUrl("https://localhost:5001/antehub", {
+                .withUrl("https://api.jaspervandenmeiracker.nl/antehub", {
                     skipNegotiation: true,
                     transport: HttpTransportType.WebSockets
                 })

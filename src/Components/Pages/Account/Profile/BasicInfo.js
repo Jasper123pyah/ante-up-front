@@ -12,7 +12,7 @@ function BasicInfo(props){
                 Joined: {new Date(props.info.joined).toLocaleDateString()}
             </div>
             <div style={{fontSize:'medium'}}>
-                Gamer ID's: {props.gamerTags}
+                Gamer ID's: to be done
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@ import Rankingbox from "./Rankingbox";
 import BasicInfo from "./BasicInfo";
 import {Col, Row} from "react-grid-system";
 import GameStatsCard from "./GameStatsCard";
-import CenteredLoader from "../../../Shared/CenteredLoader";
+import CenteredLoaderFS from "../../../Shared/CenteredLoaderFS";
 
 function Profile(props) {
     const [gameStats, setGameStats] = useState([]);
@@ -22,7 +22,7 @@ function Profile(props) {
             props.api.get("profile/" + name).then(res => {
                 setLoading(false);
                 setGameStats(res.data.gameStats);
-                setBasicInfo({accountName: res.data.accountName, joined: res.data.joined, gamerTags: res.data.gamerTags});
+                setBasicInfo({accountName: res.data.accountName, joined: res.data.joined});
                 setRankings({earnings: res.data.earnings, wins: res.data.wins, losses:res.data.losses, recentWagers: res.data.recentWagers});
             }).catch(err => {
                 if(err.response.status === 404){
@@ -32,6 +32,7 @@ function Profile(props) {
             });
         }
     }, [props.name, props.api]);
+
     function showGameStats(){
         if(gameStats.length === 0){
             return <div className={"centered"} style={{height:'10vw', fontSize:'xx-large', marginBottom:'2vw'}}>
@@ -46,7 +47,7 @@ function Profile(props) {
         }
     }
     return <div>
-        {loading ? <CenteredLoader/> :
+        {loading ? <CenteredLoaderFS/> :
             error === 404 ? <div>Account not found.</div> :
             <div>
                 <div className={'profileBanner'}>

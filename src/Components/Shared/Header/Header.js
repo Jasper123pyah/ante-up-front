@@ -101,12 +101,7 @@ function Header(props) {
                 iconProps: {iconName: 'Settings'},
                 onClick: handleSettings
             },
-            {
-                key: 'Wager',
-                text: 'Wager',
-                iconProps: {iconName: 'Add'},
-                onClick: changeShowModal,
-            },
+
             {
                 key: 'Logout',
                 text: 'Log Out',
@@ -119,6 +114,16 @@ function Header(props) {
     };
 
     let _farItems = [
+        {
+            key: 'Wager',
+            text: 'Wager',
+            iconProps: {iconName: 'Add'},
+            onRender: () => <CommandButton
+                style={{fontSize: 'large', border: '3px solid #39ff13'}}
+                className={'infoButton'} onClick={changeShowModal}>
+                Create Wager
+            </CommandButton>,
+        },
         {
             key: 'Account',
             onRender: () => <CommandButton menuProps={menuProps}
