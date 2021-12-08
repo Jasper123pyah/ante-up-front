@@ -34,7 +34,7 @@ function Header(props) {
                 setLoading(false);
             })
         }
-    }, [props.api, localStorage]);
+    }, [props.api, cookies]);
 
     function handleAccount() {
         if (cookies.ANTE_UP_SESSION_TOKEN !== undefined) {

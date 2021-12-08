@@ -39,11 +39,7 @@ function Lobby(props) {
         }
         if(props.accountInfo.id === undefined ){
             if (props.api !== undefined && cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
-                props.api.get('account/info', {
-                    params: {
-                        token: cookies.ANTE_UP_SESSION_TOKEN
-                    }
-                }).then(res => {
+                props.api.get('account/info').then(res => {
                     let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
                     props.dispatch(setAccountInfo(resInfo))
                 })
