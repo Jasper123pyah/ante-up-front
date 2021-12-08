@@ -66,7 +66,7 @@ function Login(props){
                     email: email
                 }).then(res => {
                     let connection = new HubConnectionBuilder()
-                        .withUrl("https://localhost:5001/antehub", {
+                        .withUrl("https://api.jaspervandenmeiracker.nl/antehub", {
                             skipNegotiation: true,
                             transport: HttpTransportType.WebSockets
                         })
