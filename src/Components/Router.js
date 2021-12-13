@@ -7,11 +7,13 @@ import Login from "./Pages/Account/Entry/Login";
 import ForgottenPassword from "./Pages/Account/Entry/ForgottenPassword";
 import Register from "./Pages/Account/Entry/Register";
 import Lobbies from "./Pages/Game/Lobbies";
-import Lobby from "./Pages/Game/Lobby";
-import Account from "./Pages/Account/Settings";
+import Lobby from "./Pages/Game/Lobby/Lobby";
+import Account from "./Pages/Account";
 import Admin from "./Pages/Admin";
 import Footer from "./Shared/Footer/Footer";
 import Profile from "../Components/Pages/Account/Profile/index";
+import Withdraw from "./Pages/Account/Balance/Withdraw";
+import Deposit from "./Pages/Account/Balance/Deposit";
 
 function Router() {
     return <div style={{ marginTop: "80px"}}>
@@ -32,6 +34,8 @@ function Router() {
                 <Route path={"/account/:pivot"} render={(props) =>
                     <Account pivot={props.match.params.pivot}/>
                 }/>
+                <Route exact path={"/withdraw"} component={Withdraw}/>
+                <Route exact path={"/deposit"} component={Deposit}/>
             </Col>
         </Row>
 

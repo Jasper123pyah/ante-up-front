@@ -22,7 +22,6 @@ function HowItWorks(){
     ]
     function HIWCards(){
         if(window.innerWidth > 1000){
-            console.log(window.innerWidth)
             return(<div style={{ display:'flex', justifyContent:'center', alignItems:'center'}}>
                 <div className={'howItWorksCard centered'}>
                     Create/Join a lobby. (Placeholder for an image)

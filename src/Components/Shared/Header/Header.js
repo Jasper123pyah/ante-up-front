@@ -10,7 +10,7 @@ import {setAccountInfo} from "../../../Core/Global/global.actions";
 import CenteredLoader from "../CenteredLoader";
 import WagerModal from "../../Pages/Game/Create Wager/WagerModal";
 import {useCookies} from "react-cookie";
-import {CommandButton} from '@fluentui/react/lib/Button';
+import {ActionButton, CommandButton} from '@fluentui/react/lib/Button';
 
 initializeIcons();
 
@@ -101,15 +101,12 @@ function Header(props) {
                 iconProps: {iconName: 'Settings'},
                 onClick: handleSettings
             },
-
             {
                 key: 'Logout',
                 text: 'Log Out',
                 iconProps: {iconName: 'SignOut'},
                 onClick: LogOut,
             },
-
-
         ],
     };
 
@@ -117,20 +114,26 @@ function Header(props) {
         {
             key: 'Wager',
             text: 'Wager',
-            iconProps: {iconName: 'Add'},
-            onRender: () => <CommandButton
-                style={{fontSize: 'large', border: '3px solid #39ff13'}}
-                className={'infoButton'} onClick={changeShowModal}>
-                Create Wager
-            </CommandButton>,
+            onRender: () =>
+                <ActionButton
+                    iconProps={{iconName: 'Add'}}
+                    onClick={changeShowModal}
+                    className={'infoButton'}
+                    style={{fontSize: 'large'}}
+                >
+                    Wager
+                </ActionButton>
         },
         {
             key: 'Account',
-            onRender: () => <CommandButton menuProps={menuProps}
-                                           style={{fontSize: 'large', border: '3px solid #39ff13'}}
-                                           className={'infoButton'}>
-                {props.accountInfo.username + " - $ " + props.accountInfo.balance.toString()}
-            </CommandButton>,
+            onRender: () =>
+                <CommandButton
+                    menuProps={menuProps}
+                    style={{fontSize: 'large', border: '3px solid #39ff13'}}
+                    className={'infoButton'}
+                >
+                    {props.accountInfo.username + " - $ " + props.accountInfo.balance.toString()}
+                </CommandButton>,
         },
     ];
 
@@ -140,8 +143,6 @@ function Header(props) {
         } else {
             window.scrollBy(0, document.getElementById('hiw').getBoundingClientRect().top - 80);
         }
-
-
     }
 
     function handleSupport() {

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import CenteredLoader from "../../../Shared/CenteredLoader";
+import AccountTable from "./AccountTable";
 
 function AdminAccounts(props){
     const[accounts, setAccounts] = useState([]);
@@ -21,10 +22,9 @@ function AdminAccounts(props){
         }
     }
     return<div>
-        {loading ? <CenteredLoader/> : accounts.map(account => <div>
-                {account.username} - {account.email}
-            </div>
-        )}
+        {loading ? <CenteredLoader/> : <div style={{marginTop:'1vw'}}>
+            <AccountTable accounts={accounts}/>
+        </div>}
     </div>
 }
 const mapStateToProps = (state) => {

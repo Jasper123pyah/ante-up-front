@@ -9,7 +9,7 @@ import AdminWagers from "./Wagers";
 import AdminGames from "./Games";
 import AdminAccounts from "./Accounts";
 import CenteredLoader from "../../Shared/CenteredLoader";
-import AccountPivot from "../Account/Settings/AccountPivot";
+import AccountPivot from "../Account/AccountPivot";
 
 function Admin(props) {
 
@@ -32,7 +32,7 @@ function Admin(props) {
     return <div>
         {loading ? <CenteredLoader/> :
             <div>
-                <div style={{fontSize: "40px", marginLeft: "15px", marginBottom: "10px"}}>Admin Panel</div>
+                <div style={{fontSize: "xxx-large", marginLeft: "15px", marginBottom: "10px"}}>Admin Panel</div>
                 <Pivot>
                     <PivotItem headerText={"Wagers"}>
                         <div className={"pivotContent"}>

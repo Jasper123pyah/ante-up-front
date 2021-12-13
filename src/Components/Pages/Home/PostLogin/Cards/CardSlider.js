@@ -5,8 +5,8 @@ import AliceCarousel from "react-alice-carousel";
 function CardSlider(props) {
 
     const responsive = {
-        0: { items: 1  },
-        568: { items: 2 },
+        0: { items: 2 },
+        568: { items: 3 },
         1024: { items: 5 },
     };
 
@@ -17,7 +17,6 @@ function CardSlider(props) {
     return (
         <div>
             <AliceCarousel
-                paddingLeft={20}
                 disableDotsControls={true}
                 infinite={true}
                 items={items}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {DetailsList, DetailsListLayoutMode, SelectionMode, TextField} from "@fluentui/react";
+import {DetailsList, DetailsListLayoutMode, PrimaryButton, SelectionMode, TextField} from "@fluentui/react";
 import {useHistory} from "react-router-dom";
 import {Col, Row} from "react-grid-system";
 import {getAPI} from "../../../Core/Global/global.selectors";
@@ -49,7 +49,7 @@ function Lobbies(props) {
             onColumnClick: _onColumnClick,
             data: 'string',
             onRender: (item) => {
-                return <div style={{textAlign: "left"}}>{item.name}</div>;
+                return <div style={{textAlign: "left", fontSize:'large'}}>{item.name}</div>;
             },
         },
         {
@@ -66,7 +66,7 @@ function Lobbies(props) {
             onColumnClick: _onColumnClick,
             data: 'string',
             onRender: (item) => {
-                return <div style={{textAlign: "left"}}>{item.description}</div>;
+                return <div style={{textAlign: "left", fontSize:'large'}}>{item.description}</div>;
             },
         },
         {
@@ -83,7 +83,7 @@ function Lobbies(props) {
             onColumnClick: _onColumnClick,
             data: 'number',
             onRender: (item) => {
-                return <div style={{textAlign: "left"}}>{item.ante}</div>;
+                return <div style={{textAlign: "left", fontSize:'large'}}>{item.ante}</div>;
             },
         },
         {
@@ -100,7 +100,7 @@ function Lobbies(props) {
             onColumnClick: _onColumnClick,
             data: 'string',
             onRender: (item) => {
-                return <div style={{textAlign: "left"}}>{item.host}</div>;
+                return <div style={{textAlign: "left", fontSize:'large'}}>{item.host}</div>;
             },
         },
         {
@@ -110,13 +110,24 @@ function Lobbies(props) {
             minWidth: 60,
             maxWidth: 70,
             isSorted: true,
+            isRowHeader: true,
             isSortedDescending: false,
             sortAscendingAriaLabel: 'Sorted A to Z',
             sortDescendingAriaLabel: 'Sorted Z to A',
             onColumnClick: _onColumnClick,
             data: 'string',
             onRender: (item) => {
-                return <div style={{textAlign: "left"}}>{item.queue}</div>;
+                return <div style={{textAlign: "left",fontSize:'large'}}>{item.queue}</div>;
+            },
+        },
+        {
+            key: 'joinColumn',
+            minWidth: 90,
+            maxWidth: 100,
+            data: 'string',
+            onRender: (item) => {
+                return <PrimaryButton onClick={() =>
+                    history.push("/lobby/" + item.key)}>Join</PrimaryButton>;
             },
         },
     ]);
@@ -145,9 +156,6 @@ function Lobbies(props) {
         return items.slice(0).sort((a, b) => ((isSortedDescending ? a[key] < b[key] : a[key] > b[key]) ? 1 : -1));
     };
 
-    function _onItemInvoked(item) {
-        history.push("/lobby/" + item.key)
-    };
 
     function _getKey(item, index): string {
         return item.key;
@@ -173,7 +181,6 @@ function Lobbies(props) {
                 setKey="none"
                 layoutMode={DetailsListLayoutMode.justified}
                 isHeaderVisible={true}
-                onItemInvoked={_onItemInvoked}
                 styles={{
                     root: {
                         textAlign: "left",

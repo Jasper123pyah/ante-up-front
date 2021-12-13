@@ -1,0 +1,21 @@
+.lobbyBox {
+    width: 100%;
+}
+.lobbyBoxItem {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #39ff13;
+}
+.startButton{
+    height:100%;
+    display: flex;
+    flex-direction:column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .startButton{
+        margin-top:2vh;
+    }
+}

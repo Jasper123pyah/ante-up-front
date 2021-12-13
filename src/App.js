@@ -12,7 +12,6 @@ import {getGlobalConnection,} from "./Core/Global/global.selectors";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 import Friends from "./Components/Shared/Friends";
 import {useCookies} from "react-cookie";
-
 setConfiguration({maxScreenClass: 'xl'});
 setRTL(true);
 
@@ -32,7 +31,7 @@ function App(props) {
     }
 
     const api = axios.create({
-        baseURL: 'https://api.jaspervandenmeiracker.nl/',
+        baseURL: 'https://localhost:5001/',
         timeout: 10000
     });
 

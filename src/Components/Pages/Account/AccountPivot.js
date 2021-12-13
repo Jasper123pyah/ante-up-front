@@ -1,11 +1,12 @@
 import * as React from 'react';
-import Settings from "./Settings.js";
-import Balance from "./Balance";
-import Profile from "../Profile";
 import {useEffect, useState} from "react";
-import {getAccountInfo, getAPI} from "../../../../Core/Global/global.selectors";
+import {getAccountInfo} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
+import Balance from "./Balance";
+import Profile from "./Profile";
+import Settings from "./Settings";
+import "./Account.css"
 
 function AccountPivot(props) {
     const [accountInfo, setAccountInfo] = useState({

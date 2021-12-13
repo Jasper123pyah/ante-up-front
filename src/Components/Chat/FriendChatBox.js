@@ -5,7 +5,6 @@ import {getAPI, getGlobalConnection} from "../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useCookies} from "react-cookie";
 
-
 function FriendChatbox(props) {
     const [items, setItems] = useState(props.messages);
     const [text, setText] = useState("");

@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {DefaultButton, PrimaryButton, Separator} from "@fluentui/react";
 import {Col, Row} from "react-grid-system";
-import "../../../App.css";
-import {getAccountInfo, getAPI, getGlobalConnection, getWagerAPI} from "../../../Core/Global/global.selectors";
+import "../../../../App.css";
+import {getAccountInfo, getAPI, getGlobalConnection, getWagerAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
-import LobbyChatbox from "../../Chat/LobbyChatbox";
 import {useHistory} from "react-router-dom";
-import {setAccountInfo} from "../../../Core/Global/global.actions";
-import CenteredLoader from "../../Shared/CenteredLoader";
+import {setAccountInfo} from "../../../../Core/Global/global.actions";
+import CenteredLoader from "../../../Shared/CenteredLoader";
 import {useCookies} from "react-cookie";
+import "./Lobby.css";
+import LobbyChatbox from "./LobbyChatbox";
 
 function Lobby(props) {
     const [wager, setWager] = useState({});
@@ -155,13 +156,13 @@ function Lobby(props) {
 
     let boxHeight = (((wager.playercap / 2) * 50) + "px").toString();
 
-    return loading ? <CenteredLoader/> : <div style={{marginTop:"2vw", marginBottom:"2vw"}}>
+    return loading ? <CenteredLoader/> : <div style={{margin:"2vh", minHeight:"80vh"}}>
         <div style={{fontSize: "40px"}}>{wager.hostName}'s game</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.game} ● {playerCapToString()} ● ${wager.ante}</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.description}</div>
         <Separator/>
         <Row>
-            <Col>
+            <Col sm={12} lg={6}>
                 <div style={{fontSize: "20px"}}>Team 1</div>
                 <div style={{height: boxHeight}} className={"lobbyBox"}>
                     {team1.map(player =>
@@ -174,7 +175,7 @@ function Lobby(props) {
                     {fillSlots(team1, 1).map(object => object)}
                 </div>
             </Col>
-            <Col>
+            <Col sm={12} lg={6}>
                 <div style={{fontSize: "20px"}}>Team 2</div>
                 <div style={{height: boxHeight}} className={"lobbyBox"}>
                     {team2.map(player =>
@@ -189,15 +190,14 @@ function Lobby(props) {
             </Col>
         </Row>
         {cookies.ANTE_UP_SESSION_TOKEN !== undefined ? <Row>
-            <Col>
+            <Col sm={12} lg={4}>
                 <LobbyChatbox items={messages} lobbyId={wager.id}/>
             </Col>
-            <Col>
-                <div style={{height:"100%", display: "flex", flexDirection:"column", justifyContent: "flex-end", alignItems: "center"}}>
+            <Col sm={12} lg={4}>
+                <div className={"startButton"}>
                     <PrimaryButton onClick={startLobby} text={"Start Game"}/>
                 </div>
             </Col>
-            <Col/>
         </Row> : <div/>}
     </div>
 

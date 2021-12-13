@@ -7,15 +7,15 @@ import GameCard from "../../Home/PostLogin/Cards/GameCard";
 import AdminGameCard from "./AdminGameCard";
 import CenteredLoader from "../../../Shared/CenteredLoader";
 
-function AdminGames(props){
-    const[games, setGames] = useState([]);
-    const[loading, setLoading] = useState(true);
+function AdminGames(props) {
+    const [games, setGames] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         getAllGames();
-    },[props.api]);
+    }, [props.api]);
 
-    function getAllGames(){
-        if(props.api !== undefined){
+    function getAllGames() {
+        if (props.api !== undefined) {
             setLoading(true)
             props.api.get('/Game').then(res => {
                 console.log(res.data)
@@ -25,35 +25,36 @@ function AdminGames(props){
         }
     }
 
-    return<div>
-        {loading ? <CenteredLoader/> : <div>
+    return <div>
+        {loading ? <CenteredLoader/> : <div style={{marginTop: '1vw'}}>
             <div className={"adminCreatePanel"}>
-                <div style={{margin:"10px", marginLeft:"25px", fontSize:"20px"}}>Add a new game</div>
-                <div style={{display:"flex", justifyContent:"space-evenly"}}>
-                    <div style={{width:"40%"}}>
-                        <TextField />
+                <div style={{margin: "10px", marginLeft: "25px", fontSize: "20px"}}>Add a new game</div>
+                <div style={{display: "flex", justifyContent: "space-evenly"}}>
+                    <div style={{width: "40%"}}>
+                        <TextField placeholder={"Name of the game..."}/>
                     </div>
-                    <div style={{width:"40%"}}>
+                    <div style={{width: "40%"}}>
                         <input type="file" name="file"/>
                     </div>
-                    <div style={{}}>
+                    <div>
                         <PrimaryButton text={"Create"} iconProps={{iconName: 'Add'}}/>
                     </div>
                 </div>
             </div>
-            <Row sm={1} md={2} lg={5} >
+            <Row sm={1} md={2} lg={5}>
                 {games.map((Game) => (
                     <Col sm={12}>
-                        <AdminGameCard key={Game.id} img={Game.image} name={Game.name} playercount={5615}/>
+                        <AdminGameCard key={Game.id} img={Game.image} name={Game.name}/>
                     </Col>
                 ))}
             </Row>
         </div>}
     </div>
 }
+
 const mapStateToProps = (state) => {
     return {
-        api : getAPI(state)
+        api: getAPI(state)
     };
 };
 

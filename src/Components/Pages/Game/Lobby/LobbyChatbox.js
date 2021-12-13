@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {IconButton, List, TextField} from '@fluentui/react';
 import {useEffect, useState} from "react";
-import {getAPI, getGlobalConnection} from "../../Core/Global/global.selectors";
+import {getAPI, getGlobalConnection} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useCookies} from "react-cookie";
 
