@@ -10,6 +10,12 @@
     width: 20%;
     height: 70%;
 }
+@media only screen and (max-width: 600px) {
+    .friendPanel {
+        width:90%;
+        margin-right:5%;
+    }
+}
 .friendItem {
     display: flex;
     align-items: center;

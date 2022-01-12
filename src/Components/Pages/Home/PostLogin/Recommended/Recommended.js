@@ -3,25 +3,36 @@ import {Col, Row} from "react-grid-system";
 import RecommendedBig from "./RecommendedBig";
 import RecommendedSmall from "./RecommendedSmall";
 import RecommendedMed from "./RecommendedMed";
+import RecommendedSlider from "./RecommendedSlider";
 function Recommended(){
 
-    return <div style={{padding:'3vw', height:'auto'}}>
-        <Row>
-            <Col>
-                <RecommendedBig/>
-            </Col>
-            <Col>
+    function showVersion(){
+        if(window.innerWidth < 1000){
+            return <div style={{padding:'3vw', height:'auto'}}>
+                <RecommendedSlider/>
+            </div>
+        }else{
+            return <div style={{padding:'3vw', height:'auto'}}>
                 <Row>
-                    <RecommendedMed/>
+                    <Col>
+                        <RecommendedBig/>
+                    </Col>
+                    <Col>
+                        <Row>
+                            <RecommendedMed/>
+                        </Row>
+                        <Row>
+                            <RecommendedSmall/>
+                            <div style={{width:'2%'}}/>
+                            <RecommendedSmall/>
+                        </Row>
+                    </Col>
                 </Row>
-                <Row>
-                    <RecommendedSmall/>
-                    <div style={{width:'2%'}}/>
-                    <RecommendedSmall/>
-                </Row>
-            </Col>
-        </Row>
-    </div>
+            </div>
+        }
+    }
+
+    return showVersion();
 }
 
 export default Recommended;

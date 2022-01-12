@@ -57,7 +57,7 @@ function Header(props) {
     }
 
     async function LogOut() {
-        if (props.connection !== undefined) {
+            if (props.connection !== undefined) {
             let token = cookies.ANTE_UP_SESSION_TOKEN;
             await props.connection.invoke("Logout", token).then(() => {
                 removeCookie('ANTE_UP_SESSION_TOKEN');
@@ -132,17 +132,30 @@ function Header(props) {
                     style={{fontSize: 'large', border: '3px solid #39ff13'}}
                     className={'infoButton'}
                 >
-                    {props.accountInfo.username + " - $ " + props.accountInfo.balance.toString()}
+                   {"Account - $" + props.accountInfo.balance.toString()}
                 </CommandButton>,
         },
     ];
-
-    function handleHIW() {
-        if (window.location.href !== "http://localhost:3000/") {
-            history.push("/")
-        } else {
-            window.scrollBy(0, document.getElementById('hiw').getBoundingClientRect().top - 80);
-        }
+    if(window.innerWidth < 1000){
+        _farItems = [
+            {
+                key: 'Account',
+                onRender: () =>
+                    <CommandButton
+                        menuProps={menuProps}
+                        style={{fontSize: 'large', border: '3px solid #39ff13'}}
+                        className={'infoButton'}
+                    >
+                        {"Account - $" + props.accountInfo.balance.toString()}
+                    </CommandButton>,
+            },
+        ];
+        menuProps.items.push({
+                key: 'Wager',
+                text: 'Wager',
+                iconProps: {iconName: 'Add'},
+                onClick: changeShowModal,
+            })
     }
 
     function handleSupport() {
@@ -161,10 +174,6 @@ function Header(props) {
                 onRender: () => <Logo/>
             },
             {
-                key: "HowItWorks",
-                onRender: () => <div onClick={handleHIW} className={'infoButton'}>How it works</div>
-            },
-            {
                 key: "Support",
                 onRender: () => <div onClick={handleSupport} className={'infoButton'}>Support</div>
             },
@@ -181,7 +190,7 @@ function Header(props) {
         ]
     }
 
-    return <div>
+    return <div >
         {cookies.ANTE_UP_SESSION_TOKEN !== undefined ?
             <WagerModal show={showModal} setShowModal={changeShowModal}/> : ''}
         <div className={"Header"}>

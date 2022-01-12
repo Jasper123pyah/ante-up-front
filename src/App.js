@@ -35,10 +35,6 @@ function App(props) {
         timeout: 10000
     });
 
-    const wagerApi = axios.create({
-        baseURL: 'https://localhost:6001/',
-        timeout: 10000
-    })
 
     async function buildConnection(connection) {
         try {
@@ -67,7 +63,6 @@ function App(props) {
             buildConnection(connection);
         }
         props.dispatch(setAPI(api));
-        props.dispatch(setWagerAPI(wagerApi));
 
     }, []);
 

@@ -6,12 +6,12 @@ import './PreLogin.css';
 import Gaming from "../../../../Images/gaming.jpg";
 import SiteStats from "./SiteStats";
 
-function MainScreen(){ // style={{ backgroundImage: `url(${Gaming})` }}
+function MainScreen(){
     return <div style={{marginTop:'10vh', marginBottom:"7vh"}}>
         <Row>
             <Col lg={1}/>
             <Col sm={12} md={4} lg={3}>
-                <div style={{textAlign:'center', marginTop:"5vw", marginBottom:"2vh"}}>
+                <div style={{textAlign:'center', marginTop:"2vw", marginBottom:"2vh"}}>
                     <div style={{fontSize:"xxx-large"}}>Play games <br/> for cash</div>
                     <div style={{fontSize:"large", margin:'1vh'}}>Wager matches, play in tournaments, earn money while gaming.</div>
                     <Link className={'signUpLink'} to={"/register"}>Sign up now</Link>

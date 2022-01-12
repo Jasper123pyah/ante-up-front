@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {DefaultButton, PrimaryButton, Separator} from "@fluentui/react";
 import {Col, Row} from "react-grid-system";
 import "../../../../App.css";
-import {getAccountInfo, getAPI, getGlobalConnection, getWagerAPI} from "../../../../Core/Global/global.selectors";
+import {getAccountInfo, getAPI, getGlobalConnection} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {setAccountInfo} from "../../../../Core/Global/global.actions";
@@ -207,7 +207,6 @@ const mapStateToProps = (state) => {
     return {
         connection: getGlobalConnection(state),
         api: getAPI(state),
-        wagerAPI: getWagerAPI(state),
         accountInfo: getAccountInfo(state)
     };
 };

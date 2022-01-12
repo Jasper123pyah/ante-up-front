@@ -37,9 +37,8 @@ class Footer extends React.Component{
                                 <Col sm={12} md={6} lg={6}>
                                     <div style={{marginTop:"2vh"}}>
                                         <b style={{color:'#39ff13', fontSize:"18px"}}>Customer Service</b>
-                                        <div><Link className={'link'} to={"/faq"}>FAQ</Link></div>
                                         <div><Link className={'link'} to={"/rules"}>Rules</Link></div>
-                                        <div><Link className={'link'} to={"/contact"}>Contact</Link></div>
+                                        <div><Link className={'link'} to={"/support"}>Support</Link></div>
                                         <div><Link className={'link'} to={"/about"}>About Us</Link></div>
                                     </div>
                                 </Col>

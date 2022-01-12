@@ -14,7 +14,7 @@ function Balance(){
         </div>
         <div style={{fontSize: "20px"}}>Transaction History</div>
         <div>See all your transactions.</div>
-        <div >
+        <div>
         </div>
     </div>
 }

@@ -1,21 +1,22 @@
 import {IconButton, mergeStyleSets, Modal} from "@fluentui/react";
 import CreateLobby from "./CreateLobby";
 
-function WagerModal(props){
-    function changeShowModal(){
+function WagerModal(props) {
+    function changeShowModal() {
         props.setShowModal();
     }
+
     const contentStyles = mergeStyleSets({
         container: {
             display: 'flex',
             flexFlow: 'column nowrap',
             alignItems: 'stretch',
-            width:'40vw',
+            width: '40vw',
             '@media(max-width: 600px)': {
                 width: '100vw',
             },
-            '@media(max-width: 950px)':{
-                width:'80vw'
+            '@media(max-width: 950px)': {
+                width: '90vw'
             }
         },
 
@@ -30,7 +31,7 @@ function WagerModal(props){
             >
                 <div>
                     <IconButton
-                        iconProps={{iconName:"Cancel"}}
+                        iconProps={{iconName: "Cancel"}}
                         onClick={changeShowModal}
                     />
                 </div>

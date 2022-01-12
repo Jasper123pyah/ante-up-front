@@ -3,7 +3,6 @@ import "../../../../App.css"
 import {getAPI, getGames} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {setGames} from "../../../../Core/Global/global.actions";
-import CenteredLoader from "../../../Shared/CenteredLoader";
 import CardSlider from "./Cards/CardSlider";
 import CenteredLoaderFS from "../../../Shared/CenteredLoaderFS";
 

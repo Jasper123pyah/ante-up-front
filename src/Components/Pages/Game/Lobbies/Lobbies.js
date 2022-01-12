@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {DetailsList, DetailsListLayoutMode, PrimaryButton, SelectionMode, TextField} from "@fluentui/react";
 import {useHistory} from "react-router-dom";
 import {Col, Row} from "react-grid-system";
-import {getAPI} from "../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
+import {getAPI} from "../../../../Core/Global/global.selectors";
 
 function Lobbies(props) {
     const gameName = props.gameName;
@@ -90,8 +90,8 @@ function Lobbies(props) {
             key: 'hostColumn',
             name: 'Host',
             fieldName: 'host',
-            minWidth: 50,
-            maxWidth: 70,
+            minWidth: 100,
+            maxWidth: 120,
             isRowHeader: true,
             isSorted: true,
             isSortedDescending: false,
@@ -107,8 +107,8 @@ function Lobbies(props) {
             key: 'queueColumn',
             name: 'Queue',
             fieldName: 'queue',
-            minWidth: 60,
-            maxWidth: 70,
+            minWidth: 70,
+            maxWidth: 90,
             isSorted: true,
             isRowHeader: true,
             isSortedDescending: false,

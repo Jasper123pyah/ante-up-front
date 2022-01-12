@@ -93,7 +93,7 @@ function CreateLobby(props) {
         }, [],
     );
 
-    return <div>
+    return <div style={{overflowX:"hidden", maxWidth:'100%'}}>
         <div style={{paddingBottom: "2vw", paddingRight: '2vw', paddingLeft: '2vw', textAlign: "left"}}>
             {loading ? <CenteredLoader/> : <div>
                 <div style={{fontSize: "40px"}}>Create a wager</div>
