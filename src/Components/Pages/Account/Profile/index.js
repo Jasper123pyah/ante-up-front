@@ -9,7 +9,7 @@ import GameStatsCard from "./GameStatsCard";
 import CenteredLoaderFS from "../../../Shared/CenteredLoaderFS";
 
 function Profile(props) {
-    const [gameStats, setGameStats] = useState([{gameName: 'fortnite', wins:5, losses:5}]);
+    const [gameStats, setGameStats] = useState([]);
     const [basicInfo, setBasicInfo] = useState({});
     const [rankings, setRankings] = useState({});
     const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ function Profile(props) {
             setLoading(true);
             props.api.get("profile/" + name).then(res => {
                 setLoading(false);
-               // setGameStats(res.data.gameStats);
+                setGameStats(res.data.gameStats);
                 setBasicInfo({accountName: res.data.accountName, joined: res.data.joined});
                 setRankings({earnings: res.data.earnings, wins: res.data.wins, losses:res.data.losses, recentWagers: res.data.recentWagers});
             }).catch(err => {

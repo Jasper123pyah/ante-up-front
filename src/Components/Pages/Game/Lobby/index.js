@@ -10,6 +10,7 @@ import CenteredLoader from "../../../Shared/CenteredLoader";
 import {useCookies} from "react-cookie";
 import "./Lobby.css";
 import LobbyChatbox from "./LobbyChatbox";
+import GamerTagModal from "../GamerTag/GamerTagModal";
 
 function Lobby(props) {
     const [wager, setWager] = useState({});
@@ -18,11 +19,24 @@ function Lobby(props) {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [cookies] = useCookies(['ANTE_UP_SESSION_TOKEN']);
+    const [showTagModal, setShowTagModal] = useState(false);
     let history = useHistory();
 
     useEffect(() => {
-        if(cookies.ANTE_UP_SESSION_TOKEN === undefined){
+        console.log(showTagModal)
+    }, [showTagModal])
+
+    useEffect(() => {
+        if (cookies.ANTE_UP_SESSION_TOKEN === undefined) {
             history.push("/");
+        }
+        if (props.api !== undefined) {
+            let lobbyId = props.id;
+            props.api.get("/tag/" + lobbyId).catch(err => {
+                setShowTagModal(true);
+                console.log(showTagModal)
+                console.log(err.response.data)
+            });
         }
         if (props.connection !== undefined) {
             props.connection.on("LobbyLeft", (lobbyLeave) => {
@@ -38,7 +52,7 @@ function Lobby(props) {
                 history.push("/");
             });
         }
-        if(props.accountInfo.id === undefined ){
+        if (props.accountInfo.id === undefined) {
             if (props.api !== undefined && cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
                 props.api.get('account/info').then(res => {
                     let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
@@ -59,7 +73,7 @@ function Lobby(props) {
     function getWager() {
         if (props.api !== undefined) {
             setLoading(true);
-            props.api.get('/wager/'+ props.id).then(res => {
+            props.api.get('/wager/' + props.id).then(res => {
                 setWager({
                     id: res.data.id,
                     ante: res.data.ante,
@@ -72,6 +86,7 @@ function Lobby(props) {
                 });
                 setMessages(res.data.chat.messages);
                 setTeam1(res.data.team1.players);
+                console.log(res.data.team2.players);
                 setTeam2(res.data.team2.players);
                 setLoading(false)
             })
@@ -136,7 +151,8 @@ function Lobby(props) {
             }} text={"Leave"} onClick={() => leaveLobby()}/>
         }
     }
-    function startLobby(){
+
+    function startLobby() {
     }
 
     async function leaveLobby() {
@@ -146,7 +162,8 @@ function Lobby(props) {
 
         await props.connection.invoke("LeaveLobby", {token, lobby});
     }
-    async function kickPlayer(player){
+
+    async function kickPlayer(player) {
         let user = player.id;
         let lobby = wager.id;
         let hostToken = cookies.ANTE_UP_SESSION_TOKEN;
@@ -156,7 +173,8 @@ function Lobby(props) {
 
     let boxHeight = (((wager.playercap / 2) * 50) + "px").toString();
 
-    return loading ? <CenteredLoader/> : <div style={{margin:"2vh", minHeight:"80vh"}}>
+    return loading ? <CenteredLoader/> : <div style={{margin: "2vh", minHeight: "80vh"}}>
+        <GamerTagModal gameName={wager.game} show={showTagModal}/>
         <div style={{fontSize: "40px"}}>{wager.hostName}'s game</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.game} ● {playerCapToString()} ● ${wager.ante}</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.description}</div>
@@ -167,7 +185,8 @@ function Lobby(props) {
                 <div style={{height: boxHeight}} className={"lobbyBox"}>
                     {team1.map(player =>
                         <div style={{display: "flex", alignItems: "center"}} className={'lobbyBoxItem'}>
-                            <div style={{marginLeft: "10px", fontSize: "16px"}}><b>{player.username}</b></div>
+                            <div className={"playerLink"} onClick={() => history.push("/profile/" + player.username)}>
+                                <b>{player.username} ● {player.gameStats.elo} ● {player.gameStats.gamerTag}</b></div>
                             {kickButton(player, 1)}
                             {leaveButton(player, 1)}
                         </div>
@@ -180,7 +199,8 @@ function Lobby(props) {
                 <div style={{height: boxHeight}} className={"lobbyBox"}>
                     {team2.map(player =>
                         <div style={{display: "flex", alignItems: "center"}} className={'lobbyBoxItem'}>
-                            <div style={{marginLeft: "10px", fontSize: "16px"}}><b>{player.username}</b></div>
+                            <div className={"playerLink"} onClick={() => history.push("/profile/" + player.username)}>
+                                <b>{player.username} ● {player.gameStats.elo} ● {player.gameStats.gamerTag}</b></div>
                             {kickButton(player, 2)}
                             {leaveButton(player, 2)}
                         </div>

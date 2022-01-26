@@ -79,7 +79,11 @@ function Header(props) {
         {
             key: "Home",
             onRender: () => <Logo/>
-        }
+        },
+        {
+            key: "Support",
+            onRender: () => <div onClick={handleSupport} className={'infoButton'}>Support</div>
+        },
     ]
     const menuProps = {
         items: [
@@ -168,16 +172,6 @@ function Header(props) {
 
     if (cookies.ANTE_UP_SESSION_TOKEN === undefined) {
 
-        _items = [
-            {
-                key: "Home",
-                onRender: () => <Logo/>
-            },
-            {
-                key: "Support",
-                onRender: () => <div onClick={handleSupport} className={'infoButton'}>Support</div>
-            },
-        ]
         _farItems = [
             {
                 key: 'LogIn',

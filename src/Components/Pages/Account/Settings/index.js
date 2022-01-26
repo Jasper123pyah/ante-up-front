@@ -8,25 +8,7 @@ import {useCookies} from "react-cookie";
 function Settings(props){
     const [cookies, setCookie, removeCookie] = useCookies(['ANTE_UP_SESSION_TOKEN']);
 
-
     let history = useHistory();
-
-    async function LogOut(){
-        if(props.connection !== undefined){
-            try{
-                let token = cookies.ANTE_UP_SESSION_TOKEN;
-                await props.connection.invoke("Logout", token);
-                removeCookie('ANTE_UP_SESSION_TOKEN')
-                history.push("/");
-                window.location.reload();
-            }
-            catch(e){
-                console.log(e);
-            }
-        }else{
-            window.location.reload();
-        }
-    }
 
     return<div>
         <div style={{fontSize:"20px"}}>Profile Settings</div>
@@ -52,7 +34,6 @@ function Settings(props){
             <Separator/>
             <div>
                 <div style={{width:"94%"}}>
-                    <DefaultButton style={{ marginTop:"3px",marginLeft:"20px" }} text={"Log Out"} onClick={LogOut}/>
                     <PrimaryButton style={{float:"right",  marginTop:"3px"}} text={"Save Changes"}/>
                 </div>
             </div>

@@ -54,7 +54,10 @@ function Register(props){
             props.dispatch(setUserData(email, res.data.response, res.data.token));
 
             connection.invoke("Login", res.data.token).then(() => console.log("success"));
-            setCookies("ANTE_UP_SESSION_TOKEN", res.data.token);
+
+            var expiration = new Date();
+            expiration.setDate(expiration.getDate() + 7);
+            setCookies("ANTE_UP_SESSION_TOKEN", res.data.token,{expires: expiration});
 
             history.push("/");
             window.location.reload();

@@ -1,0 +1,22 @@
+.centerBox{
+    display:flex;
+    min-height: 20vh;
+    align-items: center;
+    justify-content: center;
+
+}
+.formBox{
+    width: 50vw;
+    padding:5vh;
+}
+.errorMessage{
+    text-align:center;
+    font-size:x-large;
+}
+.submitBox{
+    padding: 3vh 3vh 0 3vh;
+    flex-direction: column;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -47,6 +47,14 @@ function GameStatsCard(props){
                 {props.stat.elo}
             </div>
         </div>
+        <div className={'gameStatsTextLine'}>
+            <div className={'gameStatsTextLeft'}>
+                Tag
+            </div>
+            <div  className={'gameStatsTextRight'}>
+                {props.stat.gamerTag}
+            </div>
+        </div>
     </div>
 
 }

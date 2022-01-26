@@ -31,7 +31,7 @@ function App(props) {
     }
 
     const api = axios.create({
-        baseURL: 'https://api.jaspervandenmeiracker.nl/',
+        baseURL: 'https://localhost:5001/',
         timeout: 10000
     });
 
