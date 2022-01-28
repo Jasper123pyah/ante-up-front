@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.4",
     "bootstrap": "^5.1.0",
+    "firebase": "^9.6.5",
     "office-ui-fabric-core": "^11.0.0",
     "react": "^17.0.2",
     "react-alice-carousel": "^2.5.1",

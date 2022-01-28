@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
-import {PrimaryButton, TextField} from "@fluentui/react";
 import {Col, Row} from "react-bootstrap";
-import GameCard from "../../Home/PostLogin/Cards/GameCard";
 import AdminGameCard from "./AdminGameCard";
 import CenteredLoader from "../../../Shared/CenteredLoader";
+import AddGame from "./AddGame";
 
 function AdminGames(props) {
     const [games, setGames] = useState([]);
@@ -18,7 +17,6 @@ function AdminGames(props) {
         if (props.api !== undefined) {
             setLoading(true)
             props.api.get('/Game').then(res => {
-                console.log(res.data)
                 setGames(res.data);
                 setLoading(false)
             })
@@ -27,20 +25,7 @@ function AdminGames(props) {
 
     return <div>
         {loading ? <CenteredLoader/> : <div style={{marginTop: '1vw'}}>
-            <div className={"adminCreatePanel"}>
-                <div style={{margin: "10px", marginLeft: "25px", fontSize: "20px"}}>Add a new game</div>
-                <div style={{display: "flex", justifyContent: "space-evenly"}}>
-                    <div style={{width: "40%"}}>
-                        <TextField placeholder={"Name of the game..."}/>
-                    </div>
-                    <div style={{width: "40%"}}>
-                        <input type="file" name="file"/>
-                    </div>
-                    <div>
-                        <PrimaryButton text={"Create"} iconProps={{iconName: 'Add'}}/>
-                    </div>
-                </div>
-            </div>
+            <AddGame/>
             <Row sm={1} md={2} lg={5}>
                 {games.map((Game) => (
                     <Col sm={12}>
