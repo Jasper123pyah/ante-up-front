@@ -28,7 +28,8 @@ function Header(props) {
                     id: res.data.id,
                     username: res.data.username,
                     balance: res.data.balance,
-                    email: res.data.email
+                    email: res.data.email,
+                    inWager: res.data.inWager
                 };
                 props.dispatch(setAccountInfo(resInfo))
                 setLoading(false);

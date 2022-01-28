@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Col, Row} from "react-grid-system";
 
 function Rankingbox(props) {
 
@@ -46,43 +47,40 @@ function Rankingbox(props) {
     }
 
     return <div className={'rankingBox'}>
-        <div className={'ranking'}>
-            <div style={{marginBottom: '1vw'}} className={'rankingTitle'}>
-                ELO
-            </div>
-            <div className={'rankingText'}>
-                1500
-            </div>
-        </div>
-        <div className={'verticalSeparator'}/>
-        <div className={'ranking'}>
-            <div style={{marginBottom: '1vw'}} className={'rankingTitle'}>
-                EARNINGS
-            </div>
-            <div className={'rankingText'}>
-                ${props.info.earnings}
-            </div>
-        </div>
-        <div className={'verticalSeparator'}/>
-        <div className={'ranking'}>
-            <div className={'rankingTitle'}>
-                RECORD
-            </div>
-            <div className={'rankingText'}>
-                {record.winRate}
-            </div>
-        </div>
-        <div className={'verticalSeparator'}/>
-        <div className={'ranking'}>
-            <div className={'rankingTitle'}>
-                RECENT WAGERS
-            </div>
-            <div className={'rankingText'}>
-                <div style={{display: 'flex'}}>
-                    {showRecentWagers()}
+        <Row>
+            <Col lg={4} md={6} sm={12}>
+                <div className={'ranking'}>
+                    <div style={{marginBottom: '1vw'}} className={'rankingTitle'}>
+                        EARNINGS
+                    </div>
+                    <div className={'rankingText'}>
+                        ${props.info.earnings}
+                    </div>
                 </div>
-            </div>
-        </div>
+            </Col>
+            <Col lg={4} md={6} sm={12}>
+                <div className={'ranking'}>
+                    <div className={'rankingTitle'}>
+                        RECORD
+                    </div>
+                    <div className={'rankingText'}>
+                        {record.winRate}
+                    </div>
+                </div>
+            </Col>
+            <Col lg={4} md={6} sm={12}>
+                <div className={'ranking'}>
+                    <div className={'rankingTitle'}>
+                        RECENT WAGERS
+                    </div>
+                    <div className={'rankingText'}>
+                        <div style={{display: 'flex'}}>
+                            {showRecentWagers()}
+                        </div>
+                    </div>
+                </div>
+            </Col>
+        </Row>
     </div>
 }
 

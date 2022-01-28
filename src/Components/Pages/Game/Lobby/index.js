@@ -23,10 +23,6 @@ function Lobby(props) {
     let history = useHistory();
 
     useEffect(() => {
-        console.log(showTagModal)
-    }, [showTagModal])
-
-    useEffect(() => {
         if (cookies.ANTE_UP_SESSION_TOKEN === undefined) {
             history.push("/");
         }
@@ -45,6 +41,9 @@ function Lobby(props) {
             });
             props.connection.on("YouLeft", () => {
                 console.log("You left");
+                let accountInfo = props.accountInfo;
+                accountInfo.inWager = false;
+                props.dispatch(setAccountInfo(accountInfo))
                 getWager();
             });
             props.connection.on("LobbyGone", () => {
@@ -55,7 +54,7 @@ function Lobby(props) {
         if (props.accountInfo.id === undefined) {
             if (props.api !== undefined && cookies.ANTE_UP_SESSION_TOKEN !== undefined) {
                 props.api.get('account/info').then(res => {
-                    let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance};
+                    let resInfo = {id: res.data.id, username: res.data.username, balance: res.data.balance, inWager: res.data.inWager};
                     props.dispatch(setAccountInfo(resInfo))
                 })
             }
@@ -86,12 +85,10 @@ function Lobby(props) {
                 });
                 setMessages(res.data.chat.messages);
                 setTeam1(res.data.team1.players);
-                console.log(res.data.team2.players);
                 setTeam2(res.data.team2.players);
                 setLoading(false)
             })
         }
-
     }
 
     async function joinTeam(team) {

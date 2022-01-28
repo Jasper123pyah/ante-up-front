@@ -23,9 +23,14 @@ function Profile(props) {
                 setLoading(false);
                 setGameStats(res.data.gameStats);
                 setBasicInfo({accountName: res.data.accountName, joined: res.data.joined});
-                setRankings({earnings: res.data.earnings, wins: res.data.wins, losses:res.data.losses, recentWagers: res.data.recentWagers});
+                setRankings({
+                    earnings: res.data.earnings,
+                    wins: res.data.wins,
+                    losses: res.data.losses,
+                    recentWagers: res.data.recentWagers
+                });
             }).catch(err => {
-                if(err.response.status === 404){
+                if (err.response.status === 404) {
                     setLoading(false);
                     setError(404);
                 }
@@ -33,34 +38,34 @@ function Profile(props) {
         }
     }, [props.name, props.api]);
 
-    function showGameStats(){
-        if(gameStats.length === 0){
-            return <div className={"centered"} style={{height:'10vw', fontSize:'xx-large', marginBottom:'2vw'}}>
+    function showGameStats() {
+        if (gameStats.length === 0) {
+            return <div className={"centered"} style={{height: '10vw', fontSize: 'xx-large', marginBottom: '2vw'}}>
                 No game stats found
             </div>
-        }else{
-            return  <Row>
+        } else {
+            return <Row>
                 {gameStats.map(stat => <Col sm={12} md={6} lg={3}>
                     <GameStatsCard stat={stat}/>
                 </Col>)}
             </Row>
         }
     }
+
     return <div>
         {loading ? <CenteredLoaderFS/> :
             error === 404 ? <div>Account not found.</div> :
-            <div>
-                <div className={'profileBanner'}>
-                    <div style={{height: '10vh'}}/>
-                    <div className={'accountInfo'}>
-                        <BasicInfo info={basicInfo}/>
-                        <Rankingbox info={rankings}/>
+                <div>
+                    <div className={'profileBanner'}>
+                        <div className={'accountInfo'}>
+                            <BasicInfo info={basicInfo}/>
+                        </div>
+                    </div>
+                    <Rankingbox info={rankings}/>
+                    <div className={'gameContainer'}>
+                        {showGameStats()}
                     </div>
                 </div>
-                <div className={'gameContainer'}>
-                    {showGameStats()}
-                </div>
-            </div>
         }
 
     </div>

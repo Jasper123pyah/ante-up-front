@@ -53,7 +53,7 @@ function App(props) {
     useEffect(() => {
         if (cookies.ANTE_UP_SESSION_TOKEN !== undefined && props.connection === undefined) {
             let connection = new HubConnectionBuilder()
-                .withUrl("https://api.jaspervandenmeiracker.nl/antehub", {
+                .withUrl("https://localhost:5001/antehub", {
                     skipNegotiation: true,
                     transport: HttpTransportType.WebSockets
                 })

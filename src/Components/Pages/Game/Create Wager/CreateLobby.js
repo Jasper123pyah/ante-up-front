@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-grid-system";
 import {Dropdown, PrimaryButton, TextField} from "@fluentui/react";
-import {getAPI, getGlobalConnection} from "../../../../Core/Global/global.selectors";
+import {getAccountInfo, getAPI, getGlobalConnection} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import './CreateWager.css';
 import CenteredLoader from "../../../Shared/CenteredLoader";
+import InWagerModal from "./InWagerModal";
 
 function CreateLobby(props) {
     const [title, setTitle] = useState("");
@@ -16,6 +17,7 @@ function CreateLobby(props) {
     const [creationError, setCreationError] = useState("");
     const [dropDownItems, setDropDownItems] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [showInWagerModal, setShowInWagerModal] = useState(false);
     let history = useHistory();
     const lobbySizes = [
         {key: '1v1', text: "1v1"},
@@ -62,7 +64,19 @@ function CreateLobby(props) {
             lobbysize: selectedLobbySize
         }
         if (CheckForErrors(wager) === "") {
-            setLoading(true);
+            if(props.accountInfo.inWager){
+                setShowInWagerModal(true);
+            }
+            else{
+                postWager();
+            }
+        } else {
+            setCreationError(CheckForErrors(wager))
+        }
+    }
+    function postWager(){
+        setLoading(true);
+        if(props.api !== undefined){
             props.api.post("/wager", {
                 title: title,
                 description: desc,
@@ -76,8 +90,6 @@ function CreateLobby(props) {
                 setLoading(false);
                 history.push("/lobby/" + lobbyId);
             })
-        } else {
-            setCreationError(CheckForErrors(wager))
         }
     }
 
@@ -96,6 +108,7 @@ function CreateLobby(props) {
     return <div style={{overflowX:"hidden", maxWidth:'100%'}}>
         <div style={{paddingBottom: "2vw", paddingRight: '2vw', paddingLeft: '2vw', textAlign: "left"}}>
             {loading ? <CenteredLoader/> : <div>
+                <InWagerModal postWager={postWager} show={showInWagerModal}/>
                 <div style={{fontSize: "40px"}}>Create a wager</div>
                 <Dropdown
                     placeholder={"Select Game"}
@@ -152,7 +165,8 @@ function CreateLobby(props) {
 const mapStateToProps = (state) => {
     return {
         connection: getGlobalConnection(state),
-        api: getAPI(state)
+        api: getAPI(state),
+        accountInfo: getAccountInfo(state)
     };
 };
 
