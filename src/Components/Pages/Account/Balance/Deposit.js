@@ -23,13 +23,9 @@ function Deposit(props) {
         return re.test(value);
     }
 
-    function calculcateFees() {
-        let threePercent = amount * 0.03 + 0.30;
-        return Math.ceil((threePercent) * 100) / 100;
-    }
 
     function calculateTotal() {
-        let total = parseInt(amount) + calculcateFees();
+        let total = parseInt(amount) * 100;
         return isNaN(parseFloat(total)) ? "0" : total;
     }
 
@@ -57,18 +53,14 @@ function Deposit(props) {
                 <div>{amount === '' ? "0" : amount}$</div>
             </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div style={{fontStyle: 'xx-large'}}>Fees {amount === '' ? '' : ("(3% + 0.30$)")}</div>
-                <div>{calculcateFees()}$</div>
-            </div>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div style={{fontStyle: 'xx-large'}}>Total</div>
-                <div>{calculateTotal()}$</div>
+                <div>{calculateTotal()} Credits</div>
             </div>
             <div style={{color:"#a4262c", height:'20px'}}>{error}</div>
-            <PrimaryButton onClick={Continue} n text={"Continue"} style={{width: '100%'}}/>
+            <PrimaryButton onClick={Continue} text={"Continue"} style={{width: '100%'}}/>
         </div>
         <div  style={{ width: "40%"}}>
-            <Payment total={calculateTotal()} amount={amount}/>
+            <Payment amount={amount}/>
         </div>
     </div>
 }

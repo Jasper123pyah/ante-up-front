@@ -15,7 +15,7 @@ function PaymentButton(props) {
                     description: "Ante-Up Balance",
                     amount: {
                         currency_code: "USD",
-                        value: props.total,
+                        value: props.amount,
                     },
                 },
             ],

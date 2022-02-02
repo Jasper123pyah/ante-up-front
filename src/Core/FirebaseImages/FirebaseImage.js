@@ -1,12 +1,12 @@
 import {app} from "./FirebaseApp";
-import {getStorage, ref, getDownloadURL} from "firebase/storage";
+import {getStorage, ref, getDownloadURL, uploadBytes} from "firebase/storage";
 import {useState} from "react";
 
 
 const storage = getStorage(app);
 
-export function GetCardImage(imageName) {
-    const imageRef = ref(storage, '/CardImages/' + imageName);
+export function GetImage(folder, imageName) {
+    const imageRef = ref(storage, '/' + folder +  '/' + imageName);
     const [responseURL, setResponseURL] = useState("");
 
     getDownloadURL(imageRef).then(url => {
@@ -15,17 +15,9 @@ export function GetCardImage(imageName) {
 
     return responseURL;
 }
-export function GetBannerImage(imageName) {
-    const imageRef = ref(storage, '/BannerImages/' + imageName);
-    const [responseURL, setResponseURL] = useState("");
-
-    getDownloadURL(imageRef).then(url => {
-        setResponseURL(url)
-    }).catch(err => console.log(err));
-
-    return responseURL;
-}
-
-export function UploadImage(file) {
-    const storageRef = ref(storage, '/')
+export function UploadImage(folder, file) {
+    const storageRef = ref(storage, '/' + folder + '/' + file.name)
+    uploadBytes(storageRef, file).then((snapshot) => {
+        console.log(snapshot);
+    });
 }
