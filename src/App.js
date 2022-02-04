@@ -7,7 +7,7 @@ import {darkTheme} from "./themes";
 import {connect} from "react-redux";
 import {setConfiguration} from 'react-grid-system';
 import Router from "./Components/Router";
-import {setAPI, setConnection, setWagerAPI} from "./Core/Global/global.actions";
+import {setAPI, setConnection} from "./Core/Global/global.actions";
 import {getGlobalConnection,} from "./Core/Global/global.selectors";
 import {HttpTransportType, HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 import Friends from "./Components/Shared/Friends";
@@ -31,7 +31,7 @@ function App(props) {
     }
 
     const api = axios.create({
-        baseURL: 'https://localhost:5001/',
+        baseURL: 'https://api.jaspervandenmeiracker.nl/',
         timeout: 10000
     });
 
@@ -53,7 +53,7 @@ function App(props) {
     useEffect(() => {
         if (cookies.ANTE_UP_SESSION_TOKEN !== undefined && props.connection === undefined) {
             let connection = new HubConnectionBuilder()
-                .withUrl("https://localhost:5001/antehub", {
+                .withUrl("https://api.jaspervandenmeiracker.nl/antehub", {
                     skipNegotiation: true,
                     transport: HttpTransportType.WebSockets
                 })

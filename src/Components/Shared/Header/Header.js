@@ -137,7 +137,7 @@ function Header(props) {
                     style={{fontSize: 'large', border: '3px solid #39ff13'}}
                     className={'infoButton'}
                 >
-                   {"Account - $" + props.accountInfo.balance.toString()}
+                   {"Account - " + props.accountInfo.balance.toString()}
                 </CommandButton>,
         },
     ];

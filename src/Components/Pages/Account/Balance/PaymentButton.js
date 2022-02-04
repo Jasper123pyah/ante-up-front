@@ -37,9 +37,8 @@ function PaymentButton(props) {
     }
 
     function updateBalance(id) {
-        console.log(id);
         if(props.api !== undefined){
-            props.api.post('balance/update/' + id).then(res => {
+            props.api.post('balance/deposit/' + id).then(res => {
                 window.location.reload();
             }).catch(err => console.log(err));
         }
