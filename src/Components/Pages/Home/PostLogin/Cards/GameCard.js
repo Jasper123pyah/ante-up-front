@@ -11,7 +11,7 @@ function GameCard (props){
     }
 
     return <div className={'gameCard'} onClick={redirectToGame}>
-        <img style={{ borderRadius:'10px', display: "flex", alignItems:'flex-end'}} src={GetImage("CardImages", props.img)}/>
+        <img style={{width:'100%', borderRadius:'10px', display: "flex", alignItems:'flex-end'}} src={GetImage("CardImages", props.img)}/>
         <div className={'info'}>
             <div style={{marginLeft:'5px'}}>
                 <div><b>{props.name}</b></div>

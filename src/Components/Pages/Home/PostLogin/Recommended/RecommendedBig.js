@@ -13,7 +13,6 @@ function RecommendedBig(){
         <div style={{position:"absolute", top:'10px', right:'10px', fontSize:'xxx-large'}}>$200 Ante</div>
         <div style={{position:"absolute", bottom:'10px', left:'10px', fontSize:'large', color:'#39ff13'}}>Hosted by Jasper</div>
         <div style={{position:"absolute", bottom:'10px', right:'10px', fontSize:'xx-large'}}>6/8 Players</div>
-        <div style={{position:"absolute", bottom:'40px', left:'10px', fontSize:'x-large'}}>"Come play for a $1600 prize pot.<br/> Only good players allowed."</div>
     </div>
 }
 
