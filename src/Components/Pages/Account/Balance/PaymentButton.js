@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 
-const PayPalButton = window.paypal.Buttons.driver("react", {React, ReactDOM});
+//const PayPalButton = window.paypal.Buttons.driver("react", {React, ReactDOM});
 
 function PaymentButton(props) {
 
@@ -44,12 +44,18 @@ function PaymentButton(props) {
         }
     }
 
-    return (
-        <PayPalButton
-            createOrder={(data, actions) => createOrder(data, actions)}
-            onApprove={(data, actions) => onApprove(data, actions)}
-            onError={(data, actions) => onError(data, actions)}
-        />
+    /*
+    <PayPalButton
+        createOrder={(data, actions) => createOrder(data, actions)}
+        onApprove={(data, actions) => onApprove(data, actions)}
+        onError={(data, actions) => onError(data, actions)}
+    />
+    */
+
+    return (<div>
+
+
+    </div>
     );
 }
 

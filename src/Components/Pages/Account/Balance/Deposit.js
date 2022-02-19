@@ -4,6 +4,8 @@ import {getAccountInfo, getAPI} from "../../../../Core/Global/global.selectors";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import Payment from "./Payment";
+import {Col, Row} from "react-grid-system";
+import DepositButtons from "./DepositButtons";
 
 function Deposit(props) {
 
@@ -26,7 +28,7 @@ function Deposit(props) {
 
     function calculateTotal() {
         let total = parseInt(amount) * 100;
-        return isNaN(parseFloat(total)) ? "0" : total;
+        return isNaN(parseFloat(total)) ? props.accountInfo.balance : props.accountInfo.balance + total;;
     }
 
     function Continue() {
@@ -40,27 +42,25 @@ function Deposit(props) {
     }
 
     return <div style={{display:'flex'}}>
-        <div style={{minHeight: '75vh', width: "20%"}}>
+        <div style={{minHeight: '75vh', width: '40%'}}>
             <div style={{fontSize: 'xxx-large'}}>Deposit</div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div style={{fontStyle: 'xx-large'}}>Current Balance</div>
-                <div>{props.accountInfo.balance}$</div>
+                <div style={{fontStyle: 'xx-large'}}>Current Credits</div>
+                <div>{props.accountInfo.balance}</div>
             </div>
-            <TextField value={amount} onChange={onChangeAmount} placeholder={"Deposit Amount"}/>
-            <div style={{fontSize: 'small', color: 'grey'}}>$5.00 Minimum</div>
+            <div>
+                <DepositButtons/>
+            </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div style={{fontStyle: 'xx-large'}}>Deposit amount</div>
                 <div>{amount === '' ? "0" : amount}$</div>
             </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div style={{fontStyle: 'xx-large'}}>Total</div>
+                <div style={{fontStyle: 'xx-large'}}>New Total</div>
                 <div>{calculateTotal()} Credits</div>
             </div>
             <div style={{color:"#a4262c", height:'20px'}}>{error}</div>
             <PrimaryButton onClick={Continue} text={"Continue"} style={{width: '100%'}}/>
-        </div>
-        <div  style={{ width: "40%"}}>
-            <Payment amount={amount}/>
         </div>
     </div>
 }
