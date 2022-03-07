@@ -13,22 +13,22 @@ function Deposit(props) {
     const [error, setError] = useState('');
     let history = useHistory();
 
-    const onChangeAmount = React.useCallback((event, newValue?) => {
-            if (!newValue || newValue.length <= 5 && validateNumbers(newValue.slice(-1))) {
-                setAmount(newValue || '');
-                setError('');
-            }
-        }, [],
-    );
-    const validateNumbers = (value) => {
-        const re = /[0-9]/;
-        return re.test(value);
+
+    function ChangeAmount(newAmount){
+        setAmount(newAmount);
     }
 
+    function ConvertToK(number){
+        if(number >= 1000){
+            return number/1000 + "k";
+        } else {
+            return number.toString();
+        }
+    }
 
     function calculateTotal() {
         let total = parseInt(amount) * 100;
-        return isNaN(parseFloat(total)) ? props.accountInfo.balance : props.accountInfo.balance + total;;
+        return ConvertToK(isNaN(parseFloat(total)) ? props.accountInfo.balance : props.accountInfo.balance + total);
     }
 
     function Continue() {
@@ -44,12 +44,13 @@ function Deposit(props) {
     return <div style={{display:'flex'}}>
         <div style={{minHeight: '75vh', width: '40%'}}>
             <div style={{fontSize: 'xxx-large'}}>Deposit</div>
+
+            <div>
+                <DepositButtons convertToK={ConvertToK} changeAmount={ChangeAmount}/>
+            </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div style={{fontStyle: 'xx-large'}}>Current Credits</div>
-                <div>{props.accountInfo.balance}</div>
-            </div>
-            <div>
-                <DepositButtons/>
+                <div>{ConvertToK(props.accountInfo.balance)} Credits</div>
             </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div style={{fontStyle: 'xx-large'}}>Deposit amount</div>

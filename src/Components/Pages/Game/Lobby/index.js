@@ -173,7 +173,7 @@ function Lobby(props) {
     return loading ? <CenteredLoader/> : <div style={{margin: "2vh", minHeight: "80vh"}}>
         <GamerTagModal gameName={wager.game} show={showTagModal}/>
         <div style={{fontSize: "40px"}}>{wager.hostName}'s game</div>
-        <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.game} ● {playerCapToString()} ● ${wager.ante}</div>
+        <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.game} ● {playerCapToString()} ● {wager.ante}</div>
         <div style={{fontSize: "20px", marginBottom: "10px"}}>{wager.description}</div>
         <Separator/>
         <Row>
