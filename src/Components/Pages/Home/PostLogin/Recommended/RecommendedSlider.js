@@ -8,11 +8,6 @@ function RecommendedSlider(props) {
     const responsive = {
         0: { items: 1 },
     };
-    /*
-    const items = props.items.map((wager) => <div>
-        <RecommendedBig/>
-    </div>);
-     */
     const items = [<RecommendedMobile/>,<RecommendedMobile/>,<RecommendedMobile/>,<RecommendedMobile/>];
     return (
         <div>
